@@ -1,0 +1,7 @@
+{
+  "name": "@yyc3/dynasty-core",
+  "version": "0.1.0",
+  "description": "YYC³ Dynasty-Framework 三省六部治理框架 — 12 朝臣 Agent + Edict 协议 + 勋章系统",
+  "main": "src/index.ts",
+  "types": "src/index.ts"
+}

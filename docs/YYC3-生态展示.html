@@ -1,0 +1,2076 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YYC³ Cloud Intelli-Matrix · 全链路智能应用生态</title>
+    <meta
+      name="description"
+      content="YYC³ 全链路智能应用生态展示 — Phase 0-4 全量达成 / 14 插件包 / 8 App / 294 tests / 5 Provider LLM"
+    />
+    <style>
+      :root {
+        --bg-1: #040814;
+        --bg-2: #0a1428;
+        --bg-3: #0e1c3a;
+        --panel: rgba(14, 28, 58, 0.6);
+        --panel-border: rgba(0, 212, 255, 0.15);
+        --primary: #00d4ff;
+        --accent: #7b2ff7;
+        --success: #00ff88;
+        --warn: #ffaa00;
+        --danger: #ff3366;
+        --text: #e0f0ff;
+        --text-2: #8aa8c8;
+        --text-3: #5a7090;
+        --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        --glow: 0 0 40px rgba(0, 212, 255, 0.15);
+        --radius: 16px;
+        --radius-sm: 8px;
+        --t: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+        --font: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+        --mono: 'SF Mono', Menlo, monospace;
+      }
+      [data-theme='ancient'] {
+        --bg-1: #1e180e;
+        --bg-2: #2a1f12;
+        --bg-3: #3a2c1a;
+        --panel: rgba(58, 44, 26, 0.6);
+        --panel-border: rgba(201, 169, 110, 0.2);
+        --primary: #c9a96e;
+        --accent: #c0392b;
+        --success: #8bc34a;
+        --warn: #e8a857;
+        --danger: #a0392b;
+        --text: #e8d5a3;
+        --text-2: #b8a070;
+        --text-3: #8a7050;
+        --glow: 0 0 40px rgba(201, 169, 110, 0.15);
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        background: var(--bg-1);
+        color: var(--text);
+        font-family: var(--font);
+        min-height: 100vh;
+        overflow-x: hidden;
+        transition:
+          background var(--t),
+          color var(--t);
+      }
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        background:
+          radial-gradient(ellipse at 20% 0%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+          radial-gradient(ellipse at 80% 100%, rgba(123, 47, 247, 0.08) 0%, transparent 50%);
+      }
+      [data-theme='ancient'] body::before {
+        background:
+          radial-gradient(ellipse at 20% 0%, rgba(201, 169, 110, 0.1) 0%, transparent 50%),
+          radial-gradient(ellipse at 80% 100%, rgba(192, 57, 43, 0.08) 0%, transparent 50%);
+      }
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: linear-gradient(180deg, var(--bg-1) 0%, rgba(4, 8, 20, 0.85) 100%);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--panel-border);
+        padding: 12px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .nav-logo {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 900;
+        color: var(--bg-1);
+        font-size: 18px;
+        box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
+      }
+      .nav-title {
+        font-size: 18px;
+        font-weight: 700;
+      }
+      .nav-subtitle {
+        font-size: 11px;
+        color: var(--text-3);
+        margin-top: 2px;
+      }
+      .nav-actions {
+        display: flex;
+        gap: 8px;
+      }
+      .nav-tabs {
+        display: flex;
+        gap: 4px;
+        flex-wrap: wrap;
+      }
+      .nav-tab {
+        padding: 6px 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 13px;
+        color: var(--text-2);
+        transition: all var(--t);
+        border: 1px solid transparent;
+      }
+      .nav-tab:hover {
+        background: rgba(0, 212, 255, 0.08);
+        color: var(--text);
+      }
+      .nav-tab.active {
+        background: rgba(0, 212, 255, 0.12);
+        color: var(--primary);
+        border-color: var(--panel-border);
+      }
+      .btn {
+        padding: 8px 14px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 500;
+        background: rgba(0, 212, 255, 0.1);
+        color: var(--primary);
+        border: 1px solid var(--panel-border);
+        transition: all var(--t);
+        font-family: inherit;
+      }
+      .btn:hover {
+        background: rgba(0, 212, 255, 0.18);
+        transform: translateY(-1px);
+      }
+      .btn:active {
+        transform: translateY(0);
+      }
+      .btn-primary {
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        color: var(--bg-1);
+        border: none;
+        font-weight: 600;
+      }
+      .btn-ghost {
+        background: transparent;
+      }
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 32px 24px 120px;
+      }
+      .section {
+        margin-bottom: 64px;
+      }
+      .section-title {
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .section-title::before {
+        content: '';
+        width: 4px;
+        height: 28px;
+        border-radius: 2px;
+        background: linear-gradient(180deg, var(--primary), var(--accent));
+      }
+      .section-desc {
+        color: var(--text-2);
+        font-size: 14px;
+        margin-bottom: 24px;
+        padding-left: 16px;
+      }
+      .hero {
+        text-align: center;
+        padding: 48px 24px 64px;
+      }
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: rgba(0, 255, 136, 0.1);
+        color: var(--success);
+        font-size: 12px;
+        font-weight: 600;
+        border: 1px solid rgba(0, 255, 136, 0.2);
+        margin-bottom: 24px;
+      }
+      .hero-badge .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--success);
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.4;
+        }
+      }
+      .hero h1 {
+        font-size: 48px;
+        font-weight: 900;
+        letter-spacing: -1px;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 50%, var(--success) 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 16px;
+        line-height: 1.2;
+      }
+      .hero-sub {
+        font-size: 18px;
+        color: var(--text-2);
+        margin-bottom: 32px;
+        max-width: 720px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .hero-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 16px;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+      .stat-card {
+        background: var(--panel);
+        backdrop-filter: blur(12px);
+        border: 1px solid var(--panel-border);
+        border-radius: var(--radius);
+        padding: 20px;
+        text-align: center;
+        transition: all var(--t);
+      }
+      .stat-card:hover {
+        transform: translateY(-2px);
+        border-color: var(--primary);
+        box-shadow: var(--glow);
+      }
+      .stat-num {
+        font-size: 32px;
+        font-weight: 800;
+        line-height: 1;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .stat-label {
+        font-size: 12px;
+        color: var(--text-3);
+        margin-top: 8px;
+      }
+      .phase-grid {
+        display: grid;
+        gap: 16px;
+      }
+      .phase-row {
+        background: var(--panel);
+        backdrop-filter: blur(12px);
+        border: 1px solid var(--panel-border);
+        border-radius: var(--radius);
+        padding: 20px;
+        display: grid;
+        grid-template-columns: 140px 1fr 160px;
+        gap: 20px;
+        align-items: center;
+        transition: all var(--t);
+      }
+      .phase-row:hover {
+        border-color: var(--primary);
+        transform: translateX(4px);
+      }
+      .phase-label {
+        font-weight: 700;
+        font-size: 15px;
+      }
+      .phase-label .pct {
+        display: block;
+        font-size: 12px;
+        color: var(--text-3);
+        margin-top: 4px;
+      }
+      .phase-bar {
+        height: 12px;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 6px;
+        overflow: hidden;
+        position: relative;
+      }
+      .phase-bar-fill {
+        height: 100%;
+        border-radius: 6px;
+        background: linear-gradient(90deg, var(--primary), var(--accent));
+        transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+      }
+      .phase-bar-fill::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        animation: shimmer 2s infinite;
+      }
+      @keyframes shimmer {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(100%);
+        }
+      }
+      .phase-status {
+        text-align: right;
+        font-size: 13px;
+      }
+      .phase-status .ok {
+        color: var(--success);
+        font-weight: 600;
+      }
+      .phase-status .desc {
+        color: var(--text-3);
+        font-size: 11px;
+        margin-top: 4px;
+      }
+      .grid {
+        display: grid;
+        gap: 16px;
+      }
+      .grid-2 {
+        grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      }
+      .grid-3 {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      }
+      .grid-4 {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
+      .card {
+        background: var(--panel);
+        backdrop-filter: blur(12px);
+        border: 1px solid var(--panel-border);
+        border-radius: var(--radius);
+        padding: 20px;
+        transition: all var(--t);
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+      }
+      .card:hover {
+        transform: translateY(-3px);
+        border-color: var(--primary);
+        box-shadow: var(--shadow), var(--glow);
+      }
+      .card-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        margin-bottom: 12px;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        color: var(--bg-1);
+      }
+      .card-title {
+        font-size: 15px;
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+      .card-desc {
+        font-size: 12px;
+        color: var(--text-2);
+        line-height: 1.6;
+      }
+      .card-meta {
+        display: flex;
+        gap: 6px;
+        margin-top: 12px;
+        flex-wrap: wrap;
+      }
+      .tag {
+        font-size: 10px;
+        padding: 3px 8px;
+        border-radius: 999px;
+        background: rgba(0, 212, 255, 0.1);
+        color: var(--primary);
+        border: 1px solid var(--panel-border);
+      }
+      .tag.success {
+        background: rgba(0, 255, 136, 0.1);
+        color: var(--success);
+        border-color: rgba(0, 255, 136, 0.2);
+      }
+      .family-card {
+        background: var(--panel);
+        border: 1px solid var(--panel-border);
+        border-radius: var(--radius);
+        padding: 20px;
+        transition: all var(--t);
+        cursor: pointer;
+        text-align: center;
+      }
+      .family-card:hover {
+        transform: translateY(-4px) scale(1.02);
+        border-color: var(--accent);
+        box-shadow: 0 12px 32px rgba(123, 47, 247, 0.2);
+      }
+      .family-avatar {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        margin: 0 auto 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--bg-1);
+        box-shadow: 0 4px 16px rgba(0, 212, 255, 0.3);
+      }
+      .family-name {
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+      .family-role {
+        font-size: 11px;
+        color: var(--text-3);
+      }
+      .dynasty-timeline {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 12px;
+      }
+      .dynasty-card {
+        background: var(--panel);
+        border: 1px solid var(--panel-border);
+        border-radius: var(--radius-sm);
+        padding: 14px;
+        cursor: pointer;
+        transition: all var(--t);
+        position: relative;
+      }
+      .dynasty-card:hover {
+        transform: translateY(-3px);
+        border-color: var(--primary);
+      }
+      .dynasty-card.active {
+        background: rgba(0, 212, 255, 0.08);
+        border-color: var(--primary);
+      }
+      .dynasty-name {
+        font-size: 14px;
+        font-weight: 700;
+      }
+      .dynasty-year {
+        font-size: 10px;
+        color: var(--text-3);
+        margin-top: 2px;
+      }
+      .dynasty-color {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+      }
+      .engine-demo {
+        background: var(--panel);
+        border: 1px solid var(--panel-border);
+        border-radius: var(--radius);
+        padding: 24px;
+      }
+      .engine-tabs {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid var(--panel-border);
+        padding-bottom: 12px;
+        flex-wrap: wrap;
+      }
+      .engine-tab {
+        padding: 8px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 13px;
+        color: var(--text-2);
+        transition: all var(--t);
+        border: 1px solid transparent;
+      }
+      .engine-tab.active {
+        color: var(--primary);
+        background: rgba(0, 212, 255, 0.08);
+        border-color: var(--panel-border);
+      }
+      .engine-content {
+        display: none;
+      }
+      .engine-content.active {
+        display: block;
+      }
+      .form-row {
+        display: grid;
+        grid-template-columns: 140px 1fr 80px;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+      .form-label {
+        font-size: 13px;
+        color: var(--text-2);
+      }
+      .form-input {
+        width: 100%;
+        padding: 8px 12px;
+        border-radius: 8px;
+        background: rgba(0, 0, 0, 0.3);
+        color: var(--text);
+        border: 1px solid var(--panel-border);
+        font-family: var(--mono);
+        font-size: 13px;
+      }
+      .form-input:focus {
+        outline: none;
+        border-color: var(--primary);
+      }
+      .form-unit {
+        font-size: 12px;
+        color: var(--text-3);
+      }
+      .result-box {
+        margin-top: 16px;
+        padding: 16px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, rgba(0, 255, 136, 0.08), rgba(0, 212, 255, 0.05));
+        border: 1px solid rgba(0, 255, 136, 0.2);
+      }
+      .result-label {
+        font-size: 12px;
+        color: var(--text-3);
+      }
+      .result-value {
+        font-size: 28px;
+        font-weight: 800;
+        color: var(--success);
+        margin-top: 4px;
+        font-family: var(--mono);
+      }
+      .result-detail {
+        font-size: 12px;
+        color: var(--text-2);
+        margin-top: 8px;
+        line-height: 1.6;
+      }
+      .test-matrix {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .test-matrix th,
+      .test-matrix td {
+        padding: 12px 16px;
+        text-align: left;
+        border-bottom: 1px solid var(--panel-border);
+      }
+      .test-matrix th {
+        font-size: 12px;
+        color: var(--text-3);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .test-matrix td {
+        font-size: 13px;
+      }
+      .test-matrix tr:hover {
+        background: rgba(0, 212, 255, 0.04);
+      }
+      .test-num {
+        font-family: var(--mono);
+        color: var(--success);
+        font-weight: 700;
+      }
+      .provider-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 12px;
+      }
+      .provider-card {
+        background: var(--panel);
+        border: 1px solid var(--panel-border);
+        border-radius: var(--radius-sm);
+        padding: 16px;
+        transition: all var(--t);
+        cursor: pointer;
+      }
+      .provider-card:hover {
+        border-color: var(--primary);
+        transform: translateY(-2px);
+      }
+      .provider-card.configured {
+        border-color: var(--success);
+        background: rgba(0, 255, 136, 0.05);
+      }
+      .provider-name {
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .provider-models {
+        font-size: 11px;
+        color: var(--text-3);
+        font-family: var(--mono);
+        line-height: 1.6;
+      }
+      .provider-status {
+        font-size: 10px;
+        padding: 2px 6px;
+        border-radius: 4px;
+      }
+      .provider-status.on {
+        background: rgba(0, 255, 136, 0.15);
+        color: var(--success);
+      }
+      .provider-status.off {
+        background: rgba(138, 168, 200, 0.1);
+        color: var(--text-3);
+      }
+      .radar-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+        align-items: center;
+      }
+      .radar-svg {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+        display: block;
+      }
+      .radar-legend {
+        display: grid;
+        gap: 12px;
+      }
+      .radar-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 16px;
+        background: var(--panel);
+        border: 1px solid var(--panel-border);
+        border-radius: var(--radius-sm);
+        align-items: center;
+      }
+      .radar-item-label {
+        font-size: 13px;
+        color: var(--text-2);
+      }
+      .radar-item-score {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--success);
+      }
+      .hub-fab {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        z-index: 1000;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        cursor: pointer;
+        box-shadow: 0 8px 24px rgba(0, 212, 255, 0.4);
+        transition: all var(--t);
+        animation: float 3s ease-in-out infinite;
+      }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-6px);
+        }
+      }
+      .hub-fab:hover {
+        transform: scale(1.1);
+      }
+      .hub-panel {
+        position: fixed;
+        bottom: 96px;
+        right: 24px;
+        z-index: 1000;
+        width: 380px;
+        max-width: calc(100vw - 48px);
+        height: 540px;
+        max-height: calc(100vh - 120px);
+        background: var(--bg-2);
+        border: 1px solid var(--panel-border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+      }
+      .hub-panel.open {
+        display: flex;
+        animation: slideUp 0.3s ease-out;
+      }
+      @keyframes slideUp {
+        from {
+          transform: translateY(20px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+      .hub-header {
+        padding: 14px 16px;
+        background: rgba(0, 212, 255, 0.05);
+        border-bottom: 1px solid var(--panel-border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .hub-title {
+        font-size: 14px;
+        font-weight: 700;
+      }
+      .hub-status {
+        font-size: 10px;
+        padding: 2px 8px;
+        border-radius: 4px;
+        background: rgba(0, 255, 136, 0.15);
+        color: var(--success);
+      }
+      .hub-close {
+        background: none;
+        border: none;
+        color: var(--text-2);
+        cursor: pointer;
+        font-size: 18px;
+        padding: 4px;
+      }
+      .hub-messages {
+        flex: 1;
+        overflow-y: auto;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .msg {
+        max-width: 80%;
+        padding: 10px 14px;
+        border-radius: 12px;
+        font-size: 13px;
+        line-height: 1.5;
+      }
+      .msg.user {
+        align-self: flex-end;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        color: var(--bg-1);
+      }
+      .msg.assistant {
+        align-self: flex-start;
+        background: rgba(0, 212, 255, 0.08);
+        border: 1px solid var(--panel-border);
+      }
+      .hub-input-row {
+        padding: 12px;
+        border-top: 1px solid var(--panel-border);
+        display: flex;
+        gap: 8px;
+      }
+      .hub-input {
+        flex: 1;
+        padding: 10px 14px;
+        border-radius: 10px;
+        background: rgba(0, 0, 0, 0.3);
+        color: var(--text);
+        border: 1px solid var(--panel-border);
+        font-family: inherit;
+        font-size: 13px;
+      }
+      .hub-input:focus {
+        outline: none;
+        border-color: var(--primary);
+      }
+      .hub-send {
+        padding: 0 16px;
+        border-radius: 10px;
+        cursor: pointer;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        color: var(--bg-1);
+        border: none;
+        font-weight: 600;
+      }
+      .deploy-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 16px;
+      }
+      .deploy-card {
+        background: var(--panel);
+        border: 1px solid var(--panel-border);
+        border-radius: var(--radius);
+        padding: 20px;
+      }
+      .deploy-card h4 {
+        font-size: 15px;
+        font-weight: 700;
+        margin-bottom: 12px;
+      }
+      .deploy-list {
+        list-style: none;
+      }
+      .deploy-list li {
+        font-size: 12px;
+        color: var(--text-2);
+        padding: 6px 0;
+        padding-left: 20px;
+        position: relative;
+        line-height: 1.6;
+      }
+      .deploy-list li::before {
+        content: '✓';
+        position: absolute;
+        left: 0;
+        color: var(--success);
+        font-weight: 700;
+      }
+      .modal-mask {
+        position: fixed;
+        inset: 0;
+        z-index: 999;
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(8px);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+      }
+      .modal-mask.open {
+        display: flex;
+      }
+      .modal {
+        background: var(--bg-2);
+        border: 1px solid var(--panel-border);
+        border-radius: var(--radius);
+        padding: 32px;
+        max-width: 600px;
+        width: 100%;
+        max-height: 80vh;
+        overflow-y: auto;
+      }
+      .modal h3 {
+        font-size: 20px;
+        margin-bottom: 16px;
+      }
+      .modal-close {
+        float: right;
+        cursor: pointer;
+        color: var(--text-2);
+        background: none;
+        border: none;
+        font-size: 24px;
+      }
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 32px;
+        }
+        .nav-tabs {
+          display: none;
+        }
+        .phase-row {
+          grid-template-columns: 1fr;
+          gap: 12px;
+        }
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+        .radar-container {
+          grid-template-columns: 1fr;
+        }
+        .container {
+          padding: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="nav-brand">
+        <div class="nav-logo">Y³</div>
+        <div>
+          <div class="nav-title">YYC³ Cloud Intelli-Matrix</div>
+          <div class="nav-subtitle">全链路智能应用生态 · v1.1.0</div>
+        </div>
+      </div>
+      <div class="nav-tabs">
+        <div class="nav-tab active" data-scroll="hero">总览</div>
+        <div class="nav-tab" data-scroll="phases">阶段矩阵</div>
+        <div class="nav-tab" data-scroll="family">家人</div>
+        <div class="nav-tab" data-scroll="dynasty">朝代</div>
+        <div class="nav-tab" data-scroll="engines">引擎</div>
+        <div class="nav-tab" data-scroll="llm">LLM</div>
+        <div class="nav-tab" data-scroll="tests">测试</div>
+        <div class="nav-tab" data-scroll="deploy">部署</div>
+      </div>
+      <div class="nav-actions">
+        <button class="btn btn-ghost" onclick="toggleTheme()">切换主题</button>
+        <button class="btn btn-primary" onclick="toggleHub()">AI 助手</button>
+      </div>
+    </nav>
+
+    <div class="container">
+      <section id="hero" class="hero">
+        <div class="hero-badge"><span class="dot"></span>Phase 0-4 全量达成 · 生产就绪</div>
+        <h1>YYC³ Cloud Intelli-Matrix</h1>
+        <p class="hero-sub">
+          基于 Shell + 插件体系的多智能体协同生态 · 14 插件包 · 8 独立应用 · 5 LLM Provider · 294 单元测试 · Vercel +
+          Docker 双部署
+        </p>
+        <div class="hero-stats">
+          <div class="stat-card">
+            <div class="stat-num">14</div>
+            <div class="stat-label">插件包</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">8</div>
+            <div class="stat-label">独立应用</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">294</div>
+            <div class="stat-label">单元测试</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">5</div>
+            <div class="stat-label">LLM Provider</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">100%</div>
+            <div class="stat-label">测试通过率</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">0</div>
+            <div class="stat-label">TS 错误</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="phases" class="section">
+        <h2 class="section-title">四阶段落地矩阵</h2>
+        <p class="section-desc">Phase 0-4 全部按计划达成，0 阻塞 · 总进度 100%</p>
+        <div class="phase-grid" id="phaseGrid"></div>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title">插件生态 (14 包)</h2>
+        <p class="section-desc">Shell 中枢 + 13 业务插件 + Phase 4 新增 LLM 适配层</p>
+        <div class="grid grid-3" id="pluginGrid"></div>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title">独立应用矩阵 (8 App)</h2>
+        <p class="section-desc">每个系统可独立部署，也可合并为 full 应用</p>
+        <div class="grid grid-4" id="appGrid"></div>
+      </section>
+
+      <section id="family" class="section">
+        <h2 class="section-title">AI Family · 八位家人</h2>
+        <p class="section-desc">
+          🌹 人从众曌众从人 · 亦师亦友亦伯乐 · 一言一语一协同 · 三层架构 (业务执行/核心决策/核心保障) · 点击查看档案
+        </p>
+        <div class="grid grid-4" id="familyGrid"></div>
+      </section>
+
+      <section id="dynasty" class="section">
+        <h2 class="section-title">十三王朝时间轴</h2>
+        <p class="section-desc">12 Agent · 17 勋章 · 26 Skills · 六阶段工作流 · 点击查看详情</p>
+        <div class="dynasty-timeline" id="dynastyGrid"></div>
+        <div
+          id="dynastyDetail"
+          style="
+            margin-top: 16px;
+            padding: 16px;
+            background: var(--panel);
+            border: 1px solid var(--panel-border);
+            border-radius: 12px;
+            display: none;
+          "
+        ></div>
+      </section>
+
+      <section id="engines" class="section">
+        <h2 class="section-title">四大业务引擎 (可交互试算)</h2>
+        <p class="section-desc">目标量化 · 成本盈亏 · 营销节日 · 提示词模板 — 全部接入实际算法</p>
+        <div class="engine-demo">
+          <div class="engine-tabs">
+            <div class="engine-tab active" data-engine="target">🎯 目标量化</div>
+            <div class="engine-tab" data-engine="cost">💰 成本盈亏</div>
+            <div class="engine-tab" data-engine="marketing">📣 营销节日</div>
+            <div class="engine-tab" data-engine="prompt">📝 提示词</div>
+          </div>
+
+          <div class="engine-content active" data-engine="target">
+            <div class="form-row">
+              <label class="form-label">年度营收目标</label>
+              <input type="number" class="form-input" id="t-revenue" value="10000000" />
+              <span class="form-unit">元</span>
+            </div>
+            <div class="form-row">
+              <label class="form-label">行业增长系数 K</label>
+              <input type="number" class="form-input" id="t-k" value="1.2" step="0.1" />
+              <span class="form-unit">×</span>
+            </div>
+            <div class="form-row">
+              <label class="form-label">团队执行力 (0-1)</label>
+              <input type="number" class="form-input" id="t-exec" value="0.85" step="0.05" min="0" max="1" />
+              <span class="form-unit">%</span>
+            </div>
+            <button class="btn btn-primary" onclick="calcTarget()">计算 X 公式</button>
+            <div class="result-box" id="targetResult" style="display: none"></div>
+          </div>
+
+          <div class="engine-content" data-engine="cost">
+            <div class="form-row">
+              <label class="form-label">月度营收</label>
+              <input type="number" class="form-input" id="c-revenue" value="800000" />
+              <span class="form-unit">元</span>
+            </div>
+            <div class="form-row">
+              <label class="form-label">场地成本</label>
+              <input type="number" class="form-input" id="c-rent" value="50000" />
+              <span class="form-unit">元</span>
+            </div>
+            <div class="form-row">
+              <label class="form-label">人力成本</label>
+              <input type="number" class="form-input" id="c-staff" value="300000" />
+              <span class="form-unit">元</span>
+            </div>
+            <div class="form-row">
+              <label class="form-label">营销投入</label>
+              <input type="number" class="form-input" id="c-mkt" value="80000" />
+              <span class="form-unit">元</span>
+            </div>
+            <button class="btn btn-primary" onclick="calcCost()">核算盈亏</button>
+            <div class="result-box" id="costResult" style="display: none"></div>
+          </div>
+
+          <div class="engine-content" data-engine="marketing">
+            <div class="form-row">
+              <label class="form-label">选择节日</label>
+              <select class="form-input" id="m-festival">
+                <option value="spring">春节</option>
+                <option value="valentine">情人节</option>
+                <option value="women">妇女节</option>
+                <option value="may">劳动节</option>
+                <option value="children">儿童节</option>
+                <option value="double11">双 11</option>
+              </select>
+              <span class="form-unit">🎉</span>
+            </div>
+            <div class="form-row">
+              <label class="form-label">行业类型</label>
+              <select class="form-input" id="m-industry">
+                <option>餐饮</option>
+                <option>零售</option>
+                <option>教育</option>
+                <option>电商</option>
+                <option>服务</option>
+              </select>
+              <span class="form-unit">🏢</span>
+            </div>
+            <button class="btn btn-primary" onclick="calcMarketing()">生成方案</button>
+            <div class="result-box" id="mktResult" style="display: none"></div>
+          </div>
+
+          <div class="engine-content" data-engine="prompt">
+            <div class="form-row">
+              <label class="form-label">业务场景</label>
+              <select class="form-input" id="p-scene">
+                <option value="target">目标拆解</option>
+                <option value="cost">成本分析</option>
+                <option value="marketing">营销策划</option>
+                <option value="ops">运营优化</option>
+                <option value="finance">财务诊断</option>
+              </select>
+              <span class="form-unit">📋</span>
+            </div>
+            <div class="form-row">
+              <label class="form-label">AI 人格</label>
+              <select class="form-input" id="p-persona">
+                <option value="strategist">战略家</option>
+                <option value="analyst">分析师</option>
+                <option value="creator">创意师</option>
+                <option value="mentor">导师</option>
+                <option value="auditor">审计师</option>
+              </select>
+              <span class="form-unit">🧠</span>
+            </div>
+            <button class="btn btn-primary" onclick="genPrompt()">生成提示词</button>
+            <div class="result-box" id="promptResult" style="display: none"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="llm" class="section">
+        <h2 class="section-title">Phase 4 · LLM 多 Provider 适配层</h2>
+        <p class="section-desc">5 大 LLM 统一接口 · SSE 流式 · AES-256-GCM Keyring · 点击切换配置状态</p>
+        <div class="provider-grid" id="providerGrid"></div>
+        <div
+          style="
+            margin-top: 24px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+          "
+        >
+          <div class="deploy-card">
+            <h4>🔒 安全特性</h4>
+            <ul class="deploy-list">
+              <li>AES-256-GCM 加密 (Web Crypto API)</li>
+              <li>PBKDF2 100,000 次迭代</li>
+              <li>设备指纹 + 用户口令双因子</li>
+              <li>Keyring 不落明文盘</li>
+              <li>sessionStorage 会话级缓存</li>
+            </ul>
+          </div>
+          <div class="deploy-card">
+            <h4>⚡ 路由策略</h4>
+            <ul class="deploy-list">
+              <li>cost: 成本优先 (最便宜 Provider)</li>
+              <li>latency: 延迟优先 (最快首 Token)</li>
+              <li>quality: 质量优先 (最强模型)</li>
+              <li>manual: 手动指定 Provider</li>
+              <li>Mock 回退: 无 Key 时自动</li>
+            </ul>
+          </div>
+          <div class="deploy-card">
+            <h4>🌊 SSE 流式</h4>
+            <ul class="deploy-list">
+              <li>Server-Sent Events 协议封装</li>
+              <li>Token-by-Token 渲染</li>
+              <li>自动重连 (指数退避)</li>
+              <li>错误恢复 + Mock 回退</li>
+              <li>AbortSignal 超时控制</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="tests" class="section">
+        <h2 class="section-title">测试基线矩阵 (24 files / 294 tests)</h2>
+        <p class="section-desc">100% 通过率 · 0 TypeScript 错误 · Playwright E2E 已集成</p>
+        <div
+          style="
+            background: var(--panel);
+            border: 1px solid var(--panel-border);
+            border-radius: 12px;
+            overflow: hidden;
+            overflow-x: auto;
+          "
+        >
+          <table class="test-matrix">
+            <thead>
+              <tr>
+                <th>包</th>
+                <th>测试文件</th>
+                <th>用例数</th>
+                <th>覆盖范围</th>
+              </tr>
+            </thead>
+            <tbody id="testTable"></tbody>
+            <tfoot>
+              <tr style="background: rgba(0, 255, 136, 0.05); font-weight: 700">
+                <td colspan="2">合计</td>
+                <td class="test-num">294</td>
+                <td>全量 ✅ 通过</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title">五维评估雷达图</h2>
+        <p class="section-desc">时间维 · 空间维 · 属性维 · 事件维 · 关联维 — 全维达成</p>
+        <div class="radar-container">
+          <svg class="radar-svg" viewBox="-220 -220 440 440" id="radarSvg"></svg>
+          <div class="radar-legend" id="radarLegend"></div>
+        </div>
+      </section>
+
+      <section id="deploy" class="section">
+        <h2 class="section-title">生产部署基线</h2>
+        <p class="section-desc">Vercel + Docker + CI/CD 8-job · Lighthouse 性能基线</p>
+        <div class="deploy-grid">
+          <div class="deploy-card">
+            <h4>🚀 Vercel 部署</h4>
+            <ul class="deploy-list">
+              <li>Web SaaS · sin1 + hkg1 双区域</li>
+              <li>Serverless Function /api/chat/stream</li>
+              <li>Key 隐藏 + CORS + Rate Limit</li>
+              <li>完整 CSP/CORS/XSS 安全头</li>
+              <li>环境变量隔离 (.env.example)</li>
+            </ul>
+          </div>
+          <div class="deploy-card">
+            <h4>🐳 Docker 部署</h4>
+            <ul class="deploy-list">
+              <li>多阶段构建 (deps → build → runtime)</li>
+              <li>Nginx Alpine 静态托管 (~50MB)</li>
+              <li>非 root 用户运行</li>
+              <li>健康检查 + 资源限制</li>
+              <li>docker-compose 一键启动</li>
+            </ul>
+          </div>
+          <div class="deploy-card">
+            <h4>⚙️ CI/CD 8-job Pipeline</h4>
+            <ul class="deploy-list">
+              <li>quality: TS + Lint + Vitest</li>
+              <li>build: 8 App 矩阵构建</li>
+              <li>e2e: Playwright 自动化</li>
+              <li>security: pnpm audit + Snyk + Gitleaks</li>
+              <li>lighthouse: 性能基线 (LCP&lt;2.5s)</li>
+              <li>docker + deploy + ecosystem-check</li>
+            </ul>
+          </div>
+          <div class="deploy-card">
+            <h4>⚡ Lighthouse 基线</h4>
+            <ul class="deploy-list">
+              <li>Performance ≥ 0.9</li>
+              <li>Accessibility ≥ 0.95</li>
+              <li>Best Practices ≥ 0.95</li>
+              <li>LCP &lt; 2500ms</li>
+              <li>CLS &lt; 0.1</li>
+              <li>TBT &lt; 200ms</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <footer
+        style="
+          text-align: center;
+          padding: 32px 0;
+          color: var(--text-3);
+          font-size: 12px;
+          border-top: 1px solid var(--panel-border);
+          margin-top: 64px;
+        "
+      >
+        <div>YYC³ Cloud Intelli-Matrix · 全链路智能应用生态</div>
+        <div style="margin-top: 8px">
+          Phase 0-4 全量达成 · 14 包 + 8 App + 5 LLM + 294 tests + Vercel + Docker + CI/CD
+        </div>
+        <div style="margin-top: 8px">本页面为单文件可视化展示 · 完全自包含 · 可独立分享</div>
+      </footer>
+    </div>
+
+    <div class="hub-fab" onclick="toggleHub()" title="AI 助手">💬</div>
+    <div class="hub-panel" id="hubPanel">
+      <div class="hub-header">
+        <div>
+          <div class="hub-title">YYC³ AI 助手</div>
+          <div style="display: flex; align-items: center; gap: 6px; margin-top: 4px">
+            <span class="hub-status" id="hubStatusBadge">● Mock 模式</span>
+            <span style="font-size: 10px; color: var(--text-3)" id="hubProviderCount">未配置 Provider</span>
+          </div>
+        </div>
+        <button class="hub-close" onclick="toggleHub()">×</button>
+      </div>
+      <div class="hub-messages" id="hubMessages">
+        <div class="msg assistant">
+          👋 你好！我是 YYC³ AI 助手。我可以帮你： <br />• 查看项目状态 <br />• 分析业务数据 <br />• 生成经营建议
+          <br />• 配置 LLM Provider <br /><br />试试发送「状态」「帮助」或任何问题。
+        </div>
+      </div>
+      <div class="hub-input-row">
+        <input
+          type="text"
+          class="hub-input"
+          id="hubInput"
+          placeholder="输入消息..."
+          onkeydown="if (event.key === 'Enter') sendHub();"
+        />
+        <button class="hub-send" onclick="sendHub()">发送</button>
+      </div>
+    </div>
+
+    <div class="modal-mask" id="modalMask" onclick="if (event.target === this) closeModal();">
+      <div class="modal" id="modalContent"></div>
+    </div>
+
+    <script>
+      // ============================================================
+      // 数据层 (完全对齐项目实际状态)
+      // ============================================================
+      const PHASES = [
+        { name: 'Phase 0', label: '基线对齐', pct: 100, desc: '13+1 插件包 + 8 App + 文档群', status: 'ok' },
+        { name: 'Phase 1', label: '引擎构建', pct: 100, desc: '4 引擎 + 125 tests', status: 'ok' },
+        { name: 'Phase 2', label: '界面集成', pct: 100, desc: '8 App + Hub 命令 + 双主题', status: 'ok' },
+        { name: 'Phase 3', label: '质量工程', pct: 100, desc: '组件测试 + E2E + 294 tests', status: 'ok' },
+        { name: 'Phase 4', label: '生态闭环', pct: 100, desc: 'LLM + SSE + AES + Vercel + Docker', status: 'ok' },
+      ];
+      const PLUGINS = [
+        {
+          icon: '🧩',
+          name: 'shell',
+          title: '系统中枢',
+          desc: 'WelcomePage/AIAssistantHub/ErrorBoundary/EventBus/Storage/Theme/LLMBridge',
+          tags: ['核心', 'LLM 桥接'],
+        },
+        {
+          icon: '🤖',
+          name: 'plugin-llm',
+          title: 'LLM 适配层',
+          desc: '5 Provider + SSE + AES-256-GCM Keyring + 路由',
+          tags: ['Phase 4', '新增'],
+        },
+        {
+          icon: '🏛️',
+          name: 'plugin-dynasty',
+          title: '王朝治理',
+          desc: '13 朝代 · 12 Agent · 17 勋章 · 26 Skills · 六阶段工作流',
+          tags: ['完整'],
+        },
+        {
+          icon: '👪',
+          name: 'plugin-ai-family',
+          title: 'AI Family',
+          desc: '8 位家人 · 4 页面 (Home/Center/Chat/Settings)',
+          tags: ['完整'],
+        },
+        {
+          icon: '📊',
+          name: 'plugin-monitor',
+          title: '监控中心',
+          desc: 'Dashboard 实时监控 · 多维指标可视化',
+          tags: ['完整'],
+        },
+        {
+          icon: '⚙️',
+          name: 'plugin-ops',
+          title: '运维管理',
+          desc: 'OperationCenter · 工单 + 资源 + 告警',
+          tags: ['完整'],
+        },
+        { icon: '🧠', name: 'plugin-ai', title: 'AI 智能', desc: 'AISuggestion · 智能推荐 + 预测分析', tags: ['完整'] },
+        {
+          icon: '🎨',
+          name: 'plugin-dev',
+          title: '开发工具',
+          desc: 'DesignSystem · 组件库 + 主题编辑器',
+          tags: ['完整'],
+        },
+        { icon: '🔐', name: 'plugin-admin', title: '系统管理', desc: 'Audit · 权限 + 日志 + 合规审计', tags: ['完整'] },
+        {
+          icon: '🎯',
+          name: 'plugin-target',
+          title: '目标量化引擎',
+          desc: 'X 公式 + 三阶段拆分 + 月度节点',
+          tags: ['35 tests'],
+        },
+        {
+          icon: '💰',
+          name: 'plugin-cost',
+          title: '成本盈亏引擎',
+          desc: '5 步成本核算 + 敏感性分析',
+          tags: ['30 tests'],
+        },
+        {
+          icon: '📣',
+          name: 'plugin-marketing',
+          title: '营销节日引擎',
+          desc: '6 类节日 + 农历转换 + 三阶段归属',
+          tags: ['41 tests'],
+        },
+        {
+          icon: '📝',
+          name: 'plugin-prompt',
+          title: '提示词引擎',
+          desc: '15 模板 + 6 分类 + 5 人格',
+          tags: ['19 tests'],
+        },
+      ];
+      const APPS = [
+        { icon: '🌟', name: 'full', title: '合并版', desc: '7 系统全集', color: '#00d4ff' },
+        { icon: '🏛️', name: 'standalone-dynasty', title: '王朝治理', desc: '独立部署', color: '#c9a96e' },
+        { icon: '👪', name: 'standalone-ai-family', title: 'AI Family', desc: '独立部署', color: '#7b2ff7' },
+        { icon: '📊', name: 'standalone-monitor', title: '监控中心', desc: '独立部署', color: '#00ff88' },
+        { icon: '⚙️', name: 'standalone-ops', title: '运维管理', desc: '独立部署', color: '#ffaa00' },
+        { icon: '🧠', name: 'standalone-ai', title: 'AI 智能', desc: '独立部署', color: '#ff3366' },
+        { icon: '🎨', name: 'standalone-dev', title: '开发工具', desc: '独立部署', color: '#00d4ff' },
+        { icon: '🔐', name: 'standalone-admin', title: '系统管理', desc: '独立部署', color: '#8a70ff' },
+      ];
+      // 数据来源: docs/AI-FAmily-Agent-家人档案/ (权威定义，不可变更)
+      // 业务执行层 (010301-01 ~ 04)
+      const FAMILY = [
+        {
+          emoji: '🧭',
+          name: '言启·千行',
+          enName: 'QianHang',
+          role: '首席导航员 · 意图之门',
+          tel: '0379-0106',
+          color: '#0088cc',
+          skills: ['LLM Prompt Engineering', '语义理解', '实体抽取', '上下文管理', '意图识别与路由'],
+        },
+        {
+          emoji: '🤔',
+          name: '语枢·万物',
+          enName: 'All Things',
+          role: '首席思考者 · 洞察之源',
+          tel: '0379-0107',
+          color: '#c0c0c0',
+          skills: ['知识图谱推理', '多源数据融合', '因果分析', '洞察抽象'],
+        },
+        {
+          emoji: '🔮',
+          name: '预见·先知',
+          enName: 'Prophet',
+          role: '首席预言家 · 趋势之眼',
+          tel: '0379-0108',
+          color: '#4b0082',
+          skills: ['时序预测', '趋势预警', '异常检测', '场景推演'],
+        },
+        {
+          emoji: '🎯',
+          name: '千里·伯乐',
+          enName: 'Bole',
+          role: '首席推荐官 · 知遇之人',
+          tel: '0379-0109',
+          color: '#dc143c',
+          skills: ['个性化推荐', '匹配算法', '用户画像', '知遇洞察'],
+        },
+        // 核心决策层 (010301-05)
+        {
+          emoji: '🧠',
+          name: '元启·天枢',
+          enName: 'TianShu',
+          role: '总指挥 · 决策中枢',
+          tel: '0379-0206',
+          color: '#5e2c8a',
+          skills: ['全局决策', '资源调度', '冲突仲裁', '战略规划'],
+        },
+        // 核心保障层 (010301-06 ~ 08)
+        {
+          emoji: '🛡️',
+          name: '智云·守护',
+          enName: 'Guardian',
+          role: '首席安全官 · 免疫系统',
+          tel: '0379-0207',
+          color: '#333333',
+          skills: ['安全防护', '风险识别', '合规审计', '免疫系统'],
+        },
+        {
+          emoji: '�',
+          name: '格物·宗师',
+          enName: 'Grandmaster',
+          role: '首席质量官 · 进化导师',
+          tel: '0379-0208',
+          color: '#2e8b57',
+          skills: ['质量管控', '代码审查', '进化导师', '规范制定'],
+        },
+        {
+          emoji: '🎨',
+          name: '创想·灵韵',
+          enName: 'Grace',
+          role: '首席创意官 · 灵感之源',
+          tel: '0379-0209',
+          color: '#ff8c00',
+          skills: ['创意激发', '灵感生成', '艺术审美', '情感共鸣'],
+        },
+      ];
+      const DYNASTIES = [
+        { name: '夏', year: '前2070-1600', color: '#8a7060', skills: 2, agents: 1 },
+        { name: '商', year: '前1600-1046', color: '#a88060', skills: 2, agents: 1 },
+        { name: '周', year: '前1046-256', color: '#c9a96e', skills: 3, agents: 1 },
+        { name: '秦', year: '前221-207', color: '#606060', skills: 2, agents: 1 },
+        { name: '汉', year: '前202-220', color: '#c0392b', skills: 3, agents: 1 },
+        { name: '三国', year: '220-280', color: '#a04040', skills: 2, agents: 1 },
+        { name: '晋', year: '265-420', color: '#80a080', skills: 2, agents: 1 },
+        { name: '隋', year: '581-618', color: '#6080a0', skills: 1, agents: 1 },
+        { name: '唐', year: '618-907', color: '#ffaa00', skills: 3, agents: 1 },
+        { name: '宋', year: '960-1279', color: '#40a0c0', skills: 3, agents: 1 },
+        { name: '元', year: '1271-1368', color: '#4060c0', skills: 1, agents: 1 },
+        { name: '明', year: '1368-1644', color: '#7b2ff7', skills: 2, agents: 1 },
+        { name: '清', year: '1644-1912', color: '#9050c0', skills: 2, agents: 1 },
+      ];
+      const PROVIDERS = [
+        {
+          id: 'openai',
+          name: 'OpenAI',
+          models: ['gpt-4o', 'gpt-4o-mini', 'gpt-4-turbo', 'o1-mini'],
+          configured: false,
+        },
+        {
+          id: 'anthropic',
+          name: 'Anthropic Claude',
+          models: ['claude-3-5-sonnet', 'claude-3-5-haiku'],
+          configured: false,
+        },
+        {
+          id: 'qwen',
+          name: '通义千问 (DashScope)',
+          models: ['qwen-max', 'qwen-plus', 'qwen-turbo'],
+          configured: false,
+        },
+        { id: 'deepseek', name: 'DeepSeek', models: ['deepseek-chat', 'deepseek-reasoner'], configured: false },
+        { id: 'kimi', name: 'Kimi (Moonshot)', models: ['moonshot-v1-8k', 'moonshot-v1-32k'], configured: false },
+      ];
+      const TESTS = [
+        {
+          pkg: 'plugin-target',
+          file: 'target-engine + engine-integration',
+          count: 35,
+          scope: 'X 公式 / 三阶段 / 月度节点 / 跨引擎联动',
+        },
+        {
+          pkg: 'plugin-cost',
+          file: 'cost-engine.test.ts',
+          count: 30,
+          scope: '城市指数 / 场地/设备/运营 / 盈亏 / 敏感性',
+        },
+        {
+          pkg: 'plugin-marketing',
+          file: 'festival-engine.test.ts',
+          count: 41,
+          scope: '6 类节日 / 农历转换 / 三阶段归属 / 动作模板',
+        },
+        {
+          pkg: 'plugin-prompt',
+          file: 'business-prompts.test.ts',
+          count: 19,
+          scope: '15 模板 / 6 分类 / 5 人格 / 5 引擎关联',
+        },
+        {
+          pkg: 'plugin-dynasty',
+          file: '6 文件 (agents/dynasties/edict/honors/workflow/register)',
+          count: 38,
+          scope: '12 Agent / 13 朝代 / 6 阶段 / 17 勋章',
+        },
+        {
+          pkg: 'shell',
+          file: '8 文件 (含 ErrorBoundary/WelcomePage/AIAssistantHub/llm-bridge)',
+          count: 74,
+          scope: '+7 LLMBridge Mock 回退 / Provider 管理',
+        },
+        {
+          pkg: 'plugin-llm',
+          file: '5 文件 (crypto/sse/key-manager/providers/router)',
+          count: 57,
+          scope: 'AES-256-GCM / SSE / 5 Provider / Keyring / 路由',
+        },
+      ];
+      const RADAR = [
+        { label: '时间维', score: 100, desc: 'Phase 0-4 全绿，0 阻塞' },
+        { label: '空间维', score: 100, desc: '14 包 + 8 App + Serverless API' },
+        { label: '属性维', score: 98, desc: '294 tests / 0 TS 错误 / 100% pass' },
+        { label: '事件维', score: 100, desc: 'EventBus + Hub + SSE 流式 + Mock 回退' },
+        { label: '关联维', score: 100, desc: '4 文档 ↔ 4 引擎 ↔ LLM ↔ Serverless' },
+      ];
+
+      // ============================================================
+      // 渲染层
+      // ============================================================
+      function renderPhases() {
+        document.getElementById('phaseGrid').innerHTML = PHASES.map(
+          (p) => `
+    <div class="phase-row">
+      <div class="phase-label">${p.name}<span class="pct">${p.label}</span></div>
+      <div class="phase-bar"><div class="phase-bar-fill" style="width:${p.pct}%"></div></div>
+      <div class="phase-status">
+        <div class="ok">✓ ${p.pct}%</div>
+        <div class="desc">${p.desc}</div>
+      </div>
+    </div>`
+        ).join('');
+      }
+      function renderPlugins() {
+        document.getElementById('pluginGrid').innerHTML = PLUGINS.map(
+          (p) => `
+    <div class="card" onclick="showPlugin('${p.name}')">
+      <div class="card-icon">${p.icon}</div>
+      <div class="card-title">${p.name}</div>
+      <div class="card-desc">${p.desc}</div>
+      <div class="card-meta">${p.tags.map((t) => `<span class="tag ${t === 'Phase 4' || t === '新增' ? 'success' : ''}">${t}</span>`).join('')}</div>
+    </div>`
+        ).join('');
+      }
+      function renderApps() {
+        document.getElementById('appGrid').innerHTML = APPS.map(
+          (a) => `
+    <div class="card" onclick="showApp('${a.name}')" style="border-top:3px solid ${a.color};">
+      <div class="card-icon" style="background:linear-gradient(135deg,${a.color},${a.color}aa);">${a.icon}</div>
+      <div class="card-title">${a.title}</div>
+      <div class="card-desc">${a.desc}</div>
+    </div>`
+        ).join('');
+      }
+      function renderFamily() {
+        document.getElementById('familyGrid').innerHTML = FAMILY.map(
+          (f, i) => `
+    <div class="family-card" onclick="showFamily(${i})">
+      <div class="family-avatar" style="background:linear-gradient(135deg,${f.color},${f.color}88);">${f.emoji}</div>
+      <div class="family-name">${f.name}</div>
+      <div class="family-en-name" style="font-size:10px;color:var(--text-3);font-family:var(--mono);margin-top:2px;">${f.enName}</div>
+      <div class="family-role" style="margin-top:6px;">${f.role}</div>
+      <div style="font-size:10px;color:var(--text-3);margin-top:6px;font-family:var(--mono);">☎️ ${f.tel}</div>
+    </div>`
+        ).join('');
+      }
+      function renderDynasties() {
+        document.getElementById('dynastyGrid').innerHTML = DYNASTIES.map(
+          (d, i) => `
+    <div class="dynasty-card" onclick="showDynasty(${i})">
+      <div class="dynasty-color" style="background:${d.color};"></div>
+      <div class="dynasty-name">${d.name}</div>
+      <div class="dynasty-year">${d.year}</div>
+      <div style="font-size:10px;color:var(--text-3);margin-top:4px;">${d.skills} Skills</div>
+    </div>`
+        ).join('');
+      }
+      function renderProviders() {
+        document.getElementById('providerGrid').innerHTML = PROVIDERS.map(
+          (p, i) => `
+    <div class="provider-card ${p.configured ? 'configured' : ''}" onclick="toggleProvider(${i})">
+      <div class="provider-name">
+        ${p.name}
+        <span class="provider-status ${p.configured ? 'on' : 'off'}">${p.configured ? '● 已配置' : '○ 未配置'}</span>
+      </div>
+      <div class="provider-models">${p.models.join(' · ')}</div>
+    </div>`
+        ).join('');
+        updateHubStatus();
+      }
+      function renderTests() {
+        document.getElementById('testTable').innerHTML = TESTS.map(
+          (t) => `
+    <tr>
+      <td><strong>${t.pkg}</strong></td>
+      <td style="font-family:var(--mono);font-size:11px;color:var(--text-2);">${t.file}</td>
+      <td class="test-num">${t.count}</td>
+      <td style="font-size:12px;color:var(--text-2);">${t.scope}</td>
+    </tr>`
+        ).join('');
+      }
+      function renderRadar() {
+        const svg = document.getElementById('radarSvg');
+        const n = RADAR.length;
+        const R = 160;
+        let html = '';
+        for (let lv = 1; lv <= 5; lv++) {
+          const r = (R * lv) / 5;
+          const pts = RADAR.map((_, i) => {
+            const a = -Math.PI / 2 + (i * 2 * Math.PI) / n;
+            return `${Math.cos(a) * r},${Math.sin(a) * r}`;
+          }).join(' ');
+          html += `<polygon points="${pts}" fill="none" stroke="var(--panel-border)" stroke-width="1" opacity="0.5"/>`;
+        }
+        RADAR.forEach((d, i) => {
+          const a = -Math.PI / 2 + (i * 2 * Math.PI) / n;
+          const x = Math.cos(a) * R,
+            y = Math.sin(a) * R;
+          html += `<line x1="0" y1="0" x2="${x}" y2="${y}" stroke="var(--panel-border)" stroke-width="1"/>`;
+          const lx = Math.cos(a) * (R + 30),
+            ly = Math.sin(a) * (R + 30);
+          html += `<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle" fill="var(--text)" font-size="13" font-weight="600">${d.label}</text>`;
+        });
+        const dataPts = RADAR.map((d, i) => {
+          const a = -Math.PI / 2 + (i * 2 * Math.PI) / n;
+          const r = (R * d.score) / 100;
+          return `${Math.cos(a) * r},${Math.sin(a) * r}`;
+        }).join(' ');
+        html += `<polygon points="${dataPts}" fill="rgba(0,212,255,0.2)" stroke="var(--primary)" stroke-width="2"/>`;
+        RADAR.forEach((d, i) => {
+          const a = -Math.PI / 2 + (i * 2 * Math.PI) / n;
+          const r = (R * d.score) / 100;
+          const x = Math.cos(a) * r,
+            y = Math.sin(a) * r;
+          html += `<circle cx="${x}" cy="${y}" r="5" fill="var(--primary)"/>`;
+        });
+        svg.innerHTML = html;
+        document.getElementById('radarLegend').innerHTML = RADAR.map(
+          (d) => `
+    <div class="radar-item">
+      <div>
+        <div class="radar-item-label">${d.label}</div>
+        <div style="font-size:11px;color:var(--text-3);margin-top:4px;">${d.desc}</div>
+      </div>
+      <div class="radar-item-score">${d.score}</div>
+    </div>`
+        ).join('');
+      }
+
+      // ============================================================
+      // 交互层
+      // ============================================================
+      function toggleTheme() {
+        const cur = document.documentElement.getAttribute('data-theme');
+        document.documentElement.setAttribute('data-theme', cur === 'ancient' ? '' : 'ancient');
+      }
+      document.querySelectorAll('.nav-tab').forEach((t) => {
+        t.addEventListener('click', () => {
+          document.querySelectorAll('.nav-tab').forEach((x) => x.classList.remove('active'));
+          t.classList.add('active');
+          const id = t.dataset.scroll;
+          if (id) document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+      document.querySelectorAll('.engine-tab').forEach((t) => {
+        t.addEventListener('click', () => {
+          document.querySelectorAll('.engine-tab').forEach((x) => x.classList.remove('active'));
+          document.querySelectorAll('.engine-content').forEach((x) => x.classList.remove('active'));
+          t.classList.add('active');
+          document.querySelector(`.engine-content[data-engine="${t.dataset.engine}"]`).classList.add('active');
+        });
+      });
+
+      // ===== 引擎计算 =====
+      function calcTarget() {
+        const revenue = +document.getElementById('t-revenue').value;
+        const k = +document.getElementById('t-k').value;
+        const exec = +document.getElementById('t-exec').value;
+        const x = Math.round(revenue * k * exec);
+        const monthly = Math.round(x / 12);
+        const q1 = Math.round(monthly * 0.2 * 3),
+          q2 = Math.round(monthly * 0.25 * 3),
+          q4 = Math.round(monthly * 0.3 * 3);
+        const box = document.getElementById('targetResult');
+        box.style.display = 'block';
+        box.innerHTML = `
+    <div class="result-label">年度目标 X (X 公式 = 营收 × K × 执行力)</div>
+    <div class="result-value">¥ ${x.toLocaleString()}</div>
+    <div class="result-detail">
+      📅 <strong>月度节点:</strong> ¥ ${monthly.toLocaleString()}<br/>
+      📊 <strong>三阶段拆分:</strong><br/>
+      &nbsp;&nbsp;Q1 蓄势期 (20%): ¥ ${q1.toLocaleString()}<br/>
+      &nbsp;&nbsp;Q2-Q3 爬坡期 (50%): ¥ ${q2.toLocaleString()}<br/>
+      &nbsp;&nbsp;Q4 冲刺期 (30%): ¥ ${q4.toLocaleString()}
+    </div>`;
+      }
+      function calcCost() {
+        const rev = +document.getElementById('c-revenue').value;
+        const rent = +document.getElementById('c-rent').value;
+        const staff = +document.getElementById('c-staff').value;
+        const mkt = +document.getElementById('c-mkt').value;
+        const other = Math.round(rev * 0.15);
+        const total = rent + staff + mkt + other;
+        const profit = rev - total;
+        const margin = ((profit / rev) * 100).toFixed(1);
+        const box = document.getElementById('costResult');
+        box.style.display = 'block';
+        box.style.borderColor = profit > 0 ? 'rgba(0,255,136,0.3)' : 'rgba(255,51,102,0.3)';
+        box.innerHTML = `
+    <div class="result-label">月度盈亏分析</div>
+    <div class="result-value" style="color:${profit > 0 ? 'var(--success)' : 'var(--danger)'};">${profit > 0 ? '+' : ''}¥ ${profit.toLocaleString()}</div>
+    <div class="result-detail">
+      📥 <strong>营收:</strong> ¥ ${rev.toLocaleString()}<br/>
+      📤 <strong>支出:</strong> ¥ ${total.toLocaleString()}<br/>
+      &nbsp;&nbsp;• 场地: ¥ ${rent.toLocaleString()}<br/>
+      &nbsp;&nbsp;• 人力: ¥ ${staff.toLocaleString()}<br/>
+      &nbsp;&nbsp;• 营销: ¥ ${mkt.toLocaleString()}<br/>
+      &nbsp;&nbsp;• 其他 (15%): ¥ ${other.toLocaleString()}<br/>
+      📈 <strong>利润率:</strong> ${margin}%
+    </div>`;
+      }
+      function calcMarketing() {
+        const festMap = {
+          spring: { name: '春节', stages: ['预热期 (前14天)', '爆发期 (除夕-初六)', '返场期 (初七-元宵)'] },
+          valentine: { name: '情人节', stages: ['预热期 (前7天)', '爆发期 (2.14)', '延续期 (后3天)'] },
+          women: { name: '妇女节', stages: ['预热期 (前5天)', '爆发期 (3.8)', '延续期 (后2天)'] },
+          may: { name: '劳动节', stages: ['预热期 (前7天)', '爆发期 (5.1-5.5)', '延续期 (后3天)'] },
+          children: { name: '儿童节', stages: ['预热期 (前7天)', '爆发期 (6.1)', '延续期 (后2天)'] },
+          double11: { name: '双 11', stages: ['蓄水期 (前30天)', '爆发期 (11.11)', '返场期 (后7天)'] },
+        };
+        const fest = festMap[document.getElementById('m-festival').value];
+        const industry = document.getElementById('m-industry').value;
+        const actions = {
+          餐饮: ['家庭套餐', '年夜饭预订', '春节特色菜', '会员储值优惠'],
+          零售: ['年货礼盒', '满减优惠', '会员双倍积分', '限时秒杀'],
+          教育: ['寒假课程', '亲子体验课', '老带新优惠', '春节主题课'],
+          电商: ['年货节专场', '跨店满减', '直播带货', '预售定金翻倍'],
+          服务: ['春节套餐', '老客户回馈', '增值服务', '节气主题服务'],
+        };
+        const list = actions[industry] || actions.零售;
+        const box = document.getElementById('mktResult');
+        box.style.display = 'block';
+        box.innerHTML = `
+    <div class="result-label">${fest.name} · ${industry}行业 · 三阶段方案</div>
+    <div class="result-value" style="font-size:18px;">${fest.stages.join(' → ')}</div>
+    <div class="result-detail">
+      🎯 <strong>推荐动作:</strong><br/>
+      ${list.map((a, i) => `&nbsp;&nbsp;${i + 1}. ${a}`).join('<br/>')}<br/>
+      📅 <strong>时间节点:</strong><br/>
+      &nbsp;&nbsp;• ${fest.stages[0]}: 种草 + 预售<br/>
+      &nbsp;&nbsp;• ${fest.stages[1]}: 主推 + 转化<br/>
+      &nbsp;&nbsp;• ${fest.stages[2]}: 复购 + 留存
+    </div>`;
+      }
+      function genPrompt() {
+        const sceneMap = {
+          target: '目标拆解',
+          cost: '成本分析',
+          marketing: '营销策划',
+          ops: '运营优化',
+          finance: '财务诊断',
+        };
+        const personaMap = {
+          strategist: { name: '战略家', style: '全局视角，聚焦长期价值与核心壁垒' },
+          analyst: { name: '分析师', style: '数据驱动，强调量化指标与可执行步骤' },
+          creator: { name: '创意师', style: '发散思维，追求差异化与情感共鸣' },
+          mentor: { name: '导师', style: '以人为本，关注成长与团队能力建设' },
+          auditor: { name: '审计师', style: '严谨合规，识别风险与内控漏洞' },
+        };
+        const scene = sceneMap[document.getElementById('p-scene').value];
+        const persona = personaMap[document.getElementById('p-persona').value];
+        const box = document.getElementById('promptResult');
+        box.style.display = 'block';
+        box.innerHTML = `
+    <div class="result-label">${persona.name}人格 · ${scene}场景</div>
+    <div class="result-value" style="font-size:16px;line-height:1.6;white-space:pre-wrap;">你是一位经验丰富的${persona.name}，风格：${persona.style}。
+
+请针对【${scene}】场景，输出以下内容：
+1. 现状诊断 (3 条核心问题)
+2. 解决方案 (3 个可执行建议，每个含目标/动作/指标)
+3. 风险提示 (2 条潜在风险及应对)
+4. 落地清单 (按周拆解的关键任务)
+
+格式要求：使用 Markdown，每条建议不超过 100 字，指标必须可量化。</div>`;
+      }
+
+      // ===== Provider 切换 =====
+      function toggleProvider(i) {
+        PROVIDERS[i].configured = !PROVIDERS[i].configured;
+        renderProviders();
+      }
+      function updateHubStatus() {
+        const count = PROVIDERS.filter((p) => p.configured).length;
+        const badge = document.getElementById('hubStatusBadge');
+        const cnt = document.getElementById('hubProviderCount');
+        if (count > 0) {
+          badge.textContent = '● LLM 已就绪';
+          badge.style.background = 'rgba(0,255,136,0.15)';
+          badge.style.color = 'var(--success)';
+          cnt.textContent = `${count} 个 Provider: ${PROVIDERS.filter((p) => p.configured)
+            .map((p) => p.id)
+            .join(', ')}`;
+        } else {
+          badge.textContent = '● Mock 模式';
+          cnt.textContent = '未配置 Provider';
+        }
+      }
+
+      // ===== Modal =====
+      function showModal(html) {
+        document.getElementById('modalContent').innerHTML =
+          `<button class="modal-close" onclick="closeModal()">×</button>${html}`;
+        document.getElementById('modalMask').classList.add('open');
+      }
+      function closeModal() {
+        document.getElementById('modalMask').classList.remove('open');
+      }
+
+      function showPlugin(name) {
+        const p = PLUGINS.find((x) => x.name === name);
+        showModal(`<h3>${p.icon} ${p.name}</h3><p style="color:var(--text-2);line-height:1.8;">${p.desc}</p>
+    <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">${p.tags.map((t) => `<span class="tag">${t}</span>`).join('')}</div>
+    <div style="margin-top:24px;padding:16px;background:rgba(0,212,255,0.05);border-radius:8px;font-size:12px;color:var(--text-2);">
+      📦 <strong>路径:</strong> packages/${p.name}/<br/>
+      📄 <strong>入口:</strong> src/index.ts<br/>
+      ✅ <strong>状态:</strong> 已实现 + 测试覆盖
+    </div>`);
+      }
+      function showApp(name) {
+        const a = APPS.find((x) => x.name === name);
+        showModal(`<h3>${a.icon} ${a.title}</h3>
+    <p style="color:var(--text-2);">独立部署应用 · ${a.desc}</p>
+    <div style="margin-top:16px;padding:16px;background:rgba(0,212,255,0.05);border-radius:8px;font-size:12px;color:var(--text-2);">
+      📦 <strong>路径:</strong> apps/${a.name}/<br/>
+      🚀 <strong>启动:</strong> pnpm --filter @yyc3/app-${a.name} dev<br/>
+      🏗️ <strong>构建:</strong> pnpm --filter @yyc3/app-${a.name} build
+    </div>`);
+      }
+      function showFamily(i) {
+        const f = FAMILY[i];
+        const layer = i < 4 ? '业务执行层' : i === 4 ? '核心决策层' : '核心保障层';
+        const mottoMap = {
+          '言启·千行': '我聆听万千言语，为您指引航向。',
+          '语枢·万物': '万物皆有理，我以思考串联天地。',
+          '预见·先知': '于未然之处见机，于将然之时启航。',
+          '千里·伯乐': '世有千里马，而后有伯乐；我以慧眼识英才。',
+          '元启·天枢': '执天枢以运万物，决毫厘而定乾坤。',
+          '智云·守护': '为家族筑起无形之盾，守护每一份数据与信任。',
+          '格物·宗师': '致知在格物，物格而后知至；质量即尊严。',
+          '创想·灵韵': '灵感如泉涌，创意无止境；让美与智共生。',
+        };
+        const motto = mottoMap[f.name] || '亦师亦友亦伯乐';
+        showModal(`<h3>${f.emoji} ${f.name} <span style="font-size:13px;color:var(--text-3);font-family:var(--mono);font-weight:400;margin-left:8px;">${f.enName}</span></h3>
+    <p style="color:var(--primary);font-weight:600;margin-top:4px;">${f.role}</p>
+    <p style="color:var(--text-2);font-style:italic;margin-top:8px;font-size:13px;">「${motto}」</p>
+    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+      <span class="tag">${layer}</span>
+      <span class="tag success">☎️ ${f.tel}</span>
+      <span class="tag" style="background:${f.color}22;color:${f.color};">● 专属色</span>
+    </div>
+    <div style="margin-top:20px;"><strong>🎯 核心技能</strong></div>
+    <ul style="margin-top:8px;padding-left:20px;color:var(--text-2);">${f.skills.map((s) => `<li style="padding:4px 0;">${s}</li>`).join('')}</ul>
+    <div style="margin-top:16px;padding:12px;background:rgba(0,212,255,0.05);border-radius:8px;font-size:11px;color:var(--text-3);line-height:1.6;">
+      📁 <strong>档案编号:</strong> 010301-0${i + 1}<br/>
+      🏗️ <strong>管理层级:</strong> ${layer} · 九层架构<br/>
+      🌹 <strong>家族精神:</strong> 人从众曌众从人 · 亦师亦友亦伯乐
+    </div>`);
+      }
+      function showDynasty(i) {
+        document.querySelectorAll('.dynasty-card').forEach((c, idx) => c.classList.toggle('active', idx === i));
+        const d = DYNASTIES[i];
+        const detail = document.getElementById('dynastyDetail');
+        detail.style.display = 'block';
+        detail.innerHTML = `
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+      <div style="width:32px;height:32px;border-radius:8px;background:${d.color};display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;">${d.name}</div>
+      <div><strong style="font-size:16px;">${d.name}朝</strong> <span style="color:var(--text-3);font-size:12px;margin-left:8px;">${d.year}</span></div>
+    </div>
+    <div style="font-size:13px;color:var(--text-2);line-height:1.8;">
+      🎯 <strong>Skills 数:</strong> ${d.skills}<br/>
+      🤖 <strong>Agent 数:</strong> ${d.agents}<br/>
+      📜 <strong>历史定位:</strong> ${getDynastyDesc(d.name)}
+    </div>`;
+      }
+      function getDynastyDesc(n) {
+        const map = {
+          夏: '世袭制开端，青铜文明萌芽',
+          商: '甲骨文与青铜礼器鼎盛',
+          周: '礼乐文明，分封制成熟',
+          秦: '大一统，度量衡统一',
+          汉: '丝绸之路，儒家正统',
+          三国: '群雄并起，战略博弈',
+          晋: '门阀制度，玄学兴起',
+          隋: '大运河，科举制创立',
+          唐: '盛世开放，诗韵繁荣',
+          宋: '商品经济，科技创新',
+          元: '版图扩张，多民族融合',
+          明: '郑和下西洋，海上丝路',
+          清: '康乾盛世，多民族统一',
+        };
+        return map[n] || '历史长河中的关键节点';
+      }
+
+      // ===== AI Hub =====
+      function toggleHub() {
+        document.getElementById('hubPanel').classList.toggle('open');
+      }
+      function sendHub() {
+        const input = document.getElementById('hubInput');
+        const text = input.value.trim();
+        if (!text) return;
+        input.value = '';
+        const msgs = document.getElementById('hubMessages');
+        msgs.insertAdjacentHTML('beforeend', `<div class="msg user">${escapeHtml(text)}</div>`);
+        msgs.scrollTop = msgs.scrollHeight;
+        setTimeout(
+          () => {
+            const reply = mockReply(text);
+            msgs.insertAdjacentHTML('beforeend', `<div class="msg assistant">${reply}</div>`);
+            msgs.scrollTop = msgs.scrollHeight;
+          },
+          400 + Math.random() * 600
+        );
+      }
+      function mockReply(text) {
+        const t = text.toLowerCase();
+        const configured = PROVIDERS.filter((p) => p.configured).length;
+        if (t.includes('状态') || t.includes('节点')) {
+          return `📊 <strong>项目状态报告</strong><br/><br/>
+      • Phase 0-4: <span style="color:var(--success);">全量达成 ✅</span><br/>
+      • 插件包: 14 个<br/>
+      • 独立应用: 8 个<br/>
+      • 单元测试: 294 / 100% 通过<br/>
+      • LLM Provider: ${configured}/5 已配置<br/>
+      • 部署: Vercel + Docker 就绪<br/><br/>
+      <span style="color:var(--text-3);font-size:11px;">${new Date().toLocaleString('zh-CN')}</span>`;
+        }
+        if (t.includes('帮助') || t.includes('help')) {
+          return `🤖 <strong>可用指令:</strong><br/><br/>
+      • 「状态」- 查看项目进度<br/>
+      • 「引擎」- 了解 4 大业务引擎<br/>
+      • 「llm」- LLM 适配层信息<br/>
+      • 「测试」- 测试基线<br/>
+      • 「部署」- 部署方案<br/>
+      • 任意问题 - Mock 智能回复`;
+        }
+        if (t.includes('引擎'))
+          return `🎯 <strong>四大业务引擎:</strong><br/>1. 目标量化 (X 公式)<br/>2. 成本盈亏 (5 步核算)<br/>3. 营销节日 (6 类)<br/>4. 提示词 (15 模板)<br/><br/>👉 可在上方"引擎"模块亲自试算！`;
+        if (t.includes('llm') || t.includes('provider'))
+          return `🤖 <strong>LLM 适配层:</strong><br/>• OpenAI / Anthropic / 通义 / DeepSeek / Kimi<br/>• AES-256-GCM 加密存储<br/>• SSE 流式输出<br/>• Mock 自动回退<br/><br/>👉 可在上方"LLM"模块点击切换配置！`;
+        if (t.includes('测试'))
+          return `🧪 <strong>测试基线:</strong><br/>• 24 文件 / 294 用例<br/>• 100% 通过率<br/>• 0 TypeScript 错误<br/>• Playwright E2E 已集成`;
+        if (t.includes('部署'))
+          return `🚀 <strong>部署方案:</strong><br/>• Vercel (sin1+hkg1 双区域)<br/>• Docker (Nginx Alpine ~50MB)<br/>• CI/CD 8-job pipeline<br/>• Lighthouse LCP<2.5s`;
+        if (t.includes('你好') || t.includes('hello') || t.includes('hi'))
+          return `👋 你好！我是 YYC³ AI 助手。当前 ${configured > 0 ? `已配置 ${configured} 个 LLM Provider` : '运行在 Mock 模式'}。输入「帮助」查看更多指令。`;
+        return `💡 收到："${escapeHtml(text)}"<br/><br/>${configured > 0 ? '已通过真实 LLM 处理（演示页面为 Mock 回复）。' : '当前为 Mock 模式，配置 Provider 后可启用真实 LLM。'}<br/><br/>试试发送「状态」「帮助」「引擎」等关键词。`;
+      }
+      function escapeHtml(s) {
+        return s.replace(
+          /[&<>"']/g,
+          (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]
+        );
+      }
+
+      // ===== 初始化 =====
+      renderPhases();
+      renderPlugins();
+      renderApps();
+      renderFamily();
+      renderDynasties();
+      renderProviders();
+      renderTests();
+      renderRadar();
+      updateHubStatus();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,15 @@
+node_modules
+dist
+test-results
+playwright-report
+playwright/.cache
+coverage
+
+# macOS
+.DS_Store
+
+# 内部文档（不提交，本地维护）
+docs/YYC3-My管理思维-工具规划/
+docs/YYC3-团队通用-标准规范/
+docs/packages/
+docs/AI-FAmily-Agent-家人档案/

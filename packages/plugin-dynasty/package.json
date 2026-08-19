@@ -1,0 +1,7 @@
+{
+  "name": "@yyc3/plugin-dynasty",
+  "version": "1.0.0",
+  "description": "王朝治理系统 — 三省六部制多智能体协同",
+  "main": "src/index.ts",
+  "peerDependencies": { "react": "^18||^19", "lucide-react": "^0.500", "@yyc3/shell": "workspace:*", "@yyc3/plugin-ai-family": "workspace:*" }
+}
