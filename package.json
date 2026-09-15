@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
+  "packageManager": "pnpm@11.10.0",
   "scripts": {
     "type-check": "tsc --noEmit",
     "lint": "echo 'lint: ok (add ESLint config)'",
