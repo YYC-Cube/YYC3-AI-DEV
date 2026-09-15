@@ -9,7 +9,7 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 # 启用 corepack + pnpm
-RUN corepack enable && corepack prepare pnpm@9.15.0 --activate
+RUN corepack enable && corepack prepare pnpm@11.10.0 --activate
 
 # 先复制 lockfile 利用 Docker 层缓存
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
@@ -32,7 +32,7 @@ RUN pnpm install --frozen-lockfile --prefer-offline
 
 # ===== Stage 2: builder =====
 FROM node:20-alpine AS builder
-RUN corepack enable && corepack prepare pnpm@9.15.0 --activate
+RUN corepack enable && corepack prepare pnpm@11.10.0 --activate
 WORKDIR /app
 
 COPY --from=deps /app/node_modules ./node_modules
