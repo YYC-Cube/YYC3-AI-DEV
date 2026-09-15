@@ -345,9 +345,6 @@ importers:
 
   packages/plugin-dynasty:
     dependencies:
-      '@yyc3/plugin-ai-family':
-        specifier: workspace:*
-        version: link:../plugin-ai-family
       '@yyc3/shell':
         specifier: workspace:*
         version: link:../shell
@@ -358,14 +355,7 @@ importers:
         specifier: 19.2.7
         version: 19.2.7
 
-  packages/plugin-llm:
-    dependencies:
-      '@yyc3/shell':
-        specifier: workspace:*
-        version: link:../shell
-      react:
-        specifier: 19.2.7
-        version: 19.2.7
+  packages/plugin-llm: {}
 
   packages/plugin-marketing:
     dependencies:

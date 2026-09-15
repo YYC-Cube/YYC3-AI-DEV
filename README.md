@@ -26,7 +26,7 @@ _万象归元于云枢 · 深栈智启新纪元_
 ![Tailwind](https://img.shields.io/badge/Tailwind-4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)
 ![Playwright](https://img.shields.io/badge/Playwright-E2E-2EAD33?style=flat-square&logo=playwright&logoColor=white)
 
-![Tests](https://img.shields.io/badge/Tests-312%20%E2%9C%85%20%7C%200%20%E2%9D%8C-00FF88?style=flat-square)
+![Tests](https://img.shields.io/badge/Tests-316%20%E2%9C%85%20%7C%200%20%E2%9D%8C-00FF88?style=flat-square)
 ![Type Check](https://img.shields.io/badge/tsc%20--noEmit-0%20errors-00FF88?style=flat-square)
 ![Monorepo](https://img.shields.io/badge/Monorepo-13%20packages-AA55FF?style=flat-square)
 ![Apps](https://img.shields.io/badge/Apps-8%20standalone-C9A96E?style=flat-square)
@@ -125,10 +125,10 @@ YYC3-AI-DEV 承自 YYC³ Cloud Intelli-Matrix 的 **Shell + 插件体系**，是
 | `plugin-ai` | AI 智能 | `#AA55FF` | 70 | — | — | ⬜ 基础 |
 | `plugin-dev` | 开发工具 | `#E8E8E8` | 80 | — | — | ⬜ 基础 |
 | `plugin-admin` | 系统管理 | `#FFDD00` | 90 | — | — | ⬜ 基础 |
-| `plugin-llm` | LLM 网关 | `#00FF88` | — | LLMRouter + SSE | 57 | ✅ 稳定 |
+| `plugin-llm` | LLM 网关 | `#00FF88` | — | LLMRouter + SSE | 61 | ✅ 稳定 |
 | **核心包合计** | — | — | — | — | **294** | ✅ 全绿 |
 | 补充包（family/dynasty-core） | — | — | — | — | 18 | ✅ 全绿 |
-| **总计** | — | — | — | — | **312** | ✅ 全绿 |
+| **总计** | — | — | — | — | **316** | ✅ 全绿 |
 
 ---
 
@@ -150,7 +150,7 @@ cd YYC3-AI-Dev
 
 pnpm install                    # 安装依赖
 npx tsc --noEmit                # TypeScript 零错误 ✅
-npx vitest run                  # 全量测试 312/312 ✅
+npx vitest run                  # 全量测试 316/316 ✅
 npx playwright test              # E2E 测试（Playwright Chromium）
 ```
 
@@ -315,7 +315,7 @@ storage.set("lastResult", data);
 | [架构总纲](./docs/AI-Dev/developer/02-架构总纲.md) | Shell + 插件分层 · EventBus · 存储架构 |
 | [插件开发指南](./docs/AI-Dev/developer/03-插件开发指南.md) | SystemRegistration · 引擎层 · 上线 Checklist |
 | [编码规范](./docs/AI-Dev/developer/04-编码规范.md) | TS strict · 命名 · 代码标头 · Git 提交 |
-| [测试策略](./docs/AI-Dev/developer/05-测试策略.md) | Vitest · 分层测试 · 312 tests 基线 |
+| [测试策略](./docs/AI-Dev/developer/05-测试策略.md) | Vitest · 分层测试 · 316 tests 基线 |
 | [部署运维](./docs/AI-Dev/developer/06-部署运维.md) | CI/CD · Docker · Vercel · 监控 |
 | [安全合规](./docs/AI-Dev/developer/07-安全合规.md) | 密钥管理 · XSS 防护 · 命名空间隔离 |
 
@@ -351,9 +351,9 @@ storage.set("lastResult", data);
 | 指标 | 当前值 | 状态 |
 | ------ | -------- | ------ |
 | TypeScript 错误 | 0 | ✅ |
-| 测试总数 | 312 | ✅ 全绿 |
+| 测试总数 | 316 | ✅ 全绿 |
 | 测试通过率 | 100% | ✅ |
-| 测试文件 | 26 | ✅ |
+| 测试文件 | 27 | ✅ |
 | E2E 测试 | Playwright (Chromium) | ✅ |
 | 插件包数量 | 13 | ✅ |
 | 独立应用数量 | 8 | ✅ |
@@ -415,7 +415,7 @@ storage.set("lastResult", data);
 - ✅ **Jest-DOM 匹配器集成**：`test-setup.ts` 全局配置
 - ✅ **跨应用架构修复**：6 个独立 App.tsx 统一监听 `SHELL_WELCOME_DISMISS` 事件
 - ✅ **AIAssistantHub 命令执行修复**：补全 `cmd.action?.()` 调用链路
-- ✅ **312 tests 全量通过**（当前基线，26 个测试文件全绿）
+- ✅ **316 tests 全量通过**（当前基线，27 个测试文件全绿）
 
 ---
 

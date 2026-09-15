@@ -28,7 +28,7 @@ project: yyc3-ai-dev
 | 02 | [架构总纲](./02-架构总纲.md) | ⭐⭐⭐ 进阶 | 全员 | Shell+插件分层 · EventBus · 存储 · 双主题 |
 | 03 | [插件开发指南](./03-插件开发指南.md) | ⭐⭐ 中级 | 插件开发者 | SystemRegistration · 引擎层 · 上线 Checklist |
 | 04 | [编码规范](./04-编码规范.md) | ⭐ 基础 | 全员 | TS strict · 命名 · 标头 · Git 提交 |
-| 05 | [测试策略](./05-测试策略.md) | ⭐⭐ 中级 | 全员 | Vitest · 分层测试 · 312 tests 基线 |
+| 05 | [测试策略](./05-测试策略.md) | ⭐⭐ 中级 | 全员 | Vitest · 分层测试 · 316 tests 基线 |
 | 06 | [部署运维](./06-部署运维.md) | ⭐⭐⭐ 进阶 | DevOps | CI/CD · Docker · Vercel · 监控 |
 | 07 | [安全合规](./07-安全合规.md) | ⭐⭐⭐ 进阶 | 全员 | 密钥管理 · XSS 防护 · 命名空间隔离 |
 
@@ -66,7 +66,7 @@ project: yyc3-ai-dev
 | 指标 | 值 | 验证命令 |
 |------|-----|---------|
 | TypeScript 错误 | 0 | `npx tsc --noEmit` |
-| 单元测试 | 312 / 312 ✅（26 文件） | `npx vitest run` |
+| 单元测试 | 316 / 316 ✅（26 文件） | `npx vitest run` |
 | 插件包 | 13（shell + 12 plugin-*） | `ls packages/` |
 | 独立应用 | 8 | `ls apps/` |
 | CI | GitHub Actions 8 Job 质量门禁 | `.github/workflows/ai-eco-ci.yml` |
@@ -77,4 +77,4 @@ project: yyc3-ai-dev
 
 | 版本 | 日期 | 变更内容 | 作者 |
 |------|------|----------|------|
-| v1.0.0 | 2026-08-19 | 开发者文档套件重建：接入仓库地址，更新至 312 tests / 13 插件基线 | YanYuCloudCube Team |
+| v1.0.0 | 2026-08-19 | 开发者文档套件重建：接入仓库地址，更新至 316 tests / 13 插件基线 | YanYuCloudCube Team |
