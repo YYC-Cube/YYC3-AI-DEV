@@ -12,3 +12,8 @@ export type { DynastySkill } from "./skills";
 export type { Dynasty as DynastyDynasty, DynastySkillMap } from "./dynasties";
 export { EdictStepBar, DynastyCard, DynastyTag } from "./components";
 export type { EdictStep, StepStatus } from "./components";
+export { default as CourtHall } from "./pages/CourtHall";
+export { default as EdictBoard } from "./pages/EdictBoard";
+export { default as DynastyTimeline } from "./pages/DynastyTimeline";
+export { default as HonorWall } from "./pages/HonorWall";
+export { default as DynastySkills } from "./pages/DynastySkills";
