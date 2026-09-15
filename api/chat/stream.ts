@@ -166,7 +166,8 @@ const PROVIDERS: Record<string, ProviderEnv> = {
 const ALLOWED_ORIGINS = (process.env.CORS_ALLOWED_ORIGINS ?? "http://localhost:5173").split(",");
 
 function setCorsHeaders(req: VercelRequest, res: VercelResponse) {
-  const origin = req.headers.origin ?? "";
+  const rawOrigin = req.headers.origin ?? "";
+  const origin = Array.isArray(rawOrigin) ? (rawOrigin[0] ?? "") : rawOrigin;
   if (ALLOWED_ORIGINS.includes(origin)) {
     res.setHeader("Access-Control-Allow-Origin", origin);
   }

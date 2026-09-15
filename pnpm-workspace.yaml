@@ -5,6 +5,9 @@ packages:
 overrides:
   react: 19.2.7
   react-dom: 19.2.7
+  browserslist: 4.29.0
+  undici@7: 7.29.1
+  esbuild: 0.28.2
 
 allowBuilds:
   esbuild: true
