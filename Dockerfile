@@ -4,7 +4,7 @@
 # ============================================================
 
 # ===== Stage 1: deps (基础依赖) =====
-FROM node:20-alpine AS deps
+FROM node:22-alpine AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
@@ -31,7 +31,7 @@ COPY packages/plugin-llm/package.json ./packages/plugin-llm/
 RUN pnpm install --frozen-lockfile --prefer-offline
 
 # ===== Stage 2: builder =====
-FROM node:20-alpine AS builder
+FROM node:22-alpine AS builder
 RUN corepack enable && corepack prepare pnpm@11.10.0 --activate
 WORKDIR /app
 
