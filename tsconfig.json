@@ -128,7 +128,6 @@
   "exclude": [
     "node_modules",
     "dist",
-    "apps/standalone-dynasty",
     "e2e",
     "playwright-report",
     "test-results"

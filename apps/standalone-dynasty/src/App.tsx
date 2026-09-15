@@ -2,16 +2,21 @@
  * @file: App.tsx
  * @description: Dynasty 独立版 — 古文化版 · 页面互联 · Hub 命令可执行
  */
-import React, { useState, useEffect, useRef } from "react";
-import { WelcomePage, AIAssistantHub, storage, StorageKeys, eventBus } from "@yyc3/shell";
-import { THEME_ANCIENT, DYNASTY_STYLES } from "@yyc3/shell";
 import {
-  DYNASTY_HUB_COMMANDS, DYNASTY_AGENTS, DynastyEvents,
-  issueEdict, approveMemorial, rejectMemorial, submitReport, DynastyWorkflow,
-  getPersonaMock, getRandomDynastyQuote, getAgentDisplayName,
-  CourtHall, EdictBoard, DynastyTimeline, HonorWall, DynastySkills,
+  CourtHall,
+  DYNASTY_AGENTS,
+  DYNASTY_HUB_COMMANDS,
+  DynastySkills,
+  DynastyTimeline,
+  DynastyWorkflow,
+  EdictBoard,
+  getAgentDisplayName,
+  getPersonaMock, getRandomDynastyQuote,
+  HonorWall,
 } from "@yyc3/plugin-dynasty";
-import { Crown, Activity, Sparkles, Award, BookOpen, Gavel, Gem, Scroll, Home, LayoutGrid } from "lucide-react";
+import { AIAssistantHub, DYNASTY_STYLES, storage, StorageKeys, THEME_ANCIENT, WelcomePage } from "@yyc3/shell";
+import { Activity, Award, BookOpen, Crown, Gavel, Gem, Home, LayoutGrid, Scroll } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 const T = THEME_ANCIENT;
 const S = DYNASTY_STYLES;
@@ -19,7 +24,7 @@ const S = DYNASTY_STYLES;
 type DynastyPage = "home" | "court" | "edict" | "timeline" | "honors" | "skills";
 
 const NAV_ITEMS: { key: DynastyPage; label: string; icon: typeof Crown }[] = [
-  { key: "home",  label: "首",   icon: Home as any },
+  { key: "home", label: "首", icon: Home as any },
   { key: "court", label: "朝堂", icon: Crown },
   { key: "edict", label: "旨意", icon: Scroll },
   { key: "timeline", label: "王朝", icon: LayoutGrid },
@@ -53,8 +58,6 @@ export default function App() {
     <WelcomePage systems={SYSTEM_CARDS} mode="modal" onNavigate={() => setShowWelcome(false)}
       familySummary={`Dynasty 王朝 · ${DYNASTY_AGENTS.length} 位朝臣 · 三省六部制`} />
   );
-
-  const currentAgent = DYNASTY_AGENTS.find(a => a.id === activeAgent);
 
   return (
     <div className="min-h-screen" style={{ background: S.inkGradient }}>
@@ -111,8 +114,6 @@ export default function App() {
 
 /** 首页 — 快捷入口 + 当前状态 */
 function HomePage({ onNavigate }: { onNavigate: (p: DynastyPage) => void }) {
-  const [taskCount] = useState(0);
-
   return (
     <div className="max-w-3xl mx-auto p-6" style={{ paddingTop: "8vh" }}>
       <div className="text-center mb-8">
