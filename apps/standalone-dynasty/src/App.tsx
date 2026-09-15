@@ -9,12 +9,8 @@ import {
   DYNASTY_HUB_COMMANDS, DYNASTY_AGENTS, DynastyEvents,
   issueEdict, approveMemorial, rejectMemorial, submitReport, DynastyWorkflow,
   getPersonaMock, getRandomDynastyQuote, getAgentDisplayName,
+  CourtHall, EdictBoard, DynastyTimeline, HonorWall, DynastySkills,
 } from "@yyc3/plugin-dynasty";
-import CourtHall from "../../packages/plugin-dynasty/src/pages/CourtHall";
-import EdictBoard from "../../packages/plugin-dynasty/src/pages/EdictBoard";
-import DynastyTimeline from "../../packages/plugin-dynasty/src/pages/DynastyTimeline";
-import HonorWall from "../../packages/plugin-dynasty/src/pages/HonorWall";
-import DynastySkills from "../../packages/plugin-dynasty/src/pages/DynastySkills";
 import { Crown, Activity, Sparkles, Award, BookOpen, Gavel, Gem, Scroll, Home, LayoutGrid } from "lucide-react";
 
 const T = THEME_ANCIENT;
