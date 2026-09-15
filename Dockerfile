@@ -4,7 +4,7 @@
 # ============================================================
 
 # ===== Stage 1: deps (基础依赖) =====
-FROM node:22-alpine AS deps
+FROM node:20-alpine AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 

@@ -41,5 +41,6 @@
 
 - 每个包遵循 `SystemRegistration` 接口注册
 - 引擎层为纯函数，零 UI 依赖
+- 依赖方向：插件 → shell 单向；`peerDependencies` 必须与真实导入一致（幻影声明会被 `boundaries.test.ts` 拦截）
 - 测试文件与 `src/` 同级，命名 `{name}.test.ts`
 - 详见 [开发者文档](../docs/AI-Dev/developer/README.md)
