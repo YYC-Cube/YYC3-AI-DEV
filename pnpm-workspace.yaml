@@ -11,3 +11,6 @@ overrides:
 
 allowBuilds:
   esbuild: true
+
+# 供应链策略：新发布包冷却期 4 小时（pnpm 11 默认 24h 会阻塞常规更新）
+minimumReleaseAge: 240
