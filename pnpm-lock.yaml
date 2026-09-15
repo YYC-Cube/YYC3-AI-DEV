@@ -5,8 +5,8 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  react: ^19.0.0
-  react-dom: ^19.0.0
+  react: 19.2.7
+  react-dom: 19.2.7
 
 importers:
 
@@ -20,7 +20,7 @@ importers:
         version: 6.9.1
       '@testing-library/react':
         specifier: ^16.3.2
-        version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.8))(react@19.2.8)
+        version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@testing-library/user-event':
         specifier: ^14.6.1
         version: 14.6.1(@testing-library/dom@10.4.1)
@@ -64,10 +64,10 @@ importers:
         specifier: ^0.500.0
         version: 0.500.0(react@19.2.7)
       react:
-        specifier: ^19.0.0
+        specifier: 19.2.7
         version: 19.2.7
       react-dom:
-        specifier: ^19.0.0
+        specifier: 19.2.7
         version: 19.2.7(react@19.2.7)
       react-router-dom:
         specifier: ^7.0.0
@@ -92,10 +92,10 @@ importers:
         specifier: ^0.500.0
         version: 0.500.0(react@19.2.7)
       react:
-        specifier: ^19.0.0
+        specifier: 19.2.7
         version: 19.2.7
       react-dom:
-        specifier: ^19.0.0
+        specifier: 19.2.7
         version: 19.2.7(react@19.2.7)
     devDependencies:
       '@tailwindcss/vite':
@@ -117,10 +117,10 @@ importers:
         specifier: ^0.500.0
         version: 0.500.0(react@19.2.7)
       react:
-        specifier: ^19.0.0
+        specifier: 19.2.7
         version: 19.2.7
       react-dom:
-        specifier: ^19.0.0
+        specifier: 19.2.7
         version: 19.2.7(react@19.2.7)
     devDependencies:
       '@tailwindcss/vite':
@@ -142,10 +142,10 @@ importers:
         specifier: ^0.500.0
         version: 0.500.0(react@19.2.7)
       react:
-        specifier: ^19.0.0
+        specifier: 19.2.7
         version: 19.2.7
       react-dom:
-        specifier: ^19.0.0
+        specifier: 19.2.7
         version: 19.2.7(react@19.2.7)
     devDependencies:
       '@tailwindcss/vite':
@@ -167,10 +167,10 @@ importers:
         specifier: ^0.500.0
         version: 0.500.0(react@19.2.7)
       react:
-        specifier: ^19.0.0
+        specifier: 19.2.7
         version: 19.2.7
       react-dom:
-        specifier: ^19.0.0
+        specifier: 19.2.7
         version: 19.2.7(react@19.2.7)
     devDependencies:
       '@tailwindcss/vite':
@@ -192,10 +192,10 @@ importers:
         specifier: ^0.500.0
         version: 0.500.0(react@19.2.7)
       react:
-        specifier: ^19.0.0
+        specifier: 19.2.7
         version: 19.2.7
       react-dom:
-        specifier: ^19.0.0
+        specifier: 19.2.7
         version: 19.2.7(react@19.2.7)
     devDependencies:
       '@tailwindcss/vite':
@@ -217,10 +217,10 @@ importers:
         specifier: ^0.500.0
         version: 0.500.0(react@19.2.7)
       react:
-        specifier: ^19.0.0
+        specifier: 19.2.7
         version: 19.2.7
       react-dom:
-        specifier: ^19.0.0
+        specifier: 19.2.7
         version: 19.2.7(react@19.2.7)
     devDependencies:
       '@tailwindcss/vite':
@@ -242,10 +242,10 @@ importers:
         specifier: ^0.500.0
         version: 0.500.0(react@19.2.7)
       react:
-        specifier: ^19.0.0
+        specifier: 19.2.7
         version: 19.2.7
       react-dom:
-        specifier: ^19.0.0
+        specifier: 19.2.7
         version: 19.2.7(react@19.2.7)
     devDependencies:
       '@tailwindcss/vite':
@@ -287,10 +287,10 @@ importers:
         version: link:../shell
       lucide-react:
         specifier: ^0.500
-        version: 0.500.0(react@19.2.8)
+        version: 0.500.0(react@19.2.7)
       react:
-        specifier: ^19.0.0
-        version: 19.2.8
+        specifier: 19.2.7
+        version: 19.2.7
 
   packages/plugin-ai:
     dependencies:
@@ -299,10 +299,10 @@ importers:
         version: link:../shell
       lucide-react:
         specifier: ^0.500
-        version: 0.500.0(react@19.2.8)
+        version: 0.500.0(react@19.2.7)
       react:
-        specifier: ^19.0.0
-        version: 19.2.8
+        specifier: 19.2.7
+        version: 19.2.7
 
   packages/plugin-ai-family:
     dependencies:
@@ -314,10 +314,10 @@ importers:
         version: link:../shell
       lucide-react:
         specifier: ^0.500.0
-        version: 0.500.0(react@19.2.8)
+        version: 0.500.0(react@19.2.7)
       react:
-        specifier: ^19.0.0
-        version: 19.2.8
+        specifier: 19.2.7
+        version: 19.2.7
 
   packages/plugin-cost:
     dependencies:
@@ -326,10 +326,10 @@ importers:
         version: link:../shell
       lucide-react:
         specifier: ^0.500
-        version: 0.500.0(react@19.2.8)
+        version: 0.500.0(react@19.2.7)
       react:
-        specifier: ^19.0.0
-        version: 19.2.8
+        specifier: 19.2.7
+        version: 19.2.7
 
   packages/plugin-dev:
     dependencies:
@@ -338,10 +338,10 @@ importers:
         version: link:../shell
       lucide-react:
         specifier: ^0.500
-        version: 0.500.0(react@19.2.8)
+        version: 0.500.0(react@19.2.7)
       react:
-        specifier: ^19.0.0
-        version: 19.2.8
+        specifier: 19.2.7
+        version: 19.2.7
 
   packages/plugin-dynasty:
     dependencies:
@@ -353,10 +353,10 @@ importers:
         version: link:../shell
       lucide-react:
         specifier: ^0.500
-        version: 0.500.0(react@19.2.8)
+        version: 0.500.0(react@19.2.7)
       react:
-        specifier: ^19.0.0
-        version: 19.2.8
+        specifier: 19.2.7
+        version: 19.2.7
 
   packages/plugin-llm:
     dependencies:
@@ -364,8 +364,8 @@ importers:
         specifier: workspace:*
         version: link:../shell
       react:
-        specifier: ^19.0.0
-        version: 19.2.8
+        specifier: 19.2.7
+        version: 19.2.7
 
   packages/plugin-marketing:
     dependencies:
@@ -374,10 +374,10 @@ importers:
         version: link:../shell
       lucide-react:
         specifier: ^0.500
-        version: 0.500.0(react@19.2.8)
+        version: 0.500.0(react@19.2.7)
       react:
-        specifier: ^19.0.0
-        version: 19.2.8
+        specifier: 19.2.7
+        version: 19.2.7
 
   packages/plugin-monitor:
     dependencies:
@@ -386,10 +386,10 @@ importers:
         version: link:../shell
       lucide-react:
         specifier: ^0.500
-        version: 0.500.0(react@19.2.8)
+        version: 0.500.0(react@19.2.7)
       react:
-        specifier: ^19.0.0
-        version: 19.2.8
+        specifier: 19.2.7
+        version: 19.2.7
 
   packages/plugin-ops:
     dependencies:
@@ -398,10 +398,10 @@ importers:
         version: link:../shell
       lucide-react:
         specifier: ^0.500
-        version: 0.500.0(react@19.2.8)
+        version: 0.500.0(react@19.2.7)
       react:
-        specifier: ^19.0.0
-        version: 19.2.8
+        specifier: 19.2.7
+        version: 19.2.7
 
   packages/plugin-prompt:
     dependencies:
@@ -410,10 +410,10 @@ importers:
         version: link:../shell
       lucide-react:
         specifier: ^0.500
-        version: 0.500.0(react@19.2.8)
+        version: 0.500.0(react@19.2.7)
       react:
-        specifier: ^19.0.0
-        version: 19.2.8
+        specifier: 19.2.7
+        version: 19.2.7
 
   packages/plugin-target:
     dependencies:
@@ -422,10 +422,10 @@ importers:
         version: link:../shell
       lucide-react:
         specifier: ^0.500
-        version: 0.500.0(react@19.2.8)
+        version: 0.500.0(react@19.2.7)
       react:
-        specifier: ^19.0.0
-        version: 19.2.8
+        specifier: 19.2.7
+        version: 19.2.7
 
   packages/shell:
     dependencies:
@@ -434,13 +434,13 @@ importers:
         version: link:../plugin-llm
       lucide-react:
         specifier: ^0.500.0
-        version: 0.500.0(react@19.2.8)
+        version: 0.500.0(react@19.2.7)
       react:
-        specifier: ^19.0.0
-        version: 19.2.8
+        specifier: 19.2.7
+        version: 19.2.7
       react-router-dom:
         specifier: ^7.0.0
-        version: 7.17.0(react-dom@19.2.7(react@19.2.8))(react@19.2.8)
+        version: 7.17.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
 
 packages:
 
@@ -1540,8 +1540,8 @@ packages:
       '@testing-library/dom': ^10.0.0
       '@types/react': ^18.0.0 || ^19.0.0
       '@types/react-dom': ^18.0.0 || ^19.0.0
-      react: ^19.0.0
-      react-dom: ^19.0.0
+      react: 19.2.7
+      react-dom: 19.2.7
     peerDependenciesMeta:
       '@types/react':
         optional: true
@@ -2312,7 +2312,7 @@ packages:
   lucide-react@0.500.0:
     resolution: {integrity: sha512-IyGvnYOSBKiF7rFI3p0tDw4ZI+TKnn1b5LPF2/q3NBmA7zYaDagevs1eMNyPRpKdFXxgma6rEu6+2ylJaaGnJA==}
     peerDependencies:
-      react: ^19.0.0
+      react: 19.2.7
 
   lz-string@1.5.0:
     resolution: {integrity: sha512-h5bgJWpxJNswbU7qCrV0tIKQCaS3blPDrqKWx+QxzuzL1zGUzij9XCWLrSLsJPu5t+eWA/ycetzYAO5IOMcWAQ==}
@@ -2501,7 +2501,7 @@ packages:
   react-dom@19.2.7:
     resolution: {integrity: sha512-t0BRVXvbiE/o20Hfw669rLbMCDWtYZLvmJigy2f0MxsXF+71pxhR3xOkspmsO8h3ZlNzyibAmtCa3l4lYKk6gQ==}
     peerDependencies:
-      react: ^19.0.0
+      react: 19.2.7
 
   react-is@17.0.2:
     resolution: {integrity: sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==}
@@ -2517,25 +2517,21 @@ packages:
     resolution: {integrity: sha512-fyU2yjGups/hE6Xz0I5ZYbVL8Gx29eCjgpHaRaTaVU+OOAdfRX05KsvyRm0GO8YQwOkhpU3MurW1jyMUJn+zSw==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
-      react: ^19.0.0
-      react-dom: ^19.0.0
+      react: 19.2.7
+      react-dom: 19.2.7
 
   react-router@7.17.0:
     resolution: {integrity: sha512-FDELK7rTMlCHO5+reyXsPlmfr7N1F91lPHsWYfMEGQm/KQ+F4JFM8jGoeQDmDvdTs93Fw9aSilH+uKRb4/jXvQ==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
-      react: ^19.0.0
-      react-dom: ^19.0.0
+      react: 19.2.7
+      react-dom: 19.2.7
     peerDependenciesMeta:
       react-dom:
         optional: true
 
   react@19.2.7:
     resolution: {integrity: sha512-HNe9WslTbXmFK8o8cmwgAeJFSBvt1bPdHCVKtaaV+WlAN36mpT4hcRpwbf3fY56ar2oIXzsBpOAiIRHAdY0OlQ==}
-    engines: {node: '>=0.10.0'}
-
-  react@19.2.8:
-    resolution: {integrity: sha512-PWaYA1L/q9u2u7xYQi+Y3L3Yfnie7XyLeaJICV1MGD6LprsBxcAqGjYyr0eY3p+QdsA+x/Irkt4Qif8D63+Sbw==}
     engines: {node: '>=0.10.0'}
 
   redent@3.0.0:
@@ -3643,12 +3639,12 @@ snapshots:
       picocolors: 1.1.1
       redent: 3.0.0
 
-  '@testing-library/react@16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.8))(react@19.2.8)':
+  '@testing-library/react@16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
     dependencies:
       '@babel/runtime': 7.29.7
       '@testing-library/dom': 10.4.1
-      react: 19.2.8
-      react-dom: 19.2.7(react@19.2.8)
+      react: 19.2.7
+      react-dom: 19.2.7(react@19.2.7)
     optionalDependencies:
       '@types/react': 19.2.17
       '@types/react-dom': 19.2.3(@types/react@19.2.17)
@@ -4513,10 +4509,6 @@ snapshots:
     dependencies:
       react: 19.2.7
 
-  lucide-react@0.500.0(react@19.2.8):
-    dependencies:
-      react: 19.2.8
-
   lz-string@1.5.0: {}
 
   magic-string@0.30.21:
@@ -4669,11 +4661,6 @@ snapshots:
       react: 19.2.7
       scheduler: 0.27.0
 
-  react-dom@19.2.7(react@19.2.8):
-    dependencies:
-      react: 19.2.8
-      scheduler: 0.27.0
-
   react-is@17.0.2: {}
 
   react-is@18.3.1: {}
@@ -4686,12 +4673,6 @@ snapshots:
       react-dom: 19.2.7(react@19.2.7)
       react-router: 7.17.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
 
-  react-router-dom@7.17.0(react-dom@19.2.7(react@19.2.8))(react@19.2.8):
-    dependencies:
-      react: 19.2.8
-      react-dom: 19.2.7(react@19.2.8)
-      react-router: 7.17.0(react-dom@19.2.7(react@19.2.8))(react@19.2.8)
-
   react-router@7.17.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7):
     dependencies:
       cookie: 1.1.1
@@ -4700,17 +4681,7 @@ snapshots:
     optionalDependencies:
       react-dom: 19.2.7(react@19.2.7)
 
-  react-router@7.17.0(react-dom@19.2.7(react@19.2.8))(react@19.2.8):
-    dependencies:
-      cookie: 1.1.1
-      react: 19.2.8
-      set-cookie-parser: 2.7.2
-    optionalDependencies:
-      react-dom: 19.2.7(react@19.2.8)
-
   react@19.2.7: {}
-
-  react@19.2.8: {}
 
   redent@3.0.0:
     dependencies:

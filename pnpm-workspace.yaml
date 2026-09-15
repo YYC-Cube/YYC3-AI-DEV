@@ -1,5 +1,13 @@
 packages:
   - "packages/*"
   - "apps/*"
+
+overrides:
+  react: 19.2.7
+  react-dom: 19.2.7
+
+onlyBuiltDependencies:
+  - esbuild
+
 allowBuilds:
   esbuild: set this to true or false
