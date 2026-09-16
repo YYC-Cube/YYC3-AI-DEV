@@ -363,3 +363,44 @@ packages/{system-id}/
 ❌ 禁止: 直接读写其他系统的存储
 ❌ 禁止: 互相依赖路由结构
 ```
+
+---
+
+## 八、项目实际现状对齐（2026-09-16 校准）
+
+> 本章自原《YYC3-项目架构-设计总纲.md》合并而来（该文档已删除）。数据以 `npx vitest run` / `tsc --noEmit` 实测为准，最新基线见根 [README](../../README.md)。
+
+### 8.1 Monorepo 实际结构（17 包 / 8 App）
+
+```
+packages/ (17)      shell · 12 plugin-* · 4 引擎包 (dynasty-core / family-agents / family-core / family-skills)
+apps/ (8)           full · standalone-{dynasty,ai-family,monitor,ops,ai,dev,admin}
+api/chat/stream.ts  Vercel Serverless — LLM 代理（隐藏 Key + SSE + IP 限速）
+e2e/                Playwright (welcome-flow)
+```
+
+### 8.2 核心业务文档衔接矩阵
+
+| 文档 | 插件包 | 公开 API |
+|------|--------|---------|
+| 《My-经管运维-目标量化》 | plugin-target | `calc / splitPhases / splitMonthly / validate` |
+| 《My-成本盈亏-计算工具》 | plugin-cost | `calcCityCostIndex / calcTotalCost / analyzeProfit` |
+| 《My-营销工具-构建方案》 | plugin-marketing | `buildFestivalCalendar / filterByStage / getDefaultActions` |
+| 《My-经管运维工具提示词》 | plugin-prompt | `BUSINESS_PROMPTS / PERSONA_PROMPT_MAP` |
+
+### 8.3 关键架构演进记录
+
+| 演进点 | 结果 |
+|--------|------|
+| LLM 适配层 | plugin-llm 零依赖纯适配（5 Provider + SSE + AES-256-GCM Keyring），shell 经 llm-bridge 单向桥接 + Mock 降级 |
+| 依赖边界 | 插件 → shell 单向依赖；幻影 peer 声明由 `boundaries.test.ts` 守卫拦截 |
+| 部署基线 | Vercel (api/serverless) + Docker + CI/CD 多 Job 门禁 + Lighthouse a11y ≥ 0.95 |
+
+---
+
+## 变更历史
+
+| 版本 | 日期 | 变更内容 | 作者 |
+|------|------|----------|------|
+| v1.1.0 | 2026-09-16 | 合并《YYC3-项目架构-设计总纲》独有内容（现状对齐/衔接矩阵/演进记录），基线更新至 17 包 | YanYuCloudCube Team |
+| v1.0.0 | — | 初始架构规范 | YanYuCloudCube Team |
