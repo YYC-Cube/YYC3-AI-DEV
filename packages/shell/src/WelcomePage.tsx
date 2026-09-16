@@ -72,7 +72,7 @@ export function WelcomePage({ systems, mode = "page", onNavigate, familySummary 
                   <Icon className="w-5 h-5" style={{ color: sys.color }} />
                 </div>
                 <p className="text-[#e0f0ff] text-sm font-medium">{sys.name}</p>
-                <p className="text-[rgba(0,212,255,0.3)] text-xs mt-0.5">{sys.description}</p>
+                <p className="text-[#8fc9e8] text-xs mt-0.5">{sys.description}</p>
                 {sys.badge && (
                   <span className="inline-block mt-1 px-2 py-0.5 rounded text-xs"
                     style={{ background: `${sys.color}18`, color: sys.color }}>{sys.badge}</span>

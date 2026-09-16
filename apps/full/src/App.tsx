@@ -79,7 +79,7 @@ function Dashboard({ cards }: { cards: { id: string; name: string; desc: string;
   return (
     <div className="p-8 text-center" style={{ paddingTop: "8vh" }}>
       <h1 className="text-[#e0f0ff] text-2xl font-bold tracking-wider mb-2">YYC³ Cloud Intelli-Matrix</h1>
-      <p className="text-[rgba(0,212,255,0.3)] text-sm mb-10">7 系统协同 · AI Family 中枢</p>
+      <p className="text-[#5dd8f7] text-sm mb-10">7 系统协同 · AI Family 中枢</p>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-2xl mx-auto">
         {cards.map(c => {
