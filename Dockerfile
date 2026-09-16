@@ -4,7 +4,8 @@
 # ============================================================
 
 # ===== Stage 1: deps (基础依赖) =====
-FROM node:20-alpine AS deps
+# Node 22: pnpm 11 要求 >= 22.13（node:sqlite 等内置模块）
+FROM node:22-alpine AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
