@@ -34,7 +34,7 @@ const best = await router.route("cost", prompt);
 ## 测试
 
 ```bash
-npx vitest run packages/plugin-llm/   # 61 tests ✅
+npx vitest run packages/plugin-llm/   # 57 tests ✅
 ```
 
 ## 安全要点
