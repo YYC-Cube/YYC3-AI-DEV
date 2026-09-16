@@ -11,6 +11,10 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+# 最小权限原则：默认只读，deploy job 按需提升
+permissions:
+  contents: read
+
 env:
   NODE_VERSION: "22"
   PNPM_VERSION: "11.10.0"
@@ -177,9 +181,8 @@ jobs:
       - name: Install deps
         run: pnpm install --frozen-lockfile
 
-      - name: pnpm audit (high/critical)
+      - name: pnpm audit (high/critical 门禁)
         run: pnpm audit --audit-level=high
-        continue-on-error: true
 
       - name: Snyk security scan
         uses: snyk/actions/node@master
@@ -280,8 +283,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Verify file structure
-        run: node validate-ecosystem.js || true
+      - name: Docs integrity gate (存在性 + 插件 README + 链接)
+        run: node validate-docs.js
 
       - name: Check all plugins
         run: |
