@@ -16,3 +16,6 @@ docs/AI-FAmily-Agent-家人档案/
 
 # 遗留外部仓库快照（openclaw i18n，2026-09 移出）
 i18n/
+
+# Next.js 构建产物
+.next/
