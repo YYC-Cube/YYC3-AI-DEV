@@ -161,9 +161,12 @@ const PROVIDERS: Record<string, ProviderEnv> = {
 };
 
 // ============================================================
-// CORS 配置
+// CORS 配置（默认含本地开发 + 正式域名 dev.yyc3.vip，可用环境变量覆盖）
 // ============================================================
-const ALLOWED_ORIGINS = (process.env.CORS_ALLOWED_ORIGINS ?? "http://localhost:5173").split(",");
+const ALLOWED_ORIGINS = (
+  process.env.CORS_ALLOWED_ORIGINS ??
+  "https://dev.yyc3.vip,http://localhost:5173,http://localhost:3000"
+).split(",");
 
 function setCorsHeaders(req: VercelRequest, res: VercelResponse) {
   const rawOrigin = req.headers.origin ?? "";

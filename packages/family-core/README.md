@@ -15,7 +15,6 @@ npx vitest run packages/family-core/   # 8 tests ✅
 ```
 
 - [ecosystem.test.ts](./ecosystem.test.ts)（包根）— 生态完整性守卫
-
 ## 消费方
 
 `family-agents`（人格层）、`plugin-ai-family`（UI 层）。

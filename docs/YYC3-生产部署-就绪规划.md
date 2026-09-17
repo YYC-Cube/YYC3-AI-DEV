@@ -159,6 +159,7 @@ SSE: Token-by-Token 流式 ✅
 | API Key 安全 | AES-256-GCM 加密 | 密钥不落明文盘 | ✅ PBKDF2 100K iter |
 | 依赖漏洞 | 0 高危 | pnpm audit + Snyk | ✅ CI 集成 |
 | Vercel 部署 | 可访问 | <https://yyc3.vercel.app> | ✅ 配置就绪 |
+| 文档站点域名 | 可访问 + HTTPS | <https://dev.yyc3.vip>（CNAME 已入库） | ✅ Enforce HTTPS 已开启 |
 | Docker 镜像 | < 500MB | docker images 检查 | ✅ Nginx Alpine ~50MB |
 | Lighthouse | ≥ 90 分 | 性能 / 可访问性 / SEO | ✅ LCP<2.5s/CLS<0.1/TBT<200ms |
 | 单元测试 | 60+ tests | pnpm test --run | ✅ 294 tests / 100% pass |
