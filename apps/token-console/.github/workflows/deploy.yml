@@ -1,0 +1,56 @@
+name: 🌹 Deploy with Family Watermark
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 9 }
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint:family
+      - run: pnpm build
+
+      - name: Inject web watermark
+        run: node scripts/inject-watermark.js
+
+      - name: Guard images
+        run: node scripts/image-guard.js
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: apps/console/out
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
+
+      - name: Notify family channel
+        if: ${{ secrets.FAMILY_WEBHOOK != '' }}
+        run: |
+          curl -fsSL -X POST \
+            -H "Content-Type: application/json" \
+            -d '{
+              "content": "🌹 新版本已归元于云枢 · 人从众曌众从人",
+              "embeds": [{
+                "title": "YYC³ Token Console",
+                "description": "版本 v5.1.0 · 8 位家人守护",
+                "color": 6175882,
+                "footer": { "text": "亦师亦友亦伯乐 · 一言一语一协同" }
+              }]
+            }' \
+            ${{ secrets.FAMILY_WEBHOOK }}

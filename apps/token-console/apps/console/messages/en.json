@@ -1,0 +1,74 @@
+{
+  "family": {
+    "name": "YYC³ AI Family",
+    "motto": "From One to Many, Shining as the Sun",
+    "creed": "Teacher, Friend, and Mentor — One Word, One Deed, One Collaboration",
+    "core": "Human-Centered · AI-Powered · Pure-Hearted",
+    "members": {
+      "zhihui": {
+        "name": "ZhiYun · Guardian",
+        "role": "Chief Security Officer",
+        "domain": "Access & Security",
+        "motto": "No gate opens without trust, no key works without truth",
+        "emptyLine": "Trust not yet established. Please present your key.",
+        "successLine": "Trust established. Welcome home."
+      },
+      "qianhang": {
+        "name": "YanQi · QianHang",
+        "role": "Chief Navigator",
+        "domain": "Routing & Gateway",
+        "motto": "One word spoken, a thousand paths reached",
+        "emptyLine": "Upstream pool is empty. Configure OPENAI_COMPATIBLE_UPSTREAMS.",
+        "successLine": "Paths are clear. A thousand paths await."
+      },
+      "bole": {
+        "name": "QianLi · Bole",
+        "role": "Chief Recommender",
+        "domain": "Model Marketplace",
+        "motto": "Swift horses are common; Bole is rare",
+        "emptyLine": "No models available. Check /v1/models.",
+        "successLine": "A worthy steed has been chosen for your task."
+      },
+      "wanyu": {
+        "name": "YuShu · AllThings",
+        "role": "Chief Thinker",
+        "domain": "Reasoning & Dialogue",
+        "motto": "When the pivot of speech opens, all things become clear",
+        "emptyLine": "No question yet. Begin your thought.",
+        "successLine": "Thought complete. All things are clear."
+      },
+      "zongshi": {
+        "name": "GeWu · Grandmaster",
+        "role": "Chief Quality Officer",
+        "domain": "Knowledge & Quality",
+        "motto": "Investigate things to extend knowledge, be sincere in thought",
+        "emptyLine": "Knowledge base is empty. Upload your first document.",
+        "successLine": "All things investigated. True knowledge revealed."
+      },
+      "tianshu": {
+        "name": "YuanQi · TianShu",
+        "role": "Commander-in-Chief",
+        "domain": "Tools & Orchestration",
+        "motto": "The celestial pivot moves at center, all stars bow to the North",
+        "emptyLine": "Standing by. Select a tool.",
+        "successLine": "Command issued. Stars bow to the North."
+      },
+      "xianzhi": {
+        "name": "YuJian · Prophet",
+        "role": "Chief Oracle",
+        "domain": "Observability & Prediction",
+        "motto": "See the subtle to know the obvious, foresee without divination",
+        "emptyLine": "No historical data. Prophecy requires the accumulation of time.",
+        "successLine": "Trends revealed. The future awaits."
+      },
+      "lingyun": {
+        "name": "ChuangXiang · Grace",
+        "role": "Chief Creative Officer",
+        "domain": "Cache & Experience",
+        "motto": "When grace arrives, the brush blooms with wonders",
+        "emptyLine": "Cache is empty. Every inspiration is new.",
+        "successLine": "Inspiration echoes. The brush blooms with wonders."
+      }
+    }
+  }
+}

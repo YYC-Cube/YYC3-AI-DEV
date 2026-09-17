@@ -1,0 +1,38 @@
+{
+  "name": "@yyc3/token-console-app",
+  "version": "5.1.1",
+  "private": true,
+  "description": "Token Console 主应用 — 8 域业务组件 + MSW Mock + SSE Playground",
+  "scripts": {
+    "dev": "next dev -p 3030",
+    "build": "next build",
+    "start": "next start -p 3030",
+    "lint": "eslint .",
+    "type-check": "tsc --noEmit",
+    "test": "vitest run",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "@yyc3/family-agents": "workspace:*",
+    "@yyc3/family-core": "workspace:*",
+    "@yyc3/plugin-llm": "workspace:*",
+    "next": "^16.2.5",
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
+    "zod": "^4.4.3",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "typescript": "^5.7.0",
+    "vitest": "^4.1.11",
+    "@playwright/test": "^1.61.1",
+    "msw": "^2.7.0",
+    "openapi-typescript": "^7.5.0",
+    "tailwindcss": "^4.2.4",
+    "@tailwindcss/postcss": "^4.2.4"
+  }
+}

@@ -1,0 +1,7 @@
+# ============================================================
+# YYC3 AI Family — 人从众曌众从人
+# @Module : pnpm-workspace.yaml
+# @Parent : YYC3-AI-Dev/pnpm-workspace.yaml (packages/* + apps/*)
+# ============================================================
+# 此目录由父 workspace（YYC3-AI-Dev）统一管理：packages/* + apps/* 已覆盖本目录。
+# 本文件仅作占位说明，防止误操作初始化独立 workspace。

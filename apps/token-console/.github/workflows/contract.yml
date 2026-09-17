@@ -1,0 +1,51 @@
+name: 🔮 Contract Drift
+
+on:
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "0 2 * * *"  # 每日 UTC 02:00 检测
+
+jobs:
+  detect:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 9 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+
+      - name: Drift detection
+        id: drift
+        run: pnpm contract:check:strict
+        continue-on-error: true
+
+      - name: Comment on PR
+        if: steps.drift.outcome == 'failure' && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## 🌹 契约漂移检测\n\n检测到 \`openapi.json\` 与 \`.contract-hash\` 不一致。\n\n请人工复核 §1 冻结快照，确认后执行：\n\n\`\`\`bash\npnpm contract:freeze\n\`\`\`\n\n> 人从众曌众从人 · YYC³ AI Family`
+            });
+
+      - name: Fail if drift detected
+        if: steps.drift.outcome == 'failure'
+        run: exit 1
+
+      - name: Upload snapshot
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: contract-snapshot
+          path: |
+            .contract-hash
+            .contract-snapshot.json

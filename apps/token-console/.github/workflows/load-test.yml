@@ -1,0 +1,72 @@
+name: 🤔 SSE 压力测试
+
+on:
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "0 4 * * 0"  # 每周日 UTC 04:00 全量
+
+jobs:
+  smoke:
+    name: 🤔 冒烟压测
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with: { go-version: "1.22" }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+
+      - name: Install xk6
+        run: go install go.k6.io/xk6/cmd/xk6@latest
+      - name: Build k6 with SSE
+        run: bash tests/load/k6/build.sh
+
+      - name: Install Python deps
+        run: pip install matplotlib requests
+
+      - name: Run smoke test
+        run: python tests/load/bench.py
+        env:
+          API_BASE: ${{ secrets.API_BASE }}
+          SCENARIO: smoke
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smoke-results
+          path: tests/load/results/
+
+  full:
+    name: 🤔 全量压测
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with: { go-version: "1.22" }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+
+      - run: go install go.k6.io/xk6/cmd/xk6@latest
+      - run: bash tests/load/k6/build.sh
+      - run: pip install matplotlib requests
+
+      - name: Ramp test
+        run: python tests/load/bench.py
+        env:
+          API_BASE: ${{ secrets.API_BASE }}
+          SCENARIO: ramp
+
+      - name: Soak test
+        run: python tests/load/bench.py
+        env:
+          API_BASE: ${{ secrets.API_BASE }}
+          SCENARIO: soak
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: full-load-results
+          path: tests/load/results/

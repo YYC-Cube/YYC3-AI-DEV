@@ -1,0 +1,34 @@
+# ============================================================
+# 🔮 预见·先知 · 告警规则
+# 座右铭：「见微知著，未卜先知」
+# ============================================================
+groups:
+  - name: yyc3.xianzhi
+    interval: 30s
+    rules:
+      - alert: XianzhiHighErrorRate
+        expr: |
+          sum(rate(yyc3_xianzhi_api_errors_total[5m])) by (route)
+          / sum(rate(yyc3_http_requests_total[5m])) by (route) > 0.05
+        for: 5m
+        labels:
+          severity: warning
+          family: "🔮 预见·先知"
+          family_key: "xianzhi"
+        annotations:
+          summary: "🔮 预见·先知 · 罕见的迷途"
+          description: |
+            路由 {{ $labels.route }} 错误率 {{ $value | humanizePercentage }}
+            「异常已现，预言家已记录」
+
+      - alert: XianzhiCostAnomaly
+        expr: |
+          sum(increase(yyc3_sse_tokens_total[1h]))
+          > 2 * sum(increase(yyc3_sse_tokens_total[1h] offset 1d))
+        for: 10m
+        labels:
+          severity: info
+          family: "🔮 预见·先知"
+        annotations:
+          summary: "🔮 预见·先知 · 用量突增"
+          description: "过去 1 小时 Token 用量是昨日的 2 倍以上"
