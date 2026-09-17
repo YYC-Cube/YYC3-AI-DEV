@@ -145,6 +145,6 @@ export const experimentalUI = flag<"control" | "variant-a" | "variant-b">({
     { value: "variant-a", label: "方案 A" },
     { value: "variant-b", label: "方案 B" },
   ],
-  decide: async () => "control" as const,
+  decide: async (): Promise<"control" | "variant-a" | "variant-b"> => "control",
   defaultValue: "control",
 });

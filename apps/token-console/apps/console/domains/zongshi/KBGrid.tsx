@@ -7,7 +7,13 @@
 import { KBCard } from "./KBCard";
 import { useZongshiKBs } from "./useZongshiRAG";
 
-export function KBGrid() {
+export function KBGrid({
+  selected,
+  onToggle,
+}: {
+  selected?: string[];
+  onToggle?: (id: string) => void;
+}) {
   const { data: kbs, isLoading } = useZongshiKBs();
 
   if (isLoading) {
@@ -22,7 +28,14 @@ export function KBGrid() {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
-      {kbs?.map((kb) => <KBCard key={kb.id} kb={kb} />)}
+      {kbs?.map((kb) => (
+        <KBCard
+          key={kb.id}
+          kb={kb}
+          selected={selected?.includes(kb.id)}
+          onToggle={onToggle ? () => onToggle(kb.id) : undefined}
+        />
+      ))}
     </div>
   );
 }

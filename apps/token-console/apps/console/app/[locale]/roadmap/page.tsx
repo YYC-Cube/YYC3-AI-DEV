@@ -13,10 +13,10 @@ const PHASES = [
   { name: "Phase 1 · 全量", status: "todo", desc: "灰度开关 PHASE_1_ENABLED 全开" },
 ];
 
-const BADGE = {
+const BADGE: Record<string, string> = {
   done: "bg-status-success/15 text-status-success",
   todo: "bg-status-warning/15 text-status-warning",
-} as const;
+};
 
 export default function RoadmapPage() {
   return (
@@ -30,7 +30,7 @@ export default function RoadmapPage() {
           >
             <div className="flex items-center gap-2">
               <h2 className="text-body-md font-semibold">{p.name}</h2>
-              <span className={`px-2 py-0.5 rounded text-caption ${BADGE[p.status as keyof typeof BADGE]}`}>
+              <span className={`px-2 py-0.5 rounded text-caption ${BADGE[p.status]}`}>
                 {p.status === "done" ? "已完成" : "待启动"}
               </span>
             </div>

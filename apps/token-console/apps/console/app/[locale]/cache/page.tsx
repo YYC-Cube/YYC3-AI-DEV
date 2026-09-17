@@ -4,6 +4,7 @@
  */
 "use client";
 
+import { useState } from "react";
 import { PageHeader } from "@/components/family/PageHeader";
 import { CacheStatCard } from "@/domains/lingyun/CacheStatCard";
 import { CacheActions } from "@/domains/lingyun/CacheActions";
@@ -12,6 +13,8 @@ import { useLingyunCacheStats } from "@/domains/lingyun/useLingyunCache";
 
 export default function CachePage() {
   const stats = useLingyunCacheStats();
+  // 灵韵涟漪触发器：每次失效/清空动作后 +1，激起缓存涟漪
+  const [ripple, setRipple] = useState(0);
 
   return (
     <div className="min-h-screen">
@@ -33,8 +36,8 @@ export default function CachePage() {
             />
           </div>
         )}
-        <CacheRipple trigger={0} />
-        <CacheActions />
+        <CacheRipple trigger={ripple} />
+        <CacheActions onMutated={() => setRipple((r) => r + 1)} />
       </div>
     </div>
   );

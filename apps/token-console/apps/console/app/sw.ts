@@ -8,7 +8,7 @@
  */
 import { defaultCache } from "@serwist/next/worker";
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
-import { Serwist, CacheFirst, NetworkFirst, StaleWhileRevalidate } from "serwist";
+import { CacheFirst, NetworkFirst, Serwist } from "serwist";
 
 declare global {
   interface ServiceWorkerGlobalScope extends SerwistGlobalConfig {
@@ -16,6 +16,7 @@ declare global {
   }
 }
 
+// sw.ts 在 WebWorker 上下文中运行，由 serwist 构建链单独编译
 declare const self: ServiceWorkerGlobalScope;
 
 const serwist = new Serwist({
