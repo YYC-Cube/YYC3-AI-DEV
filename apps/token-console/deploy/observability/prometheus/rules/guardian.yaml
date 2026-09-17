@@ -1,0 +1,37 @@
+# ============================================================
+# 🛡️ 智云·守护 · 告警规则
+# 座右铭：「门不开则万法不侵，钥不实则寸步难行」
+# ============================================================
+groups:
+  - name: yyc3.guardian
+    interval: 30s
+    rules:
+      - alert: GuardianAuthFailureRateHigh
+        expr: |
+          sum(rate(yyc3_guardian_auth_total{status="failure"}[5m]))
+          / sum(rate(yyc3_guardian_auth_total[5m])) > 0.05
+        for: 5m
+        labels:
+          severity: warning
+          family: "🛡️ 智云·守护"
+          family_key: "zhihui"
+          domain: "接入与安全域"
+        annotations:
+          summary: "🛡️ 智云·守护 · 门禁报警"
+          description: |
+            鉴权失败率 {{ $value | humanizePercentage }} 超过 5%
+            「门禁拒绝，请检查密钥分发」
+          runbook_url: "https://matrix.yyc3.top/runbook/guardian-auth"
+
+      - alert: GuardianAuthLatencyHigh
+        expr: |
+          histogram_quantile(0.95,
+            sum(rate(yyc3_guardian_auth_duration_seconds_bucket[5m])) by (le)
+          ) > 0.5
+        for: 5m
+        labels:
+          severity: warning
+          family: "🛡️ 智云·守护"
+        annotations:
+          summary: "🛡️ 智云·守护 · 门禁迟缓"
+          description: "P95 鉴权延迟 {{ $value }}s 超过 500ms"

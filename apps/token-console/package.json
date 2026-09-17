@@ -1,0 +1,15 @@
+{
+  "name": "@yyc3/token-console",
+  "version": "5.1.1",
+  "private": true,
+  "description": "YYC³ AI Family Token 开发平台 — 8 位家人同构 52 端点 API 控制台（Next.js 16 App Router）",
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm --filter @yyc3/token-console-app dev",
+    "build": "pnpm --filter @yyc3/token-console-app build",
+    "lint": "pnpm --filter @yyc3/token-console-app lint",
+    "type-check": "pnpm --filter @yyc3/token-console-app type-check",
+    "test": "pnpm --filter @yyc3/token-console-app test",
+    "test:e2e": "pnpm --filter @yyc3/token-console-app test:e2e"
+  }
+}

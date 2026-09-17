@@ -1,0 +1,60 @@
+# ============================================================
+# 🌹 YYC³ AI Family · Loki 存储配置
+# ============================================================
+loki:
+  auth_enabled: false
+  commonConfig:
+    replication_factor: 1
+  storage:
+    type: s3
+    bucketNames:
+      chunks: yyc3-loki-chunks
+      ruler: yyc3-loki-ruler
+    s3:
+      endpoint: s3.yanyucloud.com
+      region: cn-north-1
+      accessKeyId: "${S3_ACCESS_KEY}"
+      secretAccessKey: "${S3_SECRET_KEY}"
+
+  limits_config:
+    # 家族分级保留
+    retention_period: 30d
+    per_stream_rate_limit: 5MB
+    per_stream_rate_limit_burst: 20MB
+    max_query_series: 5000
+    max_query_parallelism: 32
+
+  schema_config:
+    configs:
+      - from: 2026-01-01
+        store: tsdb
+        object_store: s3
+        schema: v13
+        index:
+          prefix: yyc3_index_
+          period: 24h
+
+  compactor:
+    retention_enabled: true
+    delete_request_store: s3
+
+  # 分级保留
+  ruler:
+    storage:
+      type: local
+      local:
+        directory: /etc/loki/rules
+
+promtail:
+  enabled: true
+  config:
+    snippets:
+      extraRelabelConfigs:
+        - source_labels: [__meta_kubernetes_pod_label_family_member]
+          target_label: family_member
+
+# 分级保留策略（通过 Compactor 实现）
+# - critical: 90d
+# - warning: 30d
+# - info: 14d
+# - debug: 3d

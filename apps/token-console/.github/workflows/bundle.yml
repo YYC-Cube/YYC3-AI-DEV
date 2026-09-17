@@ -1,0 +1,56 @@
+name: 🎨 打包体积守门
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  bundle-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 9 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+
+      - run: pnpm install --frozen-lockfile
+
+      # Turbopack 磁盘缓存（CI 中启用）
+      - name: Restore Turbopack cache
+        uses: actions/cache@v4
+        with:
+          path: apps/console/.next/cache
+          key: turbopack-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: turbopack-${{ runner.os }}-
+
+      - name: Build with Turbopack
+        run: pnpm build
+
+      - name: Analyze bundle
+        run: pnpm bundle:analyze
+
+      - name: Upload bundle report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bundle-report
+          path: reports/bundle/
+
+      - name: Comment on PR
+        if: failure() && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let body = '## 🎨 打包体积超预算\n\n';
+            try {
+              body += fs.readFileSync('reports/bundle/bundle-report.md', 'utf-8');
+            } catch { body += '请查看 Artifacts。'; }
+            body += '\n\n---\n> 灵韵一至，妙笔生花 🌹';
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body
+            });

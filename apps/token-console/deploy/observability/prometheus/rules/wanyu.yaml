@@ -1,0 +1,46 @@
+# ============================================================
+# 🤔 语枢·万物 · 告警规则（SSE 核心）
+# 座右铭：「语枢一启，万物皆明」
+# ============================================================
+groups:
+  - name: yyc3.wanyu
+    interval: 30s
+    rules:
+      - alert: WanyuSSETTFTDegraded
+        expr: |
+          histogram_quantile(0.95,
+            sum(rate(yyc3_sse_ttft_seconds_bucket[5m])) by (le)
+          ) > 3
+        for: 5m
+        labels:
+          severity: warning
+          family: "🤔 语枢·万物"
+          family_key: "wanyu"
+          domain: "推理对话域"
+        annotations:
+          summary: "🤔 语枢·万物 · 思考速度退化"
+          description: |
+            SSE 首字节 P95 {{ $value }}s 超过 3s
+            「万物思考变慢，请检查上游池」
+
+      - alert: WanyuSSEActiveStreamsSaturated
+        expr: yyc3_sse_active_streams > 1000
+        for: 2m
+        labels:
+          severity: critical
+          family: "🤔 语枢·万物"
+        annotations:
+          summary: "🤔 语枢·万物 · 万物满溢"
+          description: "活跃流数 {{ $value }} 超过 1000，接近容量上限"
+
+      - alert: WanyuDegradedRateHigh
+        expr: |
+          sum(rate(yyc3_sse_degraded_total[5m]))
+          / sum(rate(yyc3_sse_tokens_total[5m])) > 0.1
+        for: 5m
+        labels:
+          severity: warning
+          family: "🤔 语枢·万物"
+        annotations:
+          summary: "🤔 语枢·万物 · 频繁降级"
+          description: "降级率 {{ $value | humanizePercentage }} 超过 10%，上游池不稳定"

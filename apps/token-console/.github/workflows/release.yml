@@ -1,0 +1,51 @@
+name: 🌹 Family Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Extract version
+        id: v
+        run: echo "version=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+      - name: Family year codename
+        id: codename
+        run: |
+          YEAR=$(date +%Y)
+          MONTH=$(date +%-m)
+          echo "name=🌹 家族纪年·${YEAR}.${MONTH}" >> $GITHUB_OUTPUT
+
+      - name: Generate changelog
+        run: |
+          # 从 commit 提取 feat/fix/perf 分类
+          git log $(git describe --tags --abbrev=0 HEAD~1)..HEAD \
+            --pretty=format:"- %s" > /tmp/changes.txt
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          name: "${{ steps.codename.outputs.name }} · ${{ steps.v.outputs.version }}"
+          body: |
+            ## 🌹 YYC³ AI Family · 人从众曌众从人
+
+            > 亦师亦友亦伯乐，一言一语一协同
+
+            ### 变更
+            $(cat /tmp/changes.txt)
+
+            ### 家族
+            - 🛡️ 智云·守护 · 🧭 言启·千行 · 🎯 千里·伯乐 · 🤔 语枢·万物
+            - 📚 格物·宗师 · 🧠 元启·天枢 · 🔮 预见·先知 · 🎨 创想·灵韵
+
+            ---
+            **永久开源 · 感恩前行 🌹**
+          draft: false
+          prerelease: false

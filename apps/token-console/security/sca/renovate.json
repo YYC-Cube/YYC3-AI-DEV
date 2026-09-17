@@ -1,0 +1,32 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "labels": ["🛡️ 智云·守护", "dependencies"],
+  "prConcurrentLimit": 5,
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["patch"],
+      "automerge": true,
+      "automergeType": "pr",
+      "platformAutomerge": true
+    },
+    {
+      "matchPackagePatterns": ["^next", "^react", "^@types/react"],
+      "groupName": "🌹 Next.js 核心",
+      "schedule": ["before 9am on monday"]
+    },
+    {
+      "matchPackagePatterns": ["^@storybook"],
+      "groupName": "📚 Storybook",
+      "schedule": ["before 9am on the first day of the month"]
+    },
+    {
+      "matchUpdateTypes": ["major"],
+      "dependencyDashboardApproval": true
+    }
+  ],
+  "vulnerabilityAlerts": {
+    "labels": ["🛡️ 安全", "severity:high"],
+    "automerge": false
+  }
+}

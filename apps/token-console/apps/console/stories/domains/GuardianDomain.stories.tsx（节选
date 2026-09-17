@@ -1,0 +1,28 @@
+import { within, userEvent, expect } from "@storybook/test";
+
+export const ConnectFlow: Story = {
+  render: () => <ConnectForm />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. 空 Key 时按钮禁用
+    const submit = canvas.getByRole("button", { name: "连接" });
+    await expect(submit).toBeDisabled();
+
+    // 2. 输入 Key
+    const input = canvas.getByPlaceholderText(/sk-/);
+    await userEvent.type(input, "sk-test-demo");
+    await expect(input).toHaveValue("sk-test-demo");
+
+    // 3. 按钮启用
+    await expect(submit).toBeEnabled();
+
+    // 4. 点击连接（MSW 返回成功）
+    await userEvent.click(submit);
+
+    // 5. 等待成功台词
+    await expect(
+      await canvas.findByText(/信任已建立，欢迎回家/),
+    ).toBeVisible();
+  },
+};

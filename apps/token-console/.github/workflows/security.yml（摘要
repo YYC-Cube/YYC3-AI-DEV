@@ -1,0 +1,205 @@
+name: 🛡️ 安全审计
+
+on:
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "0 5 * * 1"  # 每周一 05:00
+
+jobs:
+  # ============ SAST: Semgrep ============
+  semgrep:
+    name: 🛡️ Semgrep SAST
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: returntocorp/semgrep-action@v1
+        with:
+          config: >-
+            p/security-audit
+            p/typescript
+            p/react
+            p/owasp-top-ten
+            security/sast/semgrep-family.yml
+        env:
+          SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+
+  # ============ SAST: CodeQL ============
+  codeql:
+    name: 🛡️ CodeQL 深度分析
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        language: ["javascript-typescript"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+          queries: +security-extended,security-and-quality
+          config-file: security/sast/codeql-config.yml
+      - uses: github/codeql-action/autobuild@v3
+      - uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:${{ matrix.language }}"
+
+  # ============ SCA: 依赖扫描 ============
+  sca:
+    name: 🛡️ 依赖漏洞扫描
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 9 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+
+      - name: npm audit
+        run: pnpm audit --audit-level=high
+
+      - name: OSV Scanner
+        uses: google/osv-scanner-action/osv-scanner-action@v1
+        with:
+          scan-args: |-
+            --lockfile=pnpm-lock.yaml
+
+      - name: Snyk
+        uses: snyk/actions/node@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high
+
+  # ============ 密钥扫描 ============
+  secrets:
+    name: 🛡️ 密钥扫描
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+
+      - name: Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_CONFIG: security/secrets/gitleaks.toml
+
+      - name: TruffleHog
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
+          base: ${{ github.event.repository.default_branch }}
+          head: HEAD
+          extra_args: --only-verified
+
+  # ============ DAST: OWASP ZAP ============
+  dast-baseline:
+    name: 🛡️ ZAP 基线扫描
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    needs: [semgrep]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy preview
+        run: |
+          # 部署到临时环境（如 Vercel Preview）
+          echo "PREVIEW_URL=${{ steps.deploy.outputs.url }}" >> $GITHUB_ENV
+
+      - name: ZAP Baseline Scan
+        uses: zaproxy/action-baseline@v0.12.0
+        with:
+          target: ${{ env.PREVIEW_URL }}
+          rules_file_name: security/dast/zap/zap-rules.tsv
+          cmd_options: "-a"
+
+      - name: Upload ZAP report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: zap-baseline-report
+          path: report_html.html
+
+  dast-full:
+    name: 🛡️ ZAP 全量扫描
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: ZAP Full Scan
+        uses: zaproxy/action-full-scan@v0.10.0
+        with:
+          target: "https://console.yyc3.top"
+          rules_file_name: security/dast/zap/zap-rules.tsv
+          cmd_options: "-a -j -T 30"
+
+      - name: Nuclei
+        run: |
+          docker run --rm \
+            -v $PWD/security/dast/nuclei:/nuclei \
+            projectdiscovery/nuclei:latest \
+            -u https://console.yyc3.top \
+            -severity critical,high,medium \
+            -json -o /nuclei/report.json
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dast-full-report
+          path: |
+            report_html.html
+            security/dast/nuclei/report.json
+
+  # ============ 容器扫描 ============
+  container:
+    name: 🛡️ 容器扫描
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build -f deploy/Dockerfile -t yyc3-console:test .
+
+      - name: Trivy scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: yyc3-console:test
+          format: sarif
+          output: trivy-results.sarif
+          severity: CRITICAL,HIGH
+          exit-code: 1
+          ignore-unfixed: true
+
+      - uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: trivy-results.sarif
+
+  # ============ 汇总 ============
+  security-gate:
+    name: 🛡️ 安全守门
+    runs-on: ubuntu-latest
+    needs: [semgrep, codeql, sca, secrets, container]
+    if: always()
+    steps:
+      - name: Check results
+        run: |
+          if [ "${{ needs.semgrep.result }}" != "success" ] \
+            || [ "${{ needs.sca.result }}" != "success" ] \
+            || [ "${{ needs.secrets.result }}" != "success" ] \
+            || [ "${{ needs.container.result }}" != "success" ]; then
+            echo "🛡️ 智云·守护 · 安全守门未通过"
+            echo "「门不开则万法不侵」"
+            exit 1
+          fi
+          echo "✅ 安全守门通过 · 欢迎回家 🌹"

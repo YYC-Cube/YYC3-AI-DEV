@@ -1,0 +1,51 @@
+name: 📚 a11y Audit
+
+on:
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "0 3 * * *"
+
+jobs:
+  axe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 9 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm build
+      - name: Start server
+        run: pnpm start &
+        env:
+          NEXT_PUBLIC_USE_MOCK: "true"
+      - name: Wait for server
+        run: npx wait-on http://localhost:3000 -t 60000
+      - name: axe-core E2E
+        run: pnpm a11y
+      - name: Full audit report
+        run: pnpm a11y:audit
+        continue-on-error: true
+      - name: Contrast report
+        run: pnpm a11y:contrast
+        continue-on-error: true
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: a11y-report
+          path: reports/a11y/
+      - name: Comment on PR
+        if: failure() && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## 📚 a11y 审计失败\n\n检测到 serious/critical a11y 问题。\n请查看 [Artifacts](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})。\n\n> 人从众曌众从人 · YYC³ AI Family`
+            });

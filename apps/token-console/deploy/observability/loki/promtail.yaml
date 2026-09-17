@@ -1,0 +1,77 @@
+# ============================================================
+# 🌹 YYC³ AI Family · Promtail 采集配置
+# 8 位家人日志分流
+# ============================================================
+config:
+  clients:
+    - url: http://loki:3100/loki/api/v1/push
+
+  snippets:
+    pipelineStages:
+      # ============ 解析 JSON 结构化日志 ============
+      - cri: {}
+      - json:
+          expressions:
+            level: level
+            family: family
+            family_key: family_key
+            domain: domain
+            request_id: request_id
+            trace_id: trace_id
+            route: route
+            method: method
+            status: status
+            duration_ms: duration_ms
+            message: message
+      # ============ 提取家族标签 ============
+      - labels:
+          level:
+          family:
+          family_key:
+          domain:
+          route:
+          method:
+          status:
+      # ============ 时间戳对齐 ============
+      - timestamp:
+          source: timestamp
+          format: RFC3339Nano
+      # ============ 屏蔽敏感信息 ============
+      - replace:
+          expression: '(sk-[a-zA-Z0-9]{4})[a-zA-Z0-9\-_]+'
+          replace: '$1****'
+      - replace:
+          expression: '("X-API-Key":\s*")[^"]+'
+          replace: '$1***"'
+
+  scrapeConfigs:
+    - job_name: yyc3-token-console
+      kubernetes_sd_configs:
+        - role: pod
+      relabel_configs:
+        - source_labels: [__meta_kubernetes_pod_label_app_kubernetes_io_name]
+          regex: yyc3-token-console
+          action: keep
+        - source_labels: [__meta_kubernetes_pod_label_family_member]
+          target_label: family_member
+        - source_labels: [__meta_kubernetes_pod_label_family_domain]
+          target_label: family_domain
+        - source_labels: [__meta_kubernetes_pod_name]
+          target_label: pod
+        - source_labels: [__meta_kubernetes_namespace]
+          target_label: namespace
+      pipeline_stages:
+        - cri: {}
+        - json:
+            expressions:
+              level: level
+              family: family
+              family_key: family_key
+              domain: domain
+              request_id: request_id
+              trace_id: trace_id
+        - labels:
+            level:
+            family:
+            family_key:
+            domain:

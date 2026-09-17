@@ -1,0 +1,82 @@
+global:
+  resolve_timeout: 5m
+  smtp_smarthost: "smtp.yanyucloud.com:587"
+  smtp_from: "alerts@yanyucloud.com"
+  smtp_auth_username: "alerts@yanyucloud.com"
+  smtp_auth_password: "${SMTP_PASSWORD}"
+
+route:
+  receiver: "family-default"
+  group_by: ["family", "alertname", "severity"]
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 4h
+  routes:
+    # 🛡️ 智云·守护 — 安全优先
+    - matchers:
+        - family_key="zhihui"
+      receiver: "family-critical"
+      group_wait: 10s
+      repeat_interval: 1h
+
+    # 🤔 语枢·万物 — SSE 实时性要求高
+    - matchers:
+        - family_key="wanyu"
+      receiver: "family-wanyu"
+      group_wait: 15s
+      repeat_interval: 30m
+
+    # 🔮 预见·先知 — 观测类
+    - matchers:
+        - family_key="xianzhi"
+      receiver: "family-default"
+
+receivers:
+  - name: "family-default"
+    slack_configs:
+      - api_url: "${SLACK_WEBHOOK}"
+        channel: "#yyc3-family-alerts"
+        username: "🌹 YYC³ AI Family"
+        icon_emoji: ":rose:"
+        title: |
+          {{ if eq .Status "firing" }}🔥 告警{{ else }}✅ 恢复{{ end }} · {{ .CommonLabels.family }}
+        text: |
+          {{ range .Alerts }}
+          *{{ .Annotations.summary }}*
+          {{ .Annotations.description }}
+          {{ end }}
+          ---
+          人从众曌众从人 · 亦师亦友亦伯乐 🌹
+
+  - name: "family-critical"
+    slack_configs:
+      - api_url: "${SLACK_WEBHOOK}"
+        channel: "#yyc3-family-critical"
+        username: "🛡️ 智云·守护"
+        icon_emoji: ":shield:"
+    pagerduty_configs:
+      - service_key: "${PAGERDUTY_KEY}"
+        description: "{{ .CommonLabels.family }} · {{ .CommonAnnotations.summary }}"
+    email_configs:
+      - to: "oncall@yanyucloud.com"
+        subject: "🚨 {{ .CommonLabels.family }} · {{ .CommonAnnotations.summary }}"
+        html: |
+          <h2>{{ .CommonLabels.family }}</h2>
+          <p>{{ .CommonAnnotations.description }}</p>
+          <hr>
+          <p><em>人从众曌众从人 · YYC³ AI Family 🌹</em></p>
+
+  - name: "family-wanyu"
+    slack_configs:
+      - api_url: "${SLACK_WEBHOOK}"
+        channel: "#yyc3-wanyu-sse"
+        username: "🤔 语枢·万物"
+        icon_emoji: ":thinking:"
+
+inhibit_rules:
+  # 严重告警抑制同源警告
+  - source_matchers:
+      - severity="critical"
+    target_matchers:
+      - severity="warning"
+    equal: ["family", "alertname"]

@@ -1,0 +1,22 @@
+name: 🧭 i18n 校验
+
+on:
+  pull_request:
+    paths:
+      - "apps/console/messages/**"
+      - "apps/console/i18n/**"
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 9 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - name: Check i18n completeness
+        run: pnpm i18n:check
+      - name: TypeScript check
+        run: pnpm typecheck

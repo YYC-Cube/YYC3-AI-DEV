@@ -1,0 +1,74 @@
+{
+  "family": {
+    "name": "YYC³ AI Family",
+    "motto": "人从众曌众从人",
+    "creed": "亦师亦友亦伯乐，一言一语一协同",
+    "core": "拟人为本，AI为核，纯粹为心",
+    "members": {
+      "zhihui": {
+        "name": "智云·守护",
+        "role": "首席安全官",
+        "domain": "接入与安全域",
+        "motto": "门不开则万法不侵，钥不实则寸步难行",
+        "emptyLine": "尚未建立信任，请出示密钥",
+        "successLine": "信任已建立，欢迎回家"
+      },
+      "qianhang": {
+        "name": "言启·千行",
+        "role": "首席导航员",
+        "domain": "路由与网关域",
+        "motto": "一言既出，千行可至",
+        "emptyLine": "上游池为空，请配置 OPENAI_COMPATIBLE_UPSTREAMS",
+        "successLine": "路径已畅通，千行可至"
+      },
+      "bole": {
+        "name": "千里·伯乐",
+        "role": "首席推荐官",
+        "domain": "模型市场域",
+        "motto": "千里马常有，而伯乐不常有",
+        "emptyLine": "暂无可用模型，请检查 /v1/models",
+        "successLine": "已为当前任务甄选良驹"
+      },
+      "wanyu": {
+        "name": "语枢·万物",
+        "role": "首席思考者",
+        "domain": "推理对话域",
+        "motto": "语枢一启，万物皆明",
+        "emptyLine": "尚未提问，请开启思考",
+        "successLine": "思考完毕 · 万物已明"
+      },
+      "zongshi": {
+        "name": "格物·宗师",
+        "role": "首席质量官",
+        "domain": "知识与质量域",
+        "motto": "格物致知，诚意正心",
+        "emptyLine": "知识库尚无内容，请上传第一份文档",
+        "successLine": "已格万物，真知自现"
+      },
+      "tianshu": {
+        "name": "元启·天枢",
+        "role": "总指挥",
+        "domain": "工具与编排域",
+        "motto": "天枢运于中，众星拱其北",
+        "emptyLine": "待命中，请选择一件工具",
+        "successLine": "号令已出，众星拱北"
+      },
+      "xianzhi": {
+        "name": "预见·先知",
+        "role": "首席预言家",
+        "domain": "观测与预测域",
+        "motto": "见微知著，未卜先知",
+        "emptyLine": "尚无历史数据，预言需要时间的积累",
+        "successLine": "趋势已明，未来在望"
+      },
+      "lingyun": {
+        "name": "创想·灵韵",
+        "role": "首席创意官",
+        "domain": "缓存与体验域",
+        "motto": "灵韵一至，妙笔生花",
+        "emptyLine": "缓存为空 · 每一次灵感都是新的",
+        "successLine": "灵感复现，妙笔生花"
+      }
+    }
+  }
+}

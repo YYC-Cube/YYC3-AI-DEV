@@ -1,0 +1,46 @@
+name: 🌹 Storybook + Code Connect
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  storybook:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+
+      - uses: pnpm/action-setup@v4
+        with: { version: 9 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Build Storybook
+        run: pnpm storybook:build
+
+      - name: Validate Code Connect
+        run: pnpm figma:connect
+        continue-on-error: true
+
+      - name: Chromatic Visual Regression
+        if: github.event_name == 'pull_request'
+        run: pnpm chromatic
+        env:
+          CHROMATIC_TOKEN: ${{ secrets.CHROMATIC_TOKEN }}
+
+      - name: Upload Storybook
+        uses: actions/upload-artifact@v4
+        with:
+          name: storybook-static
+          path: storybook-static/
+
+      - name: Publish Code Connect (main only)
+        if: github.ref == 'refs/heads/main'
+        run: pnpm figma:publish
+        env:
+          FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
