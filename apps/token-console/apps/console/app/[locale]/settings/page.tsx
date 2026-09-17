@@ -1,10 +1,17 @@
 /*
- * ============================================================
- * YYC3 AI Family — 人从众曌众从人
- * @Module : apps/console/app/[locale]/settings/page.tsx
- * @Family : YYC3 AI Family (永久开源)
- * @License : Apache-2.0
- * ============================================================
+ * @Module : app/[locale]/settings — 设置（接入与安全）
+ * @Family : 🛡️ 智云·守护
  */
+import { PageHeader } from "@/components/family/PageHeader";
+import { SettingsConnection } from "@/domains/guardian/SettingsConnection";
 
-// TODO: 代码待填充（见 docs/YYC3-AI-Family-Token-Console-开发推进 对应文档）
+export default function SettingsPage() {
+  return (
+    <div className="min-h-screen">
+      <PageHeader title="设置" subtitle="守护每一次连接" />
+      <div className="p-6">
+        <SettingsConnection />
+      </div>
+    </div>
+  );
+}

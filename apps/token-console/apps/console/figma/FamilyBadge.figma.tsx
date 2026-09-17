@@ -6,10 +6,11 @@
  * @Family-Owner : 🧠 元启·天枢
  * @Source : Figma > 00_Cover > FamilyBadge
  * ============================================================
- * Template API（2026 新规范）
- * Storybook 集成：连接后 Dev Mode 直接显示 Storybook 故事
+ * Figma Code Connect（@figma/code-connect）
+ * 注：需安装 figma 依赖后由 Figma 桌面端消费，不参与 Next.js 构建
  * ============================================================
  */
+// @ts-nocheck — Code Connect 文件由 Figma 工具链消费，运行时尚无 figma 类型包
 import figma from "figma";
 import { FamilyBadge } from "@/components/family/FamilyBadge";
 
@@ -44,9 +45,5 @@ figma.connect(
         showMotto={showMotto}
       />
     ),
-    // Storybook 集成（新规范支持）
-    storybook: {
-      id: "🌹-family-familybadge--all-members",
-    },
   },
 );

@@ -1,6 +1,7 @@
 /*
  * ============================================================
  * YYC³ AI Family — 人从众曌众从人
+ * ============================================================
  * @Module : lib/logger/family — 家族结构化日志
  * @Family-Owner : 📚 格物·宗师（知识与质量域）
  * ============================================================
@@ -16,7 +17,7 @@ export const logger = pino({
     motto: "人从众曌众从人",
   },
   formatters: {
-    level: (label) => ({ level: label }),
+    level: (label: string) => ({ level: label }),
   },
   redact: {
     paths: [
@@ -49,10 +50,3 @@ export const familyLog = {
   lingyun: (msg: string, ctx?: object) =>
     logger.child({ family: "🎨 创想·灵韵", family_key: "lingyun", domain: "缓存与体验域" }).info(ctx, msg),
 };
-
-// 使用示例
-familyLog.wanyu("SSE stream started", {
-  request_id: "req-abc-123",
-  model: "gpt-4o",
-  ttft_ms: 420,
-});

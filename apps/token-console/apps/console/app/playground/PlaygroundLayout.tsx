@@ -16,13 +16,16 @@ type MobileTab = "params" | "chat" | "debug";
 export function PlaygroundLayout() {
   const { state, send, stop } = useWanyuChat();
   const [tab, setTab] = useState<MobileTab>("chat");
+  // ParamPanel 只产出用户输入文本，此处包装为 ChatMessage 协议
+  const sendText = (input: string) =>
+    send({ model: "default", messages: [{ role: "user", content: input }] });
 
   return (
     <>
       {/* ≥lg: 三栏 */}
       <div className="hidden lg:flex h-[calc(100vh-4rem)]">
         <aside className="w-72 border-r border-border-default overflow-y-auto">
-          <ParamPanel onSubmit={send} />
+          <ParamPanel onSubmit={sendText} />
         </aside>
         <main className="flex-1 flex flex-col min-w-0">
           <SSEViewer state={state} />
@@ -75,7 +78,7 @@ export function PlaygroundLayout() {
         <div className="flex-1 overflow-hidden">
           {tab === "params" && (
             <div className="h-full overflow-y-auto">
-              <ParamPanel onSubmit={send} />
+              <ParamPanel onSubmit={sendText} />
             </div>
           )}
           {tab === "chat" && (

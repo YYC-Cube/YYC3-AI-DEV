@@ -1,10 +1,21 @@
 /*
  * ============================================================
- * YYC3 AI Family — 人从众曌众从人
- * @Module : apps/console/app/manifest.ts
- * @Family : YYC3 AI Family (永久开源)
- * @License : Apache-2.0
+ * YYC³ AI Family — 人从众曌众从人
+ * @Module : app/manifest — PWA 清单
+ * @Family : 🎨 创想·灵韵
  * ============================================================
  */
+import type { MetadataRoute } from "next";
 
-// TODO: 代码待填充（见 docs/YYC3-AI-Family-Token-Console-开发推进 对应文档）
+export default function manifest(): MetadataRoute.Manifest {
+  return {
+    name: "YYC³ Token Console",
+    short_name: "YYC³ Console",
+    description: "人从众曌众从人 · 8 位家人同构 52 端点 API 控制台",
+    start_url: "/",
+    display: "standalone",
+    background_color: "#0d1117",
+    theme_color: "#0d1117",
+    lang: "zh-CN",
+  };
+}

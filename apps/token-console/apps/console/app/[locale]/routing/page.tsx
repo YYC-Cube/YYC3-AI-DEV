@@ -1,10 +1,19 @@
 /*
- * ============================================================
- * YYC3 AI Family — 人从众曌众从人
- * @Module : apps/console/app/[locale]/routing/page.tsx
- * @Family : YYC3 AI Family (永久开源)
- * @License : Apache-2.0
- * ============================================================
+ * @Module : app/[locale]/routing — 路由观测（Client）
+ * @Family : 🧭 言启·千行
  */
+"use client";
 
-// TODO: 代码待填充（见 docs/YYC3-AI-Family-Token-Console-开发推进 对应文档）
+import { PageHeader } from "@/components/family/PageHeader";
+import { UpstreamGrid } from "@/domains/qianhang/UpstreamGrid";
+
+export default function RoutingPage() {
+  return (
+    <div className="min-h-screen">
+      <PageHeader title="路由观测" subtitle="千行之路，由此启程" />
+      <div className="p-6">
+        <UpstreamGrid />
+      </div>
+    </div>
+  );
+}

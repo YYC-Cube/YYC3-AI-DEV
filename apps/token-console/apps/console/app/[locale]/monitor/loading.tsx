@@ -1,10 +1,15 @@
 /*
- * ============================================================
- * YYC3 AI Family — 人从众曌众从人
- * @Module : apps/console/app/[locale]/monitor/loading.tsx
- * @Family : YYC3 AI Family (永久开源)
- * @License : Apache-2.0
- * ============================================================
+ * @Module : app/[locale]/monitor/loading — Suspense fallback
+ * @Family : 🔮 预见·先知
  */
-
-// TODO: 代码待填充（见 docs/YYC3-AI-Family-Token-Console-开发推进 对应文档）
+export default function Loading() {
+  return (
+    <div className="p-6 space-y-6 animate-pulse">
+      <div className="h-16 bg-bg-subtle rounded-lg" />
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className="h-72 bg-bg-subtle rounded-lg" />
+        <div className="h-72 bg-bg-subtle rounded-lg" />
+      </div>
+    </div>
+  );
+}

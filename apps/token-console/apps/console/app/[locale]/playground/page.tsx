@@ -1,10 +1,17 @@
 /*
- * ============================================================
- * YYC3 AI Family — 人从众曌众从人
- * @Module : apps/console/app/[locale]/playground/page.tsx
- * @Family : YYC3 AI Family (永久开源)
- * @License : Apache-2.0
- * ============================================================
+ * @Module : app/[locale]/playground — SSE 对话（全 Client）
+ * @Family : 🤔 语枢·万物
  */
+"use client";
 
-// TODO: 代码待填充（见 docs/YYC3-AI-Family-Token-Console-开发推进 对应文档）
+import { PageHeader } from "@/components/family/PageHeader";
+import { PlaygroundLayout } from "@/app/playground/PlaygroundLayout";
+
+export default function PlaygroundPage() {
+  return (
+    <div className="min-h-screen flex flex-col">
+      <PageHeader title="对话工坊" subtitle="语枢一启，万物皆明" />
+      <PlaygroundLayout />
+    </div>
+  );
+}

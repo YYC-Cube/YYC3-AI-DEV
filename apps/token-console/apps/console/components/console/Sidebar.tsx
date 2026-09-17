@@ -23,7 +23,7 @@ const NAV = [
   { href: "/roadmap", label: "Roadmap", key: "tianshu" as const },
 ];
 
-export function Sidebar() {
+export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = usePathname();
   return (
     <nav className="w-60 border-r border-border-default bg-bg-subtle p-3 space-y-1">
@@ -34,6 +34,7 @@ export function Sidebar() {
           <Link
             key={item.href}
             href={item.href}
+            onClick={onNavigate}
             className={cn(
               "flex items-center gap-2 px-3 py-2 rounded-md text-body-sm transition-colors",
               active
