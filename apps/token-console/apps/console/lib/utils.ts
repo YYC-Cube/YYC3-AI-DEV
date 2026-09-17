@@ -1,8 +1,6 @@
 /*
- * ============================================================
- * YYC³ AI Family — 人从众曌众从人
- * @Module : lib/utils — className 合并工具
- * ============================================================
+ * @Module : lib/utils — cn 合并工具（clsx + tailwind-merge）
+ * @Module : 供 shadcn/ui 风格组件使用
  */
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";

@@ -1,6 +1,19 @@
+---
+file: YYC3-视觉设计-Figma规范.md
+description: YYC³ Dynasty Figma 设计需求规范 — 古风 × 科技双主题视觉体系
+author: YanYuCloudCube Team <admin@0379.email>
+version: v1.1.0
+created: 2026-07-17
+updated: 2026-09-18
+status: active
+tags: [design],[figma],[visual]
+category: design
+---
+
 # YYC³ Dynasty · Figma 设计需求规范
 
 > 三省六部 · 十三王朝 · 古文化渊源 · 智能新范式
+> **配套**：设计令牌实现见 [`packages/shell/src/theme.ts`](../packages/shell/src/theme.ts)（Modern × Ancient 双主题）
 
 ---
 
@@ -30,7 +43,7 @@ YYC³ Dynasty 是以中国古代"三省六部制"为思想根基的多智能体�
 #### 古文化版 (主视觉)
 
 | 用途 | 色值 | 说明 |
-|------|------|------|
+| ------ | ------ | ------ |
 | 底色 | `#1E180E` | 宣纸旧色/墨底 |
 | 主色 | `#C9A96E` | 鎏金 (按钮/图标/标签) |
 | 强调 | `#C0392B` | 印章红 (发令/批注) |
@@ -44,7 +57,7 @@ YYC³ Dynasty 是以中国古代"三省六部制"为思想根基的多智能体�
 #### 现代化版 (AI Family)
 
 | 用途 | 色值 | 说明 |
-|------|------|------|
+| ------ | ------ | ------ |
 | 底色 | `#040814` | 深空蓝 |
 | 主色 | `#00d4ff` | 青色 |
 | 辅色 | `#7b2ff7` | 紫色渐变 |
@@ -53,7 +66,7 @@ YYC³ Dynasty 是以中国古代"三省六部制"为思想根基的多智能体�
 ### 2.2 字体
 
 | 用途 | 字体 | 字重 | 字号 |
-|------|------|------|------|
+| ------ | ------ | ------ | ------ |
 | 页面标题 | 楷体 / STKaiti | Bold | 24px |
 | 章节标题 | 楷体 / STKaiti | Medium | 16px |
 | 正文 | 思源黑体 / -apple-system | Regular | 14px |
@@ -64,7 +77,7 @@ YYC³ Dynasty 是以中国古代"三省六部制"为思想根基的多智能体�
 ### 2.3 间距 & 圆角
 
 | 用途 | 值 |
-|------|----|
+| ------ | ---- |
 | 页面外边距 | 24px |
 | 卡片内边距 | 16px |
 | 元素间距 | 8px / 12px / 16px |
@@ -93,7 +106,7 @@ YYC³ Dynasty 是以中国古代"三省六部制"为思想根基的多智能体�
 ## 三、页面清单 (共 6 页)
 
 | # | 页面名 | 路由 | 优先级 |
-|---|--------|------|--------|
+| --- | -------- | ------ | -------- |
 | 1 | 欢迎/启动页 | `/welcome` | P0 |
 | 2 | 朝堂大厅 | `/court` | P0 |
 | 3 | 十三王朝时间轴 | `/timeline` | P1 |
@@ -390,7 +403,7 @@ YYC³ Dynasty 是以中国古代"三省六部制"为思想根基的多智能体�
 **设计细节**:
 
 | 区域 | 规格 |
-|------|------|
+| ------ | ------ |
 | Header | 高 52px，左对齐 icon + 标题，右对齐操作按钮 |
 | 人格条 | 高 40px，横向滚动 12 个小头像(32×32) + 短名 |
 | Tab | 4 个标签: 对话/命令/提示词/配置，高 36px |
@@ -414,7 +427,7 @@ YYC³ Dynasty 是以中国古代"三省六部制"为思想根基的多智能体�
 ### 5.1 基础组件
 
 | 组件 | 用途 | 变体 |
-|------|------|------|
+| ------ | ------ | ------ |
 | `DynastyCard` | 内容卡片 | default / active / hover |
 | `DynastyTag` | 标签 | 类别/关键词/状态 |
 | `DynastyButton` | 按钮 | primary(金)/secondary(透明)/danger(红) |
@@ -427,7 +440,7 @@ YYC³ Dynasty 是以中国古代"三省六部制"为思想根基的多智能体�
 ### 5.2 业务组件
 
 | 组件 | 用途 |
-|------|------|
+| ------ | ------ |
 | `AgentCard` | Agent 信息卡片 |
 | `EdictStepBar` | 六阶段任务进度条 |
 | `HonorBadge` | 勋章展示 |
@@ -439,7 +452,7 @@ YYC³ Dynasty 是以中国古代"三省六部制"为思想根基的多智能体�
 ## 六、交互规范
 
 | 交互 | 时长 | 缓动 |
-|------|------|------|
+| ------ | ------ | ------ |
 | 卡片悬浮 | 200ms | ease-out |
 | Tab 切换 | 150ms | ease-in-out |
 | 消息出现 | 300ms | ease-out + slide-up |
@@ -480,7 +493,7 @@ YYC³ Dynasty 是以中国古代"三省六部制"为思想根基的多智能体�
 ### 9.1 页面实现矩阵（6 页全部落地 ✅）
 
 | # | 页面 | 路由 | 组件路径 | 状态 | 测试覆盖 |
-|---|------|------|---------|------|---------|
+| --- | ------ | ------ | --------- | ------ | --------- |
 | 1 | 欢迎/启动页 | `/` | `packages/shell/src/WelcomePage.tsx` | ✅ 实现 | 9 tests (RTL) |
 | 2 | 朝堂大厅 | `/court` | `packages/plugin-dynasty/src/pages/CourtHall.tsx` | ✅ 实现 | agents.test.ts |
 | 3 | 十三王朝时间轴 | `/timeline` | `packages/plugin-dynasty/src/pages/DynastyTimeline.tsx` | ✅ 实现 | dynasties.test.ts |
@@ -491,7 +504,7 @@ YYC³ Dynasty 是以中国古代"三省六部制"为思想根基的多智能体�
 ### 9.2 组件库实现矩阵
 
 | 组件 | Figma 规格 | 实际路径 | 状态 |
-|------|-----------|---------|------|
+| ------ | ----------- | --------- | ------ |
 | `DynastyCard` | default / active / hover | `packages/plugin-dynasty/src/components/DynastyCard.tsx` | ✅ |
 | `DynastyTag` | 类别/关键词/状态 | `packages/plugin-dynasty/src/components/DynastyTag.tsx` | ✅ |
 | `EdictStepBar` | 6 阶段进度条 | `packages/plugin-dynasty/src/components/EdictStepBar.tsx` | ✅ |
@@ -500,7 +513,7 @@ YYC³ Dynasty 是以中国古代"三省六部制"为思想根基的多智能体�
 ### 9.3 设计令牌实现矩阵
 
 | 类别 | Figma 规格 | 实际位置 | 状态 |
-|------|-----------|---------|------|
+| ------ | ----------- | --------- | ------ |
 | 色彩 (古文化版) | `#1E180E / #C9A96E / #C0392B / #00FF88` | `packages/shell/src/theme.ts` | ✅ |
 | 色彩 (现代版) | `#040814 / #00d4ff / #7b2ff7` | `packages/shell/src/theme.ts` | ✅ |
 | 系统色词库 | 6 系统主色 | `packages/shell/src/theme.ts` | ✅ |
@@ -510,7 +523,7 @@ YYC³ Dynasty 是以中国古代"三省六部制"为思想根基的多智能体�
 ### 9.4 交互实现矩阵
 
 | 交互 | Figma 规格 | 实际实现 | 状态 |
-|------|-----------|---------|------|
+| ------ | ----------- | --------- | ------ |
 | 卡片悬浮 | 200ms ease-out | Tailwind transition | ✅ |
 | Tab 切换 | 150ms ease-in-out | Radix Tabs | ✅ |
 | 消息出现 | 300ms ease-out + slide-up | CSS animation | ✅ |
@@ -520,7 +533,7 @@ YYC³ Dynasty 是以中国古代"三省六部制"为思想根基的多智能体�
 ### 9.5 待实现项（Phase 4 已补 / 后续可选）
 
 | 项 | Figma 规格 | 当前状态 | 备注 |
-|----|-----------|---------|------|
+| ---- | ----------- | --------- | ------ |
 | 打字动画 (3 跳动圆点) | 150ms 间隔 | ✅ 已实现 | AIAssistantHub 流式累加 + LLMBridge |
 | Lighthouse 性能基线 | ≥ 90 分 | ✅ 已配置 | `.lighthouserc.json` (LCP<2.5s/CLS<0.1/TBT<200ms) |
 | Figma Plugin 双向桥 | Phase 4 | ⬜ 后续可选 | 不影响主线 |
@@ -531,7 +544,7 @@ YYC³ Dynasty 是以中国古代"三省六部制"为思想根基的多智能体�
 ### 9.6 测试覆盖矩阵（视觉相关）
 
 | 测试文件 | 用例数 | 视觉验证范围 |
-|---------|-------|------------|
+| --------- | ------- | ------------ |
 | `WelcomePage.test.tsx` | 9 | 卡片渲染 / 颜色 / 点击交互 / 关闭事件 |
 | `AIAssistantHub.test.tsx` | 8 | Header / Tab 切换 / 命令执行 / 人格条 / LLM 状态 |
 | `llm-bridge.test.ts` | 7 | Mock 回退 / Provider 管理 / 失败回退 (Phase 4 新增) |
@@ -563,5 +576,14 @@ export const themes = {
 
 ---
 
-> Figma 设计规范实施现状对照章节由项目实测数据驱动，最近一次校准：2026-07-17 (Phase 4 完成)。  
+> Figma 设计规范实施现状对照章节由项目实测数据驱动，最近一次校准：2026-09-18。
 > 6 页设计全部落地，组件库 4/5 实现，设计令牌全量达成，交互 5/6 实现，Phase 4 新增多 Provider 配置面板 + LLM 状态徽章 + 7 LLMBridge 测试。
+
+---
+
+## 变更历史
+
+| 版本 | 日期 | 变更内容 |
+|------|------|----------|
+| v1.1.0 | 2026-09-18 | 补 frontmatter 与设计令牌代码链接；校准日期同步 |
+| v1.0.0 | 2026-07-17 | 初始版本 |

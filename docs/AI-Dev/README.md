@@ -1,7 +1,7 @@
 # YYC³ Cloud Intelli-Matrix · 架构参考与文档总览
 
 > AI Family 作为中枢，统一协同所有系统
-> 仓库地址: https://github.com/YYC-Cube/YYC3-AI-DEV
+> 仓库地址: <https://github.com/YYC-Cube/YYC3-AI-DEV>
 
 > **注**：本目录曾内嵌 packages/apps 的历史结构快照，现已被仓库真实
 > Monorepo（根目录 `packages/` `apps/`）取代并移除。活代码请直接看仓库根。
@@ -13,15 +13,24 @@
 ## 一、说明文档索引
 
 | 文档 | 说明 |
-|------|------|
+| ------ | ------ |
 | [架构规范](./ARCHITECTURE.md) | 变量词库 · 路由接口 · 存储架构 · 事件总线 · 实际现状对齐 |
 | [开发者文档套件](./developer/README.md) | 快速入门 / 架构总纲 / 插件指南 / 编码规范 / 测试 / 部署 / 安全（8 篇） |
 | [AIAssistant 复用浮窗](./AIAssistant/README.md) | 原 AI 浮窗组件 v3.0（独立可复用参考实现 + GUIDE） |
 
+**根级规划文档**（同目录上级，均含 frontmatter 与变更历史）：
+
+| 文档 | 说明 |
+| ------ | ------ |
+| [生产部署就绪规划](../YYC3-生产部署-就绪规划.md) | Phase 0-4 里程碑与验收基线 |
+| [任务看板 Phase 0-1](../YYC3-任务看板-Phase0-1.md) | 全量进度跟踪（已闭环） |
+| [全链路阶段节点大纲](../YYC3-全链路智能应用-阶段节点设计落地大纲.md) | 业务工具链规划指导 |
+| [Figma 视觉规范](../YYC3-视觉设计-Figma规范.md) | 古风 × 科技双主题设计体系 |
+
 ## 二、与真实代码的对应
 
 | 本目录文档 | 真实代码位置 |
-|------------|--------------|
+| ------------ | -------------- |
 | ARCHITECTURE.md | [`packages/shell/src/`](../../packages/shell/src/)（event-bus / storage / types） |
 | AIAssistant/ | [`packages/shell/src/AIAssistantHub.tsx`](../../packages/shell/src/AIAssistantHub.tsx)（Hub 活版本） |
 | developer/ 套件 | 覆盖根目录全部 [`packages/`](../../packages/) 与 [`apps/`](../../apps/) |
@@ -31,7 +40,7 @@
 新增/修改 Markdown 文档必须遵守：
 
 | 规则 | 要求 |
-|------|------|
+| ------ | ------ |
 | **frontmatter** | 内容文档必填 YAML 元数据：`file / description / author / version / created / updated / status / tags / category` |
 | **标头结构** | 唯一 H1 + 引用块注明版本/日期/维护者；章节用中文序号（一、二、三…） |
 | **链接** | 站内相对路径，禁止裸 URL；由根目录 [`validate-docs.js`](../../validate-docs.js) 门禁校验零坏链 |
@@ -44,11 +53,13 @@
 
 1. **分支**：从 `main` 拉出 `docs/*` 或 `feat/*` 分支开发
 2. **本地门禁**（与 CI 同款）：
+
    ```bash
    node validate-docs.js     # 文档完整性 + 零坏链
    pnpm type-check           # TS 零错误
    pnpm test                 # 全量测试全绿
    ```
+
 3. **提交**：Conventional Commits（`docs:` / `feat:` / `fix:` / `chore:` …）
 4. **PR → main**：CI 全绿后合并；文档变更由 `ecosystem-check` job 的文档门禁自动校验
 

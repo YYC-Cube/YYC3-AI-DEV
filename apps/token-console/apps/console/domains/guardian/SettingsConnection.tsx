@@ -15,7 +15,7 @@ export function SettingsConnection() {
     setHasKey(
       Boolean(
         sessionStorage.getItem("yyc3_api_key") ??
-        localStorage.getItem("yyc3_api_key"),
+          localStorage.getItem("yyc3_api_key"),
       ),
     );
   }, []);
@@ -23,12 +23,7 @@ export function SettingsConnection() {
   return (
     <div className="space-y-6 max-w-xl">
       <section className="flex items-center gap-3">
-        <TrustBadge
-          ready={hasKey === true}
-          label={
-            hasKey === true ? "守护预检通过" : hasKey === null ? "预检中…" : "等待 API Key 配置"
-          }
-        />
+        <TrustBadge ready={hasKey === true} label={hasKey ? "已就绪" : "未配置"} />
         {hasKey === null ? (
           <span className="text-caption text-text-tertiary">检测中…</span>
         ) : hasKey ? (
