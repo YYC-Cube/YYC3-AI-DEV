@@ -1,10 +1,19 @@
 /*
- * ============================================================
- * YYC3 AI Family — 人从众曌众从人
- * @Module : apps/console/app/[locale]/models/page.tsx
- * @Family : YYC3 AI Family (永久开源)
- * @License : Apache-2.0
- * ============================================================
+ * @Module : app/[locale]/models — 模型市场（Client）
+ * @Family : 🎯 千里·伯乐
  */
+"use client";
 
-// TODO: 代码待填充（见 docs/YYC3-AI-Family-Token-Console-开发推进 对应文档）
+import { PageHeader } from "@/components/family/PageHeader";
+import { ModelGrid } from "@/domains/bole/ModelGrid";
+
+export default function ModelsPage() {
+  return (
+    <div className="min-h-screen">
+      <PageHeader title="模型市场" subtitle="千里马常有，伯乐不常有" />
+      <div className="p-6">
+        <ModelGrid />
+      </div>
+    </div>
+  );
+}

@@ -1,10 +1,27 @@
 /*
  * ============================================================
- * YYC3 AI Family — 人从众曌众从人
- * @Module : apps/console/lib/flags/client.ts
- * @Family : YYC3 AI Family (永久开源)
- * @License : Apache-2.0
+ * YYC³ AI Family — 人从众曌众从人
+ * @Module : lib/flags/client — 客户端开关读取封装
+ * @Family-Owner : 🧠 元启·天枢
+ * @Note   : 客户端组件不直接 import flags/next（RSC-only），
+ *           由服务端组件求值后经 props / context 传递。
  * ============================================================
  */
+export interface ClientFlags {
+  [key: string]: boolean | string;
+}
 
-// TODO: 代码待填充（见 docs/YYC3-AI-Family-Token-Console-开发推进 对应文档）
+let cached: ClientFlags | null = null;
+
+export function setClientFlags(flags: ClientFlags) {
+  cached = flags;
+}
+
+export function getClientFlag<T extends boolean | string = boolean>(
+  key: string,
+  fallback: T,
+): T {
+  if (!cached) return fallback;
+  const value = cached[key];
+  return (value as T) ?? fallback;
+}

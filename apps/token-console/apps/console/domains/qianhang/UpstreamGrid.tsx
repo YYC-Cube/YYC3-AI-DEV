@@ -1,10 +1,30 @@
 /*
- * ============================================================
- * YYC3 AI Family — 人从众曌众从人
- * @Module : apps/console/domains/qianhang/UpstreamGrid.tsx
- * @Family : YYC3 AI Family (永久开源)
- * @License : Apache-2.0
- * ============================================================
+ * @Module : domains/qianhang/UpstreamGrid — 上游节点网格
+ * @Family : 🧭 言启·千行
  */
+"use client";
 
-// TODO: 代码待填充（见 docs/YYC3-AI-Family-Token-Console-开发推进 对应文档）
+import { UpstreamCard } from "./UpstreamCard";
+import { useQianhangRouterStats } from "./useQianhangRouting";
+
+export function UpstreamGrid() {
+  const { data, isLoading } = useQianhangRouterStats();
+
+  if (isLoading) {
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 animate-pulse">
+        {Array.from({ length: 3 }).map((_, i) => (
+          <div key={i} className="h-48 rounded-lg bg-bg-subtle" />
+        ))}
+      </div>
+    );
+  }
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+      {data?.nodes.map((node) => (
+        <UpstreamCard key={node.name} node={node} />
+      ))}
+    </div>
+  );
+}

@@ -11,6 +11,21 @@
 
 import { FAMILY_PROFILES } from "@yyc3/family-agents";
 
+/**
+ * Console 域键（guardian/qianhang/...）→ family-agents 档案键（FamilyMemberId）
+ * 档案键以 packages/family-agents/src/base/FamilyTypes.ts 的 FamilyMemberId 为唯一真相源
+ */
+const PROFILE_KEY_MAP: Record<MemberKey, keyof typeof FAMILY_PROFILES> = {
+  zhihui: "guardian",
+  qianhang: "qianhang",
+  bole: "bole",
+  wanyu: "grace",
+  zongshi: "grandmaster",
+  tianshu: "tianshu",
+  xianzhi: "prophet",
+  lingyun: "thinker",
+};
+
 export type MemberKey =
   | "zhihui" // 🛡️ 智云·守护
   | "qianhang" // 🧭 言启·千行
@@ -76,7 +91,7 @@ export const MEMBERS: Record<MemberKey, ConsoleMember> = Object.fromEntries(
       ...META[key],
       domain: DOMAIN_MAP[key],
       // family-agents 档案存在性校验：缺失时显式报错而非静默降级
-      ...(FAMILY_PROFILES?.[key] ? {} : {}),
+      ...(FAMILY_PROFILES[PROFILE_KEY_MAP[key]] ? {} : {}),
       errorLine: ERROR_TONE[key],
     },
   ]),

@@ -1,10 +1,16 @@
 /*
- * ============================================================
- * YYC3 AI Family — 人从众曌众从人
- * @Module : apps/console/domains/lingyun/CacheStatCard.tsx
- * @Family : YYC3 AI Family (永久开源)
- * @License : Apache-2.0
- * ============================================================
+ * @Module : domains/lingyun/CacheStatCard — 缓存统计卡
+ * @Family : 🎨 创想·灵韵
  */
+"use client";
 
-// TODO: 代码待填充（见 docs/YYC3-AI-Family-Token-Console-开发推进 对应文档）
+export function CacheStatCard({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="p-4 rounded-lg border border-border-default bg-bg-subtle">
+      <div className="text-caption text-text-tertiary mb-1">{label}</div>
+      <div className="text-heading-md font-semibold text-family-lingyun-accent">
+        {value}
+      </div>
+    </div>
+  );
+}

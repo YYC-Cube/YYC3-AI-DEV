@@ -18,9 +18,7 @@ export default async function DashboardPage() {
   return (
     <div className="min-h-screen">
       <PageHeader title="今日预言" subtitle="见微知著，未卜先知" />
-      <DashboardIsland
-        flags={{ showBilling, showRealCost, showLogs }}
-      />
+      <DashboardIsland initialHealthz={{ flags: { showBilling, showRealCost, showLogs } }} />
     </div>
   );
 }

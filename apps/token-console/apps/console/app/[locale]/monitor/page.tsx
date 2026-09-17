@@ -1,10 +1,15 @@
 /*
- * ============================================================
- * YYC3 AI Family — 人从众曌众从人
- * @Module : apps/console/app/[locale]/monitor/page.tsx
- * @Family : YYC3 AI Family (永久开源)
- * @License : Apache-2.0
- * ============================================================
+ * @Module : app/[locale]/monitor — 监控日志（RSC + Island）
+ * @Family : 🔮 预见·先知
  */
+import { PageHeader } from "@/components/family/PageHeader";
+import { DashboardContent } from "@/domains/xianzhi/DashboardContent";
 
-// TODO: 代码待填充（见 docs/YYC3-AI-Family-Token-Console-开发推进 对应文档）
+export default function MonitorPage() {
+  return (
+    <div className="min-h-screen">
+      <PageHeader title="观测之眼" subtitle="见微知著，未卜先知" />
+      <DashboardContent />
+    </div>
+  );
+}

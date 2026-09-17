@@ -30,7 +30,7 @@ export function ErrorTable({ errors }: { errors: ErrorRecord[] }) {
       <ul className="space-y-2">
         {errors.map((e) => (
           <li key={e.id} className="text-caption flex items-start gap-2">
-            <span className={`font-mono ${ERROR_COLOR[e.error_type]}`}>
+            <span className={`font-mono ${ERROR_COLOR[e.error_type as keyof typeof ERROR_COLOR]}`}>
               [{e.error_type}]
             </span>
             <code className="text-text-secondary">{e.model_id}</code>

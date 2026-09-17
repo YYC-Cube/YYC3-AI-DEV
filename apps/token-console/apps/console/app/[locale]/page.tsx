@@ -1,10 +1,20 @@
 /*
- * ============================================================
- * YYC3 AI Family — 人从众曌众从人
- * @Module : apps/console/app/[locale]/page.tsx
- * @Family : YYC3 AI Family (永久开源)
- * @License : Apache-2.0
- * ============================================================
+ * @Module : app/[locale]/page — 控制台首页（RSC + Island）
+ * @Family : 🛡️ 智云·守护
  */
+import { PageHeader } from "@/components/family/PageHeader";
+import { ConnectForm } from "@/domains/guardian/ConnectForm";
 
-// TODO: 代码待填充（见 docs/YYC3-AI-Family-Token-Console-开发推进 对应文档）
+export default function HomePage() {
+  return (
+    <div className="min-h-screen">
+      <PageHeader
+        title="接入 · 智云守护"
+        subtitle="亦师亦友亦伯乐，一言一语一协同"
+      />
+      <div className="p-6">
+        <ConnectForm />
+      </div>
+    </div>
+  );
+}

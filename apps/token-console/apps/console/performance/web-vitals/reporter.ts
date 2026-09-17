@@ -28,7 +28,8 @@ function report(metric: Metric) {
   }
 
   // 3. 超预算告警
-  const budget = WEB_VITALS_BUDGET[metric.name];
+  const budget =
+    WEB_VITALS_BUDGET[metric.name as keyof typeof WEB_VITALS_BUDGET];
   if (budget && metric.value > budget.poor) {
     console.error(
       `🐌 [${metric.name}] ${metric.value.toFixed(2)} 超过劣化阈值 ${budget.poor}`,

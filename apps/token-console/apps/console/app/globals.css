@@ -1,1 +1,130 @@
-<!-- YYC3 AI Family · apps/console/app/globals.css · TODO: 待填充 -->
+/* ============================================================
+ * YYC³ AI Family — 人从众曌众从人
+ * @Module : app/globals.css — Tailwind 4.3 @theme + 家族主题变量
+ * @Family : 🎨 创想·灵韵（视觉体系）
+ * @Spec   : 深色优先 · oklch 色板 · WCAG 2.2 AA
+ * ============================================================ */
+@import "tailwindcss";
+
+/* ============================================================
+ * @theme — 设计令牌（CSS-First 单一真源）
+ * ============================================================ */
+@theme {
+  /* —— 断点（文档 11 §8.1）—— */
+  --breakpoint-xs: 375px;  /* iPhone 13 / 小屏手机 */
+  --breakpoint-sm: 640px;  /* 大屏手机 */
+  --breakpoint-md: 768px;  /* iPad Mini 竖屏 */
+  --breakpoint-lg: 1024px; /* iPad Pro 横屏 */
+  --breakpoint-xl: 1280px; /* 笔记本 */
+  --breakpoint-2xl: 1440px; /* 桌面主设计尺寸 */
+
+  --container-console-max: 1600px;
+
+  /* —— 基础色板（深色优先）—— */
+  --color-bg-default: oklch(0.16 0.015 250);
+  --color-bg-subtle: oklch(0.2 0.015 250);
+  --color-bg-elevated: oklch(0.24 0.02 250);
+  --color-bg-overlay: oklch(0.12 0.02 250);
+
+  --color-text-primary: oklch(0.95 0.01 250);
+  --color-text-secondary: oklch(0.72 0.015 250);
+  --color-text-tertiary: oklch(0.52 0.015 250);
+
+  --color-border-default: oklch(0.3 0.02 250);
+
+  /* —— 品牌主色（青色 · 元启·天枢）—— */
+  --color-brand-primary: oklch(0.78 0.14 200);
+
+  /* —— 状态色（WCAG AA 对比度）—— */
+  --color-status-success: oklch(0.75 0.15 155);
+  --color-status-warning: oklch(0.8 0.14 85);
+  --color-status-danger: oklch(0.68 0.19 25);
+
+  /* —— 8 位家人域色 —— */
+  --color-family-guardian-accent: oklch(0.72 0.13 250); /* 智云·守护 */
+  --color-family-bole-accent: oklch(0.78 0.13 85);      /* 千里·伯乐 */
+  --color-family-bole-primary: oklch(0.7 0.1 85);
+  --color-family-qianhang-accent: oklch(0.7 0.13 320);  /* 千行 */
+  --color-family-wanyu-accent: oklch(0.78 0.12 180);    /* 语枢·万物 */
+  --color-family-zongshi-accent: oklch(0.75 0.12 300);  /* 格物·宗师 */
+  --color-family-tianshu-accent: oklch(0.72 0.14 140);  /* 元启·天枢 */
+  --color-family-xianzhi-accent: oklch(0.7 0.15 60);    /* 预见·先知 */
+  --color-family-lingyun-accent: oklch(0.8 0.13 340);   /* 创想·灵韵 */
+  --color-family-lingyun-soft: oklch(0.8 0.13 340 / 0.15);
+
+  /* —— 字号体系 —— */
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1.5;
+  --text-body-sm: 0.875rem;
+  --text-body-sm--line-height: 1.57;
+  --text-body-md: 1rem;
+  --text-body-md--line-height: 1.6;
+  --text-body-lg: 1.125rem;
+  --text-body-lg--line-height: 1.6;
+  --text-heading-sm: 1.25rem;
+  --text-heading-sm--line-height: 1.4;
+  --text-heading-md: 1.5rem;
+  --text-heading-md--line-height: 1.35;
+  --text-heading-lg: 2rem;
+  --text-heading-lg--line-height: 1.3;
+}
+
+/* ============================================================
+ * 基础层 — 深色优先 · 深蓝青赛博朋克基底
+ * ============================================================ */
+:root {
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--color-bg-default);
+  color: var(--color-text-primary);
+  font-family:
+    var(--font-sans, ui-sans-serif),
+    "PingFang SC",
+    "Hiragino Sans GB",
+    "Microsoft YaHei",
+    sans-serif;
+}
+
+/* ============================================================
+ * 焦点可见（键盘导航 · WCAG 2.2 AA · 文档 03 §8.6）
+ * ============================================================ */
+*:focus-visible {
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ============================================================
+ * 移动端触控区适配（≥44px · 文档 11 §8.6）
+ * ============================================================ */
+@media (max-width: 767px) {
+  button,
+  [role="button"],
+  input[type="checkbox"],
+  input[type="radio"],
+  a[data-interactive="true"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .tap-target::after {
+    content: "";
+    position: absolute;
+    inset: -8px;
+  }
+}
+
+/* ============================================================
+ * 动效降级（prefers-reduced-motion）
+ * ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

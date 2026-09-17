@@ -109,7 +109,7 @@ export const StatCardHover: Story = {
       <StatCard label="总请求" value="12,847" note="悬停我看看" />
     </div>
   ),
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
     const card = canvas.getByText("总请求").closest("div");
     if (card) {

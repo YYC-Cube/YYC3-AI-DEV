@@ -21,7 +21,6 @@ export async function register() {
 
     registerOTel({
       serviceName: "yyc3-token-console",
-      serviceVersion: "5.1.0",
       attributes: {
         "family.name": "YYC³ AI Family",
         "family.motto": "人从众曌众从人",

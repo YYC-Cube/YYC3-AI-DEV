@@ -26,7 +26,7 @@ export function LocaleSwitcher() {
       className="h-9 px-2 rounded-md border border-border-default bg-bg-subtle text-body-sm"
       aria-label="切换语言"
     >
-      {routing.locales.map((l) => (
+      {routing.locales.map((l: string) => (
         <option key={l} value={l}>
           {LOCALE_LABELS[l]}
         </option>

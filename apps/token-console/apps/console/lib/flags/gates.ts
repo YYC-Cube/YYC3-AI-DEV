@@ -1,10 +1,68 @@
 /*
  * ============================================================
- * YYC3 AI Family — 人从众曌众从人
- * @Module : apps/console/lib/flags/gates.ts
- * @Family : YYC3 AI Family (永久开源)
- * @License : Apache-2.0
+ * YYC³ AI Family — 人从众曌众从人
+ * @Module : lib/flags/gates — 8 域开关门控（服务端聚合读取）
+ * @Family-Owner : 🧠 元启·天枢
  * ============================================================
  */
+import {
+  apiKeysCRUD,
+  ssoEnabled,
+  routingRulesCRUD,
+  modelCompare,
+  sseV2,
+  playgroundPresetsBackend,
+  ragStreaming,
+  mcpMultiStep,
+  usageBilling,
+  requestLogs,
+  costRealCalculation,
+  pwaInstall,
+  i18nJa,
+  experimentalUI,
+} from "@/flags";
 
-// TODO: 代码待填充（见 docs/YYC3-AI-Family-Token-Console-开发推进 对应文档）
+export async function allGates() {
+  const [
+    apiKeys,
+    sso,
+    routing,
+    compare,
+    sse2,
+    presets,
+    ragStream,
+    mcpMulti,
+    billing,
+    logs,
+    realCost,
+    pwa,
+    ja,
+    ui,
+  ] = await Promise.all([
+    apiKeysCRUD(),
+    ssoEnabled(),
+    routingRulesCRUD(),
+    modelCompare(),
+    sseV2(),
+    playgroundPresetsBackend(),
+    ragStreaming(),
+    mcpMultiStep(),
+    usageBilling(),
+    requestLogs(),
+    costRealCalculation(),
+    pwaInstall(),
+    i18nJa(),
+    experimentalUI(),
+  ]);
+
+  return {
+    guardian: { apiKeys, sso },
+    qianhang: { routing },
+    bole: { compare },
+    wanyu: { sse2, presets },
+    zongshi: { ragStream },
+    tianshu: { mcpMulti, ui },
+    xianzhi: { billing, logs, realCost },
+    lingyun: { pwa, ja },
+  };
+}
