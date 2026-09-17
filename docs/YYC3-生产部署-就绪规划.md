@@ -1,6 +1,19 @@
+---
+file: YYC3-生产部署-就绪规划.md
+description: YYC³ 双架构 AI 生态生产就绪规划 — Phase 0-4 里程碑与验收基线
+author: YanYuCloudCube Team <admin@0379.email>
+version: v1.4.0
+created: 2026-07-17
+updated: 2026-09-18
+status: active
+tags: [deployment],[production],[roadmap]
+category: plan
+---
+
 # YYC³ 双架构 AI 生态 · 生产就绪规划大纲
 
-> 审核日期: 2026-07-17 | 版本: v1.3 | 持续更新
+> 审核日期: 2026-07-17 | 版本: v1.4 | 持续更新
+> 配套: [任务看板](./YYC3-任务看板-Phase0-1.md) · [开发者部署指南](./AI-Dev/developer/06-部署运维.md)
 
 ---
 
@@ -10,7 +23,7 @@
 
 ```
 阶段: Phase 4 完成 ✅ (生态闭环全量达成)
-TS 错误: 0     测试: 24 files / 294 tests ✅
+TS 错误: 0     测试: 28 files / 324 tests ✅ (2026-09 校准)
 E2E: Playwright (Chromium) ✅
 LLM: 5 Provider (OpenAI/Anthropic/Qwen/DeepSeek/Kimi) ✅
 SSE: Token-by-Token 流式 ✅
@@ -23,7 +36,7 @@ SSE: Token-by-Token 流式 ✅
 ### 里程碑
 
 | # | 时间 | 完成项 |
-|---|------|--------|
+| --- | ------ | -------- |
 | M1 | 02:50 | 架构规范 + Shell + 7 插件 + 8 App |
 | M2 | 03:10 | 测试框架搭建 (7 files / 41 tests) |
 | M3 | 03:15 | TypeScript 0 错误 |
@@ -44,7 +57,7 @@ SSE: Token-by-Token 流式 ✅
 ## 二、Phase 1: 基础设施 (✅ 100% 完成)
 
 | # | 任务 | 状态 |
-|---|------|------|
+| --- | ------ | ------ |
 | 1 | `tsconfig.json` (8 包路径别名) | ✅ |
 | 2 | `vitest.config.ts` (jsdom + 别名) | ✅ |
 | 3 | `package.json` + test 脚本 | ✅ |
@@ -63,7 +76,7 @@ SSE: Token-by-Token 流式 ✅
 ### Dynasty 系统 ✅ 100%
 
 | 页面 | 状态 |
-|------|------|
+| ------ | ------ |
 | 朝堂大厅 (CourtHall) | ✅ 12 Agent 层级展示 + 六阶段流转 |
 | 旨意板 (EdictBoard) | ✅ 新敕令发起 + 六阶段进度条 + 自动流转 |
 | 十三王朝 (DynastyTimeline) | ✅ 13 朝代选择 + 26 Skills |
@@ -76,7 +89,7 @@ SSE: Token-by-Token 流式 ✅
 ### AI Family 系统 ✅ 100%
 
 | 页面 | 状态 |
-|------|------|
+| ------ | ------ |
 | 时钟环家园 (FamilyHomePage) | ✅ |
 | 家园中心 (FamilyCenterPage) | ✅ |
 | 交流中心 (FamilyChatPage) | ✅ |
@@ -88,7 +101,7 @@ SSE: Token-by-Token 流式 ✅
 ### 其他 5 系统 ✅ 100%
 
 | 系统 | 页面 | 独立版 | Hub 命令 |
-|------|------|--------|----------|
+| ------ | ------ | -------- | ---------- |
 | 监控中心 | ✅ Dashboard | ✅ 可运行 | ✅ 4 命令 |
 | 运维管理 | ✅ OperationCenter | ✅ 可运行 | ✅ 3 命令 |
 | AI 智能 | ✅ AISuggestion | ✅ 可运行 | ✅ 3 命令 |
@@ -98,7 +111,7 @@ SSE: Token-by-Token 流式 ✅
 ### ✅ 已完成
 
 | # | 任务 | 优先级 | 完成时间 |
-|---|------|--------|----------|
+| --- | ------ | -------- | ---------- |
 | 1 | AI Family 独立版 npm install + vite 配置 | P0 | M9 |
 | 2 | Dynasty App 内部页面导航互联 | P0 | M10 |
 | 3 | Hub 浮窗命令 connect 到实际动作 | P1 | M11 |
@@ -111,7 +124,7 @@ SSE: Token-by-Token 流式 ✅
 ## 四、Phase 3: 质量工程 (→ 已完成)
 
 | # | 任务 | 状态 |
-|---|------|------|
+| --- | ------ | ------ |
 | 1 | Vitest 覆盖率提升 (18 files / 230 tests ✅) | ✅ |
 | 2 | 引擎集成测试 (8 用例 ✅) | ✅ |
 | 3 | EventBus 跨插件测试 (16 用例 ✅) | ✅ |
@@ -126,43 +139,43 @@ SSE: Token-by-Token 流式 ✅
 
 ### 5.1 任务详情矩阵
 
-| # | 任务 | 子任务 | 优先级 | 依赖 | 状态 |
-|---|------|--------|--------|------|------|
-| **P4-1** | **LLM 适配层** | OpenAI / Anthropic / 国产模型 (通义/DeepSeek/Kimi) | P0 | — | ✅ 完成 |
-|  |  | 统一 chat completion 接口 | P0 | P4-1 | ✅ BaseAdapter + 5 适配器 |
-|  |  | 模型路由策略（成本/延迟/质量） | P1 | P4-1 | ✅ LLMRouter 实现 |
-| **P4-2** | **流式输出 (SSE)** | Server-Sent Events 协议封装 | P0 | P4-1 | ✅ SSEClient |
-|  |  | Token-by-Token 渲染 | P0 | P4-2 | ✅ AIAssistantHub 流式累加 |
-|  |  | 错误恢复与重连 | P1 | P4-2 | ✅ 自动重连 + Mock 回退 |
-| **P4-3** | **API Key 加密存储** | AES-256-GCM 加密 | P0 | — | ✅ Web Crypto API |
-|  |  | 本地 Keyring + 远端 Vault | P1 | P4-3 | ✅ Keyring + sessionStorage |
-| **P4-4** | **依赖扫描** | pnpm audit | P1 | — | ✅ CI/CD 集成 |
-|  |  | Snyk 集成 | P1 | P4-4 | ✅ snyk/actions/node |
-| **P4-5** | **Web 安全加固** | CSP / CORS / XSS | P1 | — | ✅ vercel.json + Nginx |
-|  |  | Rate Limiting | P1 | P4-1 | ✅ 60 req/min/IP |
-| **P4-6** | **Vercel 部署** | Web SaaS 部署 | P0 | P4-1/2/3 | ✅ vercel.json 完整 |
-|  |  | 环境变量配置 | P0 | P4-6 | ✅ .env.example |
-| **P4-7** | **Docker 部署** | Dockerfile + docker-compose | P1 | P4-6 | ✅ 多阶段 + Nginx |
-|  |  | 私有部署文档 | P1 | P4-7 | ✅ docker-compose.yml |
-| **P4-8** | **CI/CD 完善** | GitHub Actions 全流程 | P1 | P4-6 | ✅ 8-job pipeline |
-|  |  | 自动化测试 + 部署 | P1 | P4-8 | ✅ quality→build→e2e→deploy |
-| **P4-9** | **Lighthouse 基线** | 性能 / 可访问性 / SEO | P2 | P4-6 | ✅ .lighthouserc.json |
-| **P4-10** | **Serverless LLM 代理** | /api/chat/stream (Key 隐藏) | P1 | P4-6 | ✅ 5 Provider 路由 |
-| **P4-11** | **(可选) 微信小程序** | uni-app 适配 | P2 | P4-6 | ⬜ 后续迭代 |
-| **P4-12** | **(可选) npm SDK** | 3 个独立包发布 | P2 | P4-6 | ⬜ 后续迭代 |
+| #         | 任务　　　　　　　　　　| 子任务　　　　　　　　　　　　　　　　　　　　　　 | 优先级 | 依赖　　 | 状态　　　　　　　　　　　 |
+| -----------| -------------------------| ----------------------------------------------------| --------| ----------| ----------------------------|
+| **P4-1**  | **LLM 适配层**　　　　　| OpenAI / Anthropic / 国产模型 (通义/DeepSeek/Kimi) | P0　　 | —　　　　| ✅ 完成　　　　　　　　　　 |
+|           | 　　　　　　　　　　　　| 统一 chat completion 接口　　　　　　　　　　　　　| P0　　 | P4-1　　 | ✅ BaseAdapter + 5 适配器　 |
+|           | 　　　　　　　　　　　　| 模型路由策略（成本/延迟/质量）　　　　　　　　　　 | P1　　 | P4-1　　 | ✅ LLMRouter 实现　　　　　 |
+| **P4-2**  | **流式输出 (SSE)**　　　| Server-Sent Events 协议封装　　　　　　　　　　　　| P0　　 | P4-1　　 | ✅ SSEClient　　　　　　　　|
+|           | 　　　　　　　　　　　　| Token-by-Token 渲染　　　　　　　　　　　　　　　　| P0　　 | P4-2　　 | ✅ AIAssistantHub 流式累加　|
+|           | 　　　　　　　　　　　　| 错误恢复与重连　　　　　　　　　　　　　　　　　　 | P1　　 | P4-2　　 | ✅ 自动重连 + Mock 回退　　 |
+| **P4-3**  | **API Key 加密存储**　　| AES-256-GCM 加密　　　　　　　　　　　　　　　　　 | P0　　 | —　　　　| ✅ Web Crypto API　　　　　 |
+|           | 　　　　　　　　　　　　| 本地 Keyring + 远端 Vault　　　　　　　　　　　　　| P1　　 | P4-3　　 | ✅ Keyring + sessionStorage |
+| **P4-4**  | **依赖扫描**　　　　　　| pnpm audit　　　　　　　　　　　　　　　　　　　　 | P1　　 | —　　　　| ✅ CI/CD 集成　　　　　　　 |
+|           | 　　　　　　　　　　　　| Snyk 集成　　　　　　　　　　　　　　　　　　　　　| P1　　 | P4-4　　 | ✅ snyk/actions/node　　　　|
+| **P4-5**  | **Web 安全加固**　　　　| CSP / CORS / XSS　　　　　　　　　　　　　　　　　 | P1　　 | —　　　　| ✅ vercel.json + Nginx　　　|
+|           | 　　　　　　　　　　　　| Rate Limiting　　　　　　　　　　　　　　　　　　　| P1　　 | P4-1　　 | ✅ 60 req/min/IP　　　　　　|
+| **P4-6**  | **Vercel 部署**　　　　 | Web SaaS 部署　　　　　　　　　　　　　　　　　　　| P0　　 | P4-1/2/3 | ✅ vercel.json 完整　　　　 |
+|           | 　　　　　　　　　　　　| 环境变量配置　　　　　　　　　　　　　　　　　　　 | P0　　 | P4-6　　 | ✅ .env.example　　　　　　 |
+| **P4-7**  | **Docker 部署**　　　　 | Dockerfile + docker-compose　　　　　　　　　　　　| P1　　 | P4-6　　 | ✅ 多阶段 + Nginx　　　　　 |
+|           | 　　　　　　　　　　　　| 私有部署文档　　　　　　　　　　　　　　　　　　　 | P1　　 | P4-7　　 | ✅ docker-compose.yml　　　 |
+| **P4-8**  | **CI/CD 完善**　　　　　| GitHub Actions 全流程　　　　　　　　　　　　　　　| P1　　 | P4-6　　 | ✅ 8-job pipeline　　　　　 |
+|           | 　　　　　　　　　　　　| 自动化测试 + 部署　　　　　　　　　　　　　　　　　| P1　　 | P4-8　　 | ✅ quality→build→e2e→deploy |
+| **P4-9**  | **Lighthouse 基线**　　 | 性能 / 可访问性 / SEO　　　　　　　　　　　　　　　| P2　　 | P4-6　　 | ✅ .lighthouserc.json　　　 |
+| **P4-10** | **Serverless LLM 代理** | /api/chat/stream (Key 隐藏)　　　　　　　　　　　　| P1　　 | P4-6　　 | ✅ 5 Provider 路由　　　　　|
+| **P4-11** | **(可选) 微信小程序**　 | uni-app 适配　　　　　　　　　　　　　　　　　　　 | P2　　 | P4-6　　 | ⬜ 后续迭代　　　　　　　　 |
+| **P4-12** | **(可选) npm SDK**　　　| 3 个独立包发布　　　　　　　　　　　　　　　　　　 | P2　　 | P4-6　　 | ⬜ 后续迭代　　　　　　　　 |
 
 ### 5.2 Phase 4 验收标准
 
-| 指标 | 目标值 | 验证方法 | 实际达成 |
-|------|--------|---------|---------|
-| LLM 响应延迟 | ≤ 3s 首 Token | SSE 首字节时间 | ✅ SSE 流式 |
-| API Key 安全 | AES-256-GCM 加密 | 密钥不落明文盘 | ✅ PBKDF2 100K iter |
-| 依赖漏洞 | 0 高危 | pnpm audit + Snyk | ✅ CI 集成 |
-| Vercel 部署 | 可访问 | <https://yyc3.vercel.app> | ✅ 配置就绪 |
-| 文档站点域名 | 可访问 + HTTPS | <https://dev.yyc3.vip>（CNAME 已入库） | ✅ Enforce HTTPS 已开启 |
-| Docker 镜像 | < 500MB | docker images 检查 | ✅ Nginx Alpine ~50MB |
-| Lighthouse | ≥ 90 分 | 性能 / 可访问性 / SEO | ✅ LCP<2.5s/CLS<0.1/TBT<200ms |
-| 单元测试 | 60+ tests | pnpm test --run | ✅ 294 tests / 100% pass |
+| 指标　　　　 | 目标值　　　　　 | 验证方法　　　　　　　　　　　　　　　 | 实际达成　　　　　　　　　　 |
+| --------------| ------------------| ----------------------------------------| ------------------------------|
+| LLM 响应延迟 | ≤ 3s 首 Token　　| SSE 首字节时间　　　　　　　　　　　　 | ✅ SSE 流式　　　　　　　　　 |
+| API Key 安全 | AES-256-GCM 加密 | 密钥不落明文盘　　　　　　　　　　　　 | ✅ PBKDF2 100K iter　　　　　 |
+| 依赖漏洞　　 | 0 高危　　　　　 | pnpm audit + Snyk　　　　　　　　　　　| ✅ CI 集成　　　　　　　　　　|
+| Vercel 部署　| 可访问　　　　　 | <https://yyc3.vercel.app>　　　　　　　| ✅ 配置就绪　　　　　　　　　 |
+| 文档站点域名 | 可访问 + HTTPS　 | <https://dev.yyc3.vip>（CNAME 已入库） | ✅ Enforce HTTPS 已开启　　　 |
+| Docker 镜像　| < 500MB　　　　　| docker images 检查　　　　　　　　　　 | ✅ Nginx Alpine ~50MB　　　　 |
+| Lighthouse　 | ≥ 90 分　　　　　| 性能 / 可访问性 / SEO　　　　　　　　　| ✅ LCP<2.5s/CLS<0.1/TBT<200ms |
+| 单元测试　　 | 60+ tests　　　　| pnpm test --run　　　　　　　　　　　　| ✅ 324 tests / 100% pass　　　|
 
 ### 5.3 Phase 4 技术栈
 
@@ -183,3 +196,12 @@ SSE 流式:
 ├── Docker + docker-compose  ← 私有部署
 └── GitHub Actions       ← CI/CD 自动化
 ```
+
+---
+
+## 变更历史
+
+| 版本 | 日期 | 变更内容 |
+|------|------|----------|
+| v1.4.0 | 2026-09-18 | 基线校准 294→324 tests（28 files）；补 frontmatter 与配套链接；token-console 纳入生态（9 App） |
+| v1.3 | 2026-07-17 | Phase 4 生态闭环完成校准 |

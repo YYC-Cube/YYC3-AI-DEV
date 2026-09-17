@@ -26,7 +26,7 @@ AI Family (中枢系统)
 ### 2.1 系统标识
 
 | 系统 | ID | 层级 | 路由前缀 |
-| ------ | ---- | ------ | --------- |
+|------|----|------|---------|
 | AI Family | `ai-family` | 中枢 | `/ai-family` |
 | 监控中心 | `monitor` | 子系统 | `/monitor` |
 | 运维管理 | `ops` | 子系统 | `/ops` |
@@ -62,7 +62,7 @@ pageKey        → 页面标识
 ### 2.3 颜色词库
 
 | 系统 | 主色 | 用途 |
-| ------ | ------ | ------ |
+|------|------|------|
 | AI Family | `#00FF88` | 中枢绿色 |
 | 监控中心 | `#00d4ff` | 青色 |
 | 运维管理 | `#FF6600` | 橙色 |
@@ -222,7 +222,7 @@ const persona = storage.get("activePersona", "meta-oracle");
 ### 4.3 关键存储字段
 
 | Key | 归属 | 类型 | 默认值 | 说明 |
-| ----- | ------ | ------ | -------- | ------ |
+|-----|------|------|--------|------|
 | `activePersona` | ai-family | string | `meta-oracle` | 当前活跃人格 |
 | `voiceProfiles` | ai-family | VoiceProfile[] | `[]` | 语音配置 |
 | `welcomeDismissed` | shell | boolean | `false` | 欢迎页已关闭 |
@@ -382,7 +382,7 @@ e2e/                Playwright (welcome-flow)
 ### 8.2 核心业务文档衔接矩阵
 
 | 文档 | 插件包 | 公开 API |
-| ------ | -------- | --------- |
+|------|--------|---------|
 | 《My-经管运维-目标量化》 | plugin-target | `calc / splitPhases / splitMonthly / validate` |
 | 《My-成本盈亏-计算工具》 | plugin-cost | `calcCityCostIndex / calcTotalCost / analyzeProfit` |
 | 《My-营销工具-构建方案》 | plugin-marketing | `buildFestivalCalendar / filterByStage / getDefaultActions` |
@@ -391,10 +391,22 @@ e2e/                Playwright (welcome-flow)
 ### 8.3 关键架构演进记录
 
 | 演进点 | 结果 |
-| -------- | ------ |
+|--------|------|
 | LLM 适配层 | plugin-llm 零依赖纯适配（5 Provider + SSE + AES-256-GCM Keyring），shell 经 llm-bridge 单向桥接 + Mock 降级 |
 | 依赖边界 | 插件 → shell 单向依赖；幻影 peer 声明由 `boundaries.test.ts` 守卫拦截 |
 | 部署基线 | Vercel (api/serverless) + Docker + CI/CD 多 Job 门禁 + Lighthouse a11y ≥ 0.95 |
+| token-console 并入 | 332f4b4 迁入为第 9 App（Next.js 16 子工作区，`apps/token-console/apps/console`），2026-09-18 完成依赖闭环修复（`080a139`） |
+
+### 8.4 token-console 子工作区
+
+| 属性 | 值 |
+|------|-----|
+| 位置 | [`apps/token-console/apps/console/`](../../apps/token-console/apps/console/package.json)（双层 workspace） |
+| 技术栈 | Next.js 16 App Router · Turbopack · TanStack Query v5 · next-intl (zh-CN/en/ja) · Serwist PWA · MSW 2.x |
+| 8 域 | guardian(守护/接入) · qianhang(路由) · bole(模型市场) · wanyu(SSE Playground) · zongshi(RAG) · tianshu(MCP) · xianzhi(监控) · lingyun(缓存) |
+| 测试 | Vitest + 11 Playwright E2E specs（独立 playwright.config） |
+| CI | 独立 12 workflows（ci/contract/a11y/bundle/performance/security/i18n/flags/load-test/deploy/release/storybook） |
+| TS 边界 | 由自身 tsconfig 管辖，根 tsconfig 已 exclude（见 8.1） |
 
 ---
 
@@ -402,5 +414,6 @@ e2e/                Playwright (welcome-flow)
 
 | 版本 | 日期 | 变更内容 | 作者 |
 |------|------|----------|------|
+| v1.2.0 | 2026-09-18 | 新增 8.4 token-console 子工作区专节；9 App 基线校准；演进记录补 token-console 并入 | YanYuCloudCube Team |
 | v1.1.0 | 2026-09-16 | 合并《YYC3-项目架构-设计总纲》独有内容（现状对齐/衔接矩阵/演进记录），基线更新至 17 包 | YanYuCloudCube Team |
 | v1.0.0 | — | 初始架构规范 | YanYuCloudCube Team |

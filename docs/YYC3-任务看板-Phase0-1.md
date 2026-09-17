@@ -1,30 +1,43 @@
+---
+file: YYC3-任务看板-Phase0-1.md
+description: YYC³ 任务看板 Phase 0-4 全量进度跟踪（已闭环）
+author: YanYuCloudCube Team <admin@0379.email>
+version: v2.1.0
+created: 2026-07-16
+updated: 2026-09-18
+status: stable
+tags: [kanban],[milestones],[tracking]
+category: plan
+---
+
 # YYC³ 任务看板 — Phase 0-1 详细任务列表
 
-> **文档版本**：2.0.0
+> **文档版本**：2.1.0
 > **发布日期**：2026-07-16
-> **最后校准**：2026-07-17（Phase 0-1 全量完成 + Phase 2-3 同步交付）
-> **配套文档**：[YYC3-全链路智能应用-阶段节点设计落地大纲](./YYC3-全链路智能应用-阶段节点设计落地大纲.md)
+> **最后校准**：2026-09-18（基线 324 tests + token-console 纳入）
+> **配套文档**：[YYC3-全链路智能应用-阶段节点设计落地大纲](./YYC3-全链路智能应用-阶段节点设计落地大纲.md) · [生产就绪规划](./YYC3-生产部署-就绪规划.md)
 
 ---
 
 ## 进度同步机制
 
 | 频率 | 方式 | 内容 |
-|------|------|------|
+| ------ | ------ | ------ |
 | 每任务完成 | TodoWrite 更新 | 标记完成 + 写入 summary |
 | 每Phase完成 | 里程碑报告 | 验收标准逐项核对 |
 | 异常阻塞 | 即时同步 | 记录风险并调整计划 |
 
 ---
 
-## 全局进度看板（2026-07-17 校准，含 Phase 4 完成）
+## 全局进度看板（2026-09-18 校准，含 Phase 4 完成 + token-console 并入）
 
 ```
 Phase 0  ████████████████████ 100% ✅ 已超额完成（6/6 +9 额外插件包）
 Phase 1  ████████████████████ 100% ✅ 4 引擎全量落地（30/30 任务）
 Phase 2  ████████████████████ 100% ✅ 8 App + Hub 命令联动
-Phase 3  ████████████████████ 100% ✅ 质量工程完成 (294 tests)
+Phase 3  ████████████████████ 100% ✅ 质量工程完成 (324 tests · 28 files)
 Phase 4  ████████████████████ 100% ✅ LLM + SSE + AES + Vercel + Docker + CI/CD
+附加     ████████████████████ 100% ✅ token-console（Next.js 16）并入为第 9 App
 ```
 
 ---
@@ -32,7 +45,7 @@ Phase 4  ████████████████████ 100% ✅ L
 ## Phase 0：基线对齐 ✅ 100%（已超额完成）
 
 | ID | 任务名称 | 负责人 | 起止时间 | 优先级 | 任务描述 | 状态 |
-|----|----------|--------|----------|--------|----------|------|
+| ---- | ---------- | -------- | ---------- | -------- | ---------- | ------ |
 | P0-1 | 创建 plugin-target 包骨架 | AI实施专家 | Day 1 | P0 | 创建 `packages/plugin-target/` 目录结构，含 package.json、register.ts、types.ts | ✅ 完成 |
 | P0-2 | 创建 plugin-cost 包骨架 | AI实施专家 | Day 1 | P0 | 创建 `packages/plugin-cost/` 目录结构，含 package.json、register.ts、types.ts | ✅ 完成 |
 | P0-3 | 创建 plugin-marketing 包骨架 | AI实施专家 | Day 1 | P0 | 创建 `packages/plugin-marketing/` 目录结构，含 package.json、register.ts、types.ts | ✅ 完成 |
@@ -43,7 +56,7 @@ Phase 4  ████████████████████ 100% ✅ L
 ### Phase 0 额外交付（+9 插件包 + 8 独立 App）
 
 | 额外项 | 说明 |
-|--------|------|
+| -------- | ------ |
 | +9 插件包 | shell / plugin-dynasty / plugin-ai-family / plugin-monitor / plugin-ops / plugin-ai / plugin-dev / plugin-admin |
 | +8 独立 App | full + 7 个 standalone-* 应用，全部可 npm install + vite dev |
 | +测试框架 | Vitest + jsdom + Jest-DOM + React Testing Library + Playwright |
@@ -56,7 +69,7 @@ Phase 4  ████████████████████ 100% ✅ L
 ### 1A. 目标量化引擎（plugin-target）✅ 35 tests
 
 | ID | 任务名称 | 负责人 | 起止时间 | 优先级 | 任务描述 | 依赖 | 状态 |
-|----|----------|--------|----------|--------|----------|------|------|
+| ---- | ---------- | -------- | ---------- | -------- | ---------- | ------ | ------ |
 | P1-T1 | TargetEngine 类型定义 | AI实施专家 | Day 3 | P0 | 定义 TargetParams、TargetResult、PhaseAllocation、MonthlyPlan 等接口 | P0-1 | ✅ 完成 |
 | P1-T2 | X公式计算逻辑编码 | AI实施专家 | Day 3-4 | P0 | 实现 `calc()` 方法：基础基数 × 城市系数 × 规模系数 × 增速系数 × 调整系数 | P1-T1 | ✅ 完成 |
 | P1-T3 | 三阶段拆分逻辑 | AI实施专家 | Day 4 | P0 | 实现 `splitPhases()`：旺季50% / 平季30% / 淡季20% | P1-T2 | ✅ 完成 |
@@ -68,7 +81,7 @@ Phase 4  ████████████████████ 100% ✅ L
 ### 1B. 成本盈亏引擎（plugin-cost）✅ 30 tests
 
 | ID | 任务名称 | 负责人 | 起止时间 | 优先级 | 任务描述 | 依赖 | 状态 |
-|----|----------|--------|----------|--------|----------|------|------|
+| ---- | ---------- | -------- | ---------- | -------- | ---------- | ------ | ------ |
 | P1-C1 | CostEngine 类型定义 | AI实施专家 | Day 6 | P0 | 定义 VenueParams、EquipmentParams、CostBreakdown、ProfitAnalysis 等接口 | P0-2 | ✅ 完成 |
 | P1-C2 | 城市数据模型 | AI实施专家 | Day 6 | P0 | 337城市数据结构化：等级/租金/消费力/竞争密度 | P1-C1 | ✅ 完成 |
 | P1-C3 | 场地成本计算 | AI实施专家 | Day 7 | P0 | 实现：面积 × 租金 × 利用率 + 包厢配置成本 | P1-C2 | ✅ 完成 |
@@ -81,7 +94,7 @@ Phase 4  ████████████████████ 100% ✅ L
 ### 1C. 节日算法引擎（plugin-marketing）✅ 41 tests
 
 | ID | 任务名称 | 负责人 | 起止时间 | 优先级 | 任务描述 | 依赖 | 状态 |
-|----|----------|--------|----------|--------|----------|------|------|
+| ---- | ---------- | -------- | ---------- | -------- | ---------- | ------ | ------ |
 | P1-M1 | FestivalEngine 类型定义 | AI实施专家 | Day 10 | P0 | 定义 Festival、FestivalType、FestivalStage、FestivalAction 等接口 | P0-3 | ✅ 完成 |
 | P1-M2 | 农历转换引擎 | AI实施专家 | Day 10 | P0 | 实现 `lunar-engine.ts`：Solar↔Lunar 转换 + 闰月处理 | P1-M1 | ✅ 完成 |
 | P1-M3 | 6类节日数据库 | AI实施专家 | Day 11 | P0 | 构建 festivals.ts：法定/民俗/网络/地方/品牌/门店 全年200+节日 | P1-M2 | ✅ 完成 |
@@ -93,7 +106,7 @@ Phase 4  ████████████████████ 100% ✅ L
 ### 1D. 提示词库结构化（plugin-prompt）✅ 19 tests
 
 | ID | 任务名称 | 负责人 | 起止时间 | 优先级 | 任务描述 | 依赖 | 状态 |
-|----|----------|--------|----------|--------|----------|------|------|
+| ---- | ---------- | -------- | ---------- | -------- | ---------- | ------ | ------ |
 | P1-P1 | BusinessPrompt 类型定义 | AI实施专家 | Day 13 | P1 | 定义 BusinessPrompt、PromptCategory、PromptPersona 等接口 | P0-4 | ✅ 完成 |
 | P1-P2 | 15个 Prompt 模板结构化 | AI实施专家 | Day 13 | P1 | 将文档④的15个 Prompt 编码为 PromptPreset 对象数组 | P1-P1 | ✅ 完成 |
 | P1-P3 | 人格-Prompt 映射表 | AI实施专家 | Day 14 | P1 | 8位家人 × 15个 Prompt 的绑定关系配置 | P1-P2 | ✅ 完成 |
@@ -102,7 +115,7 @@ Phase 4  ████████████████████ 100% ✅ L
 ### M1 里程碑验收 ✅ 全量达成
 
 | 验收项 | 目标值 | 实际达成 | 状态 |
-|--------|--------|---------|------|
+| -------- | -------- | --------- | ------ |
 | 引擎测试总数 | ≥60 | 125 (35+30+41+19) | ✅ 超额 208% |
 | TypeScript 编译 | 0 错误 | 0 错误 | ✅ |
 | 公式计算精度 | 小数点后2位 | 小数点后2位 | ✅ |
@@ -114,7 +127,7 @@ Phase 4  ████████████████████ 100% ✅ L
 ## Phase 2-3 同步交付（M8-M13 里程碑）
 
 | 里程碑 | 内容 | 状态 |
-|--------|------|------|
+| -------- | ------ | ------ |
 | M8-M9 | 8 独立 App 全量 npm install + vite 可启动 | ✅ |
 | M10 | Dynasty App 内部页面导航互联 | ✅ |
 | M11 | Hub 浮窗命令 connect 到实际动作（7 系统 + full） | ✅ |
@@ -124,7 +137,7 @@ Phase 4  ████████████████████ 100% ✅ L
 ### Phase 3 质量工程已完成子任务
 
 | ID | 任务 | 状态 | 备注 |
-|----|------|------|------|
+| ---- | ------ | ------ | ------ |
 | P3-1 | Vitest 覆盖率提升 (24 files / 294 tests) | ✅ | 从 158 → 294 (Phase 4 新增 64) |
 | P3-2 | 引擎集成测试 (8 用例) | ✅ | plugin-target/engine-integration.test.ts |
 | P3-3 | EventBus 跨插件测试 (16 用例) | ✅ | event-bus-cross-plugin.test.ts |
@@ -141,7 +154,7 @@ Phase 4  ████████████████████ 100% ✅ L
 ## Phase 4 已完成任务（M14 里程碑 ✅ 100%）
 
 | ID | 任务 | 优先级 | 实际交付物 | 状态 |
-|----|------|--------|----------|------|
+| ---- | ------ | -------- | ---------- | ------ |
 | P4-1 | LLM 适配层 (OpenAI/Anthropic/Qwen/DeepSeek/Kimi) | P0 | `packages/plugin-llm/src/providers.ts` 5 适配器 | ✅ |
 | P4-2 | 流式输出 SSE 协议封装 | P0 | `packages/plugin-llm/src/sse.ts` + `base-adapter.ts` | ✅ |
 | P4-3 | API Key 加密存储 (AES-256-GCM) | P0 | `packages/plugin-llm/src/crypto.ts` + `key-manager.ts` | ✅ |
@@ -163,7 +176,7 @@ Phase 4  ████████████████████ 100% ✅ L
 ## 后续阶段任务预览（Phase 2-4 概要）
 
 | 阶段 | 核心任务 | 里程碑 | 状态 |
-|------|----------|--------|------|
+| ------ | ---------- | -------- | ------ |
 | Phase 2 (Week 4-6) | 8页面UI + 8家人绑定 + 数据流贯通 | M2: 可交互Web工具平台 | ✅ 完成 |
 | Phase 3 (Week 7-9) | 组件测试 + E2E + 全链路质量工程 | M3: 全量 294 tests 100% pass | ✅ 完成 |
 | Phase 4 (Week 10-12) | LLM + SSE + AES + Vercel + Docker + CI/CD | M4: 生态闭环全量达成 | ✅ 完成 |
@@ -181,24 +194,28 @@ Phase 4  ████████████████████ 100% ✅ L
 
 ---
 
-## 全量交付物清单（2026-07-17 校准）
+## 全量交付物清单（2026-09-18 校准）
 
 ```
 代码资产:
-├── 13 插件包 (packages/)       ✅ 全量可运行
-├── 8 独立应用 (apps/)          ✅ 全量可 npm install + vite dev
-├── 18 测试文件 / 230 tests     ✅ 100% 通过
+├── 17 包 (packages/)           ✅ shell · 12 plugin-* · 4 引擎包
+├── 9 应用 (apps/)              ✅ full + 7 standalone-* + token-console（Next.js 16 子工作区）
+├── 28 测试文件 / 324 tests     ✅ 100% 通过
 ├── Playwright E2E              ✅ Chromium 通过
-└── TypeScript 0 错误            ✅ tsc --noEmit
+└── TypeScript 0 错误            ✅ root + token-console 双 tsconfig 全绿
 
 文档资产:
-├── 5 份架构文档                ✅ 全量校准（本次）
-├── 4 份核心业务文档            ✅ 含项目实现衔接 + 交叉引用
-└── CI/CD                       ✅ GitHub Actions
-
-待启动 (Phase 4):
-├── LLM 适配层
-├── SSE 流式输出
-├── 安全加固
-└── Vercel / Docker 部署
+├── docs/AI-Dev/ 套件           ✅ ARCHITECTURE + developer 8 篇 + AIAssistant
+├── 4 份规划/看板文档           ✅ frontmatter 齐备 + 基线同步
+└── CI/CD                       ✅ GitHub Actions + token-console 12 workflows
 ```
+
+---
+
+## 变更历史
+
+| 版本 | 日期 | 变更内容 |
+| ------ | ------ | ---------- |
+| v2.1.0 | 2026-09-18 | 基线校准 294→324 tests（28 files）；token-console 并入为第 9 App；补 frontmatter |
+| v2.0.0 | 2026-07-17 | Phase 0-4 全量完成闭环 |
+| v1.0.0 | 2026-07-16 | 初始版本 |
