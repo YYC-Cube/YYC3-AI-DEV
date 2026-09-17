@@ -15,10 +15,10 @@ type MobileTab = "params" | "chat" | "debug";
 
 export function PlaygroundLayout() {
   const { state, send, stop } = useWanyuChat();
-  const [tab, setTab] = useState<MobileTab>("chat");
-  // ParamPanel 只产出用户输入文本，此处包装为 ChatMessage 协议
+  // 快捷发送：单条输入直接作为 user 消息（模型/采样参数走默认契约）
   const sendText = (input: string) =>
-    send({ model: "default", messages: [{ role: "user", content: input }] });
+    void send({ model: "gpt-4o", messages: [{ role: "user", content: input }], stream: true });
+  const [tab, setTab] = useState<MobileTab>("chat");
 
   return (
     <>

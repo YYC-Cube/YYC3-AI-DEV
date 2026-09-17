@@ -28,8 +28,7 @@ function report(metric: Metric) {
   }
 
   // 3. 超预算告警
-  const budget =
-    WEB_VITALS_BUDGET[metric.name as keyof typeof WEB_VITALS_BUDGET];
+  const budget = WEB_VITALS_BUDGET[metric.name];
   if (budget && metric.value > budget.poor) {
     console.error(
       `🐌 [${metric.name}] ${metric.value.toFixed(2)} 超过劣化阈值 ${budget.poor}`,
@@ -65,10 +64,10 @@ function getRouteFamily(path: string): string {
 }
 
 // 预算（v5.1 §3.10）
-export const WEB_VITALS_BUDGET = {
+export const WEB_VITALS_BUDGET: Record<string, { good: number; poor: number }> = {
   LCP: { good: 2500, poor: 4000 },
   INP: { good: 200, poor: 500 },
   CLS: { good: 0.1, poor: 0.25 },
   FCP: { good: 1800, poor: 3000 },
   TTFB: { good: 800, poor: 1800 },
-} as const;
+};

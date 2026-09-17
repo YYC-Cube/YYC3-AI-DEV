@@ -2,7 +2,7 @@
  * @Module : app/dashboard — 带开关的仪表盘
  * @Family-Owner : 🔮 预见·先知
  */
-import { usageBilling, costRealCalculation, requestLogs } from "#/flags";
+import { usageBilling, costRealCalculation, requestLogs } from "@/flags";
 import { FlaggedFeature } from "@/components/flags/FlaggedFeature";
 import { PageHeader } from "@/components/family/PageHeader";
 import { DashboardIsland } from "./DashboardIsland";
@@ -18,7 +18,9 @@ export default async function DashboardPage() {
   return (
     <div className="min-h-screen">
       <PageHeader title="今日预言" subtitle="见微知著，未卜先知" />
-      <DashboardIsland initialHealthz={{ flags: { showBilling, showRealCost, showLogs } }} />
+      <DashboardIsland
+        flags={{ showBilling, showRealCost, showLogs }}
+      />
     </div>
   );
 }

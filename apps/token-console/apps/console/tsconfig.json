@@ -25,12 +25,6 @@
     "paths": {
       "@/*": [
         "./*"
-      ],
-      "#/*": [
-        "./*"
-      ],
-      "#/flags": [
-        "./lib/flags/index.ts"
       ]
     }
   },
@@ -43,6 +37,11 @@
   ],
   "exclude": [
     "node_modules",
-    ".next"
+    ".next",
+    ".storybook",
+    "figma",
+    "stories",
+    "e2e",
+    "scripts"
   ]
 }

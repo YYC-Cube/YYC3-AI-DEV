@@ -4,9 +4,9 @@
  */
 "use client";
 
-import { useTianshuMCPTools } from "./useTianshuMCP";
+import { useTianshuMCPTools, type MCPTool } from "./useTianshuMCP";
 
-export function MCPToolTree({ onSelect }: { onSelect?: (tool: string) => void }) {
+export function MCPToolTree({ onSelect }: { onSelect?: (tool: MCPTool) => void }) {
   const { data: tools, isLoading } = useTianshuMCPTools();
 
   if (isLoading) {
@@ -31,7 +31,7 @@ export function MCPToolTree({ onSelect }: { onSelect?: (tool: string) => void })
             {list?.map((t) => (
               <li key={t.name}>
                 <button
-                  onClick={() => onSelect?.(t.name)}
+                  onClick={() => onSelect?.(t)}
                   className="w-full text-left px-2 py-1.5 rounded hover:bg-bg-elevated text-body-sm"
                   title={t.description}
                 >
