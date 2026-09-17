@@ -9,7 +9,7 @@
  * （PDAMR 认知环人格档案为唯一真相源，本文件仅作 Console 视图适配）
  */
 
-import { FAMILY_PROFILES } from "@yyc3/family-agents";
+import { FAMILY_PROFILES, type FamilyMemberProfile } from "@yyc3/family-agents";
 
 /**
  * Console 域键（guardian/qianhang/...）→ family-agents 档案键（FamilyMemberId）

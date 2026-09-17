@@ -11,6 +11,8 @@ overrides:
   esbuild: 0.28.2
 
 allowBuilds:
+  '@parcel/watcher': true
+  '@swc/core': true
   esbuild: true
   msw: false
 

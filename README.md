@@ -195,7 +195,7 @@ YYC3-AI-Dev/
 │   ├── plugin-dev/                   ← 🛠️ 开发工具
 │   └── plugin-admin/                 ← 🛡️ 系统管理
 │
-├── 📱 apps/                           ← 8 个独立应用
+├── 📱 apps/                           ← 9 个应用（8 独立 + token-console 子工作区）
 │   ├── full/                         ← 合并版
 │   ├── standalone-dynasty/           ← Dynasty 独立版（vite 已配置）
 │   ├── standalone-ai-family/         ← AI Family 独立版

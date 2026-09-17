@@ -130,6 +130,9 @@
     "dist",
     "e2e",
     "playwright-report",
-    "test-results"
+    "test-results",
+    "apps/token-console",
+    "apps/full",
+    "apps/standalone-*"
   ]
 }
