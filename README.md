@@ -126,8 +126,8 @@ YYC3-AI-DEV 承自 YYC³ Cloud Intelli-Matrix 的 **Shell + 插件体系**，是
 | `plugin-dev` | 开发工具 | `#E8E8E8` | 80 | — | — | ⬜ 基础 |
 | `plugin-admin` | 系统管理 | `#FFDD00` | 90 | — | — | ⬜ 基础 |
 | `plugin-llm` | LLM 网关 | `#00FF88` | — | LLMRouter + SSE | 61 | ✅ 稳定 |
-| **核心包合计** | — | — | — | — | **294** | ✅ 全绿 |
-| 补充包（family/dynasty-core） | — | — | — | — | 18 | ✅ 全绿 |
+| **核心包合计** | — | — | — | — | **298** | ✅ 全绿 |
+| 补充包（family/dynasty-core） | — | — | — | — | 26 | ✅ 全绿 |
 | **总计** | — | — | — | — | **324** | ✅ 全绿 |
 
 ---

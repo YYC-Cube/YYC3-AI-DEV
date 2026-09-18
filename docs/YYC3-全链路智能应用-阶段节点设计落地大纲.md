@@ -281,7 +281,7 @@ YYC³ Shell (统一入口)
 
 ---
 
-## 十、实施现状对齐（2026-07-17 校准）
+## 十、实施现状对齐（2026-09-18 校准）
 
 > 本节为四阶段落地大纲与项目实际进展的可视化对照，所有数据均来自 `npx vitest run` 与 `tsc --noEmit` 实测。
 
@@ -291,8 +291,9 @@ YYC³ Shell (统一入口)
 Phase 0 (基线对齐)   ████████████████████ 100% ✅ 已超额完成
 Phase 1 (引擎构建)   ████████████████████ 100% ✅ 4 引擎 + 125 tests
 Phase 2 (界面集成)   ████████████████████ 100% ✅ 8 App + Hub 命令联动
-Phase 3 (质量工程)   ████████████████████ 100% ✅ 组件测试 + E2E + 全量 294 tests
+Phase 3 (质量工程)   ████████████████████ 100% ✅ 组件测试 + E2E + 全量 324 tests
 Phase 4 (生态闭环)   ████████████████████ 100% ✅ LLM + SSE + AES + Vercel + Docker + CI/CD
+附加 (生态扩容)      ████████████████████ 100% ✅ token-console 并入（9 App · 2026-09）
 ```
 
 ### 10.2 Phase 0-2 实际交付物清单
@@ -309,7 +310,7 @@ Phase 4 (生态闭环)   ██████████████████�
 | -------- | --------- | --------- | ------ |
 | React Testing Library 组件测试 | — | ✅ 24 用例 (ErrorBoundary/WelcomePage/AIAssistantHub) + 7 LLMBridge | 超额完成 |
 | Playwright E2E | 欢迎弹窗 → 进入系统 | ✅ `welcome-flow.spec.ts` (Chromium) | 已达成 |
-| Vitest 覆盖率 | 60+ → 200+ | ✅ 24 files / 294 tests / 100% pass | 远超目标 |
+| Vitest 覆盖率 | 60+ → 200+ | ✅ 28 files / 324 tests / 100% pass | 远超目标 |
 | 4 核心业务文档衔接 | — | ✅ 全部含"项目实现衔接"章节 + 交叉引用 | 已达成 |
 
 ### 10.4 Phase 4 完成情况（生态闭环已全量达成）
@@ -362,16 +363,16 @@ Phase 4 (生态闭环)   ██████████████████�
 | 资产 | 原计划 | 实际达成 | 达成率 |
 | ------ | -------- | --------- | -------- |
 | **资产 A** 业务文档 | 4 份完整可用 | 4 份 + 项目实现衔接章节 + 交叉引用区块 | 100% ✅ |
-| **资产 B** 技术承载 | 4 插件包 + 60 测试 | 13 插件包 + 1 LLM 适配层 + 8 App + Serverless API + 294 tests + Playwright E2E | 492% ✅ |
-| **资产 C** 度量评估 | 60+ 测试 | 294 tests + 25 files + 100% pass + CI/CD 8-job + Lighthouse 基线 | 492% ✅ |
+| **资产 B** 技术承载 | 4 插件包 + 60 测试 | 17 包（12 plugin-* + 4 引擎 + shell）+ 9 App（含 token-console）+ Serverless API + 324 tests + Playwright E2E | 492%+ ✅ |
+| **资产 C** 度量评估 | 60+ 测试 | 324 tests + 28 files + 100% pass + CI/CD 双流水线（根 8-job + console 12 workflows）+ Lighthouse 基线 | 492%+ ✅ |
 
 ### 10.7 五维评估对照（实施后）
 
 | 维度 | 评估 | 实测结果 |
 | ------ | ------ | --------- |
 | 时间维 | 节奏合理性 | M1-M13 全部按计划达成，Phase 0-4 全绿，0 阻塞 |
-| 空间维 | 代码组织清晰度 | 13 包 + 8 App + Serverless API + Monorepo + 路径别名 |
-| 属性维 | 质量属性达标 | 294 tests / 0 TS 错误 / 100% pass / Lighthouse LCP<2.5s |
+| 空间维 | 代码组织清晰度 | 17 包 + 9 App + Serverless API + Monorepo + 路径别名 |
+| 属性维 | 质量属性达标 | 324 tests / 0 TS 错误 / 100% pass / Lighthouse LCP<2.5s |
 | 事件维 | 交互流畅度 | EventBus 跨插件 + Hub 命令联动 + SSE Token 流式 + Mock 回退 |
 | 关联维 | 依赖可控性 | 4 文档 ↔ 4 引擎 ↔ LLM 适配层 ↔ Serverless 双向映射 ✅ |
 
