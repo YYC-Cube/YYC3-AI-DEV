@@ -6,7 +6,7 @@
     <title>YYC³ Cloud Intelli-Matrix · 全链路智能应用生态</title>
     <meta
       name="description"
-      content="YYC³ 全链路智能应用生态展示 — Phase 0-4 全量达成 / 14 插件包 / 8 App / 294 tests / 5 Provider LLM"
+      content="YYC³ 全链路智能应用生态展示 — Phase 0-4 全量达成 / 17 包 / 9 App / 324 tests / 5 Provider LLM"
     />
     <style>
       :root {
@@ -969,12 +969,12 @@
         <div class="hero-badge"><span class="dot"></span>Phase 0-4 全量达成 · 生产就绪</div>
         <h1>YYC³ Cloud Intelli-Matrix</h1>
         <p class="hero-sub">
-          基于 Shell + 插件体系的多智能体协同生态 · 14 插件包 · 8 独立应用 · 5 LLM Provider · 294 单元测试 · Vercel +
+          基于 Shell + 插件体系的多智能体协同生态 · 17 包 · 9 独立应用 · 5 LLM Provider · 324 单元测试 · Vercel +
           Docker 双部署
         </p>
         <div class="hero-stats">
           <div class="stat-card">
-            <div class="stat-num">14</div>
+            <div class="stat-num">17</div>
             <div class="stat-label">插件包</div>
           </div>
           <div class="stat-card">
@@ -982,7 +982,7 @@
             <div class="stat-label">独立应用</div>
           </div>
           <div class="stat-card">
-            <div class="stat-num">294</div>
+            <div class="stat-num">324</div>
             <div class="stat-label">单元测试</div>
           </div>
           <div class="stat-card">
@@ -1202,7 +1202,7 @@
       </section>
 
       <section id="tests" class="section">
-        <h2 class="section-title">测试基线矩阵 (24 files / 294 tests)</h2>
+        <h2 class="section-title">测试基线矩阵 (28 files / 324 tests)</h2>
         <p class="section-desc">100% 通过率 · 0 TypeScript 错误 · Playwright E2E 已集成</p>
         <div
           style="
@@ -1226,7 +1226,7 @@
             <tfoot>
               <tr style="background: rgba(0, 255, 136, 0.05); font-weight: 700">
                 <td colspan="2">合计</td>
-                <td class="test-num">294</td>
+                <td class="test-num">324</td>
                 <td>全量 ✅ 通过</td>
               </tr>
             </tfoot>
@@ -1271,7 +1271,7 @@
             <h4>⚙️ CI/CD 8-job Pipeline</h4>
             <ul class="deploy-list">
               <li>quality: TS + Lint + Vitest</li>
-              <li>build: 8 App 矩阵构建</li>
+              <li>build: 9 App 矩阵构建</li>
               <li>e2e: Playwright 自动化</li>
               <li>security: pnpm audit + Snyk + Gitleaks</li>
               <li>lighthouse: 性能基线 (LCP&lt;2.5s)</li>
@@ -1304,7 +1304,7 @@
       >
         <div>YYC³ Cloud Intelli-Matrix · 全链路智能应用生态</div>
         <div style="margin-top: 8px">
-          Phase 0-4 全量达成 · 14 包 + 8 App + 5 LLM + 294 tests + Vercel + Docker + CI/CD
+          Phase 0-4 全量达成 · 17 包 + 9 App + 5 LLM + 324 tests + Vercel + Docker + CI/CD
         </div>
         <div style="margin-top: 8px">本页面为单文件可视化展示 · 完全自包含 · 可独立分享</div>
       </footer>
@@ -1349,10 +1349,10 @@
       // 数据层 (完全对齐项目实际状态)
       // ============================================================
       const PHASES = [
-        { name: 'Phase 0', label: '基线对齐', pct: 100, desc: '13+1 插件包 + 8 App + 文档群', status: 'ok' },
+        { name: 'Phase 0', label: '基线对齐', pct: 100, desc: '13+1 包 + 9 App + 文档群', status: 'ok' },
         { name: 'Phase 1', label: '引擎构建', pct: 100, desc: '4 引擎 + 125 tests', status: 'ok' },
         { name: 'Phase 2', label: '界面集成', pct: 100, desc: '8 App + Hub 命令 + 双主题', status: 'ok' },
-        { name: 'Phase 3', label: '质量工程', pct: 100, desc: '组件测试 + E2E + 294 tests', status: 'ok' },
+        { name: 'Phase 3', label: '质量工程', pct: 100, desc: '组件测试 + E2E + 324 tests', status: 'ok' },
         { name: 'Phase 4', label: '生态闭环', pct: 100, desc: 'LLM + SSE + AES + Vercel + Docker', status: 'ok' },
       ];
       const PLUGINS = [
@@ -1607,8 +1607,8 @@
       ];
       const RADAR = [
         { label: '时间维', score: 100, desc: 'Phase 0-4 全绿，0 阻塞' },
-        { label: '空间维', score: 100, desc: '14 包 + 8 App + Serverless API' },
-        { label: '属性维', score: 98, desc: '294 tests / 0 TS 错误 / 100% pass' },
+        { label: '空间维', score: 100, desc: '17 包 + 9 App + Serverless API' },
+        { label: '属性维', score: 98, desc: '324 tests / 0 TS 错误 / 100% pass' },
         { label: '事件维', score: 100, desc: 'EventBus + Hub + SSE 流式 + Mock 回退' },
         { label: '关联维', score: 100, desc: '4 文档 ↔ 4 引擎 ↔ LLM ↔ Serverless' },
       ];
@@ -2028,7 +2028,7 @@
       • Phase 0-4: <span style="color:var(--success);">全量达成 ✅</span><br/>
       • 插件包: 14 个<br/>
       • 独立应用: 8 个<br/>
-      • 单元测试: 294 / 100% 通过<br/>
+      • 单元测试: 324 / 100% 通过<br/>
       • LLM Provider: ${configured}/5 已配置<br/>
       • 部署: Vercel + Docker 就绪<br/><br/>
       <span style="color:var(--text-3);font-size:11px;">${new Date().toLocaleString('zh-CN')}</span>`;
@@ -2047,7 +2047,7 @@
         if (t.includes('llm') || t.includes('provider'))
           return `🤖 <strong>LLM 适配层:</strong><br/>• OpenAI / Anthropic / 通义 / DeepSeek / Kimi<br/>• AES-256-GCM 加密存储<br/>• SSE 流式输出<br/>• Mock 自动回退<br/><br/>👉 可在上方"LLM"模块点击切换配置！`;
         if (t.includes('测试'))
-          return `🧪 <strong>测试基线:</strong><br/>• 24 文件 / 294 用例<br/>• 100% 通过率<br/>• 0 TypeScript 错误<br/>• Playwright E2E 已集成`;
+          return `🧪 <strong>测试基线:</strong><br/>• 28 文件 / 324 用例<br/>• 100% 通过率<br/>• 0 TypeScript 错误<br/>• Playwright E2E 已集成`;
         if (t.includes('部署'))
           return `🚀 <strong>部署方案:</strong><br/>• Vercel (sin1+hkg1 双区域)<br/>• Docker (Nginx Alpine ~50MB)<br/>• CI/CD 8-job pipeline<br/>• Lighthouse LCP<2.5s`;
         if (t.includes('你好') || t.includes('hello') || t.includes('hi'))

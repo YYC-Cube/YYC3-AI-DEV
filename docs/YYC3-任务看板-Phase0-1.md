@@ -138,7 +138,7 @@ Phase 4  ████████████████████ 100% ✅ L
 
 | ID | 任务 | 状态 | 备注 |
 | ---- | ------ | ------ | ------ |
-| P3-1 | Vitest 覆盖率提升 (24 files / 294 tests) | ✅ | 从 158 → 294 (Phase 4 新增 64) |
+| P3-1 | Vitest 覆盖率提升 (28 files / 324 tests) | ✅ | 从 158 → 324（Phase 4 新增 64 + token-console 并入 30） |
 | P3-2 | 引擎集成测试 (8 用例) | ✅ | plugin-target/engine-integration.test.ts |
 | P3-3 | EventBus 跨插件测试 (16 用例) | ✅ | event-bus-cross-plugin.test.ts |
 | P3-4 | Hub 命令集成测试 (15 用例) | ✅ | hub-commands.test.ts |
@@ -178,7 +178,7 @@ Phase 4  ████████████████████ 100% ✅ L
 | 阶段 | 核心任务 | 里程碑 | 状态 |
 | ------ | ---------- | -------- | ------ |
 | Phase 2 (Week 4-6) | 8页面UI + 8家人绑定 + 数据流贯通 | M2: 可交互Web工具平台 | ✅ 完成 |
-| Phase 3 (Week 7-9) | 组件测试 + E2E + 全链路质量工程 | M3: 全量 294 tests 100% pass | ✅ 完成 |
+| Phase 3 (Week 7-9) | 组件测试 + E2E + 全链路质量工程 | M3: 全量 324 tests 100% pass | ✅ 完成 |
 | Phase 4 (Week 10-12) | LLM + SSE + AES + Vercel + Docker + CI/CD | M4: 生态闭环全量达成 | ✅ 完成 |
 
 > Phase 0-4 已全量完成。后续可选迭代：微信小程序、npm SDK 发布、MCP Skill 注册、RAG 知识库。
