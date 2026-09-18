@@ -370,7 +370,7 @@ packages/{system-id}/
 
 > 本章自原《YYC3-项目架构-设计总纲.md》合并而来（该文档已删除）。数据以 `npx vitest run` / `tsc --noEmit` 实测为准，最新基线见根 [README](../../README.md)。
 
-### 8.1 Monorepo 实际结构（17 包 / 8 App）
+### 8.1 Monorepo 实际结构（17 包 / 9 App）
 
 ```
 packages/ (17)      shell · 12 plugin-* · 4 引擎包 (dynasty-core / family-agents / family-core / family-skills)
