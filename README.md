@@ -156,6 +156,10 @@ npx playwright test              # E2E 测试（Playwright Chromium）
 
 > 📦 **项目仓库**: [github.com/YYC-Cube/YYC3-AI-DEV](https://github.com/YYC-Cube/YYC3-AI-DEV)
 
+## 资产策略
+
+- **项目截图**（70 张实景归档）：自 v5.1.1 起托管于 [GitHub Releases](https://github.com/YYC-Cube/YYC3-AI-DEV/releases/tag/v5.1.1)（`YYC3-CloudPivot-Intelli-Matrix-screenshots-v5.1.1.zip`，80MB），仓库不携带二进制，clone 保持轻量。
+
 ### 3.3 启动应用
 
 ```bash

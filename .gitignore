@@ -19,3 +19,6 @@ i18n/
 
 # Next.js 构建产物
 .next/
+
+# 项目截图（自 v5.1.1 起迁移至 GitHub Releases 附件管理，防二进制回流仓库）
+public/YYC3-CloudPivot-Intelli-Matrix-项目截图/
