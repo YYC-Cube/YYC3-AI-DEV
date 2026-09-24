@@ -35,7 +35,7 @@
     "@playwright/test": "^1.61.1",
     "@serwist/next": "^9.5.12",
     "@serwist/window": "^9.5.12",
-    "@storybook/react": "^10.6.0",
+    "@storybook/react": "^8.6.15",
     "@storybook/test": "^8.6.15",
     "@tailwindcss/postcss": "^4.2.4",
     "@types/node": "^25.6.0",

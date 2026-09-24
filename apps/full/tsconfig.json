@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "types": ["vite/client"],
+    "paths": {
+      "@yyc3/shell": ["../../packages/shell/src"],
+      "@yyc3/shell/*": ["../../packages/shell/src/*"],
+      "@yyc3/plugin-ai-family": ["../../packages/plugin-ai-family/src"],
+      "@yyc3/plugin-ai-family/*": ["../../packages/plugin-ai-family/src/*"],
+      "@yyc3/plugin-dynasty": ["../../packages/plugin-dynasty/src"],
+      "@yyc3/plugin-dynasty/*": ["../../packages/plugin-dynasty/src/*"],
+      "@yyc3/plugin-monitor": ["../../packages/plugin-monitor/src"],
+      "@yyc3/plugin-monitor/*": ["../../packages/plugin-monitor/src/*"],
+      "@yyc3/plugin-ops": ["../../packages/plugin-ops/src"],
+      "@yyc3/plugin-ops/*": ["../../packages/plugin-ops/src/*"],
+      "@yyc3/plugin-ai": ["../../packages/plugin-ai/src"],
+      "@yyc3/plugin-ai/*": ["../../packages/plugin-ai/src/*"],
+      "@yyc3/plugin-dev": ["../../packages/plugin-dev/src"],
+      "@yyc3/plugin-dev/*": ["../../packages/plugin-dev/src/*"],
+      "@yyc3/plugin-admin": ["../../packages/plugin-admin/src"],
+      "@yyc3/plugin-admin/*": ["../../packages/plugin-admin/src/*"]
+    }
+  },
+  "include": ["src", "vite.config.ts"],
+  "exclude": ["node_modules", "dist"]
+}

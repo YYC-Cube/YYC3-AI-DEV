@@ -33,7 +33,7 @@ SSE: Token-by-Token 流式 ✅
 核心业务文档: 4 份已完整衔接（目标量化·成本盈亏·营销工具·提示词）
 ```
 
-### 里程碑
+### 里程碑（历史实录 — 数字为各时点快照，当前基线见下方「当前基线」小节）
 
 | # | 时间 | 完成项 |
 | --- | ------ | -------- |
@@ -52,6 +52,15 @@ SSE: Token-by-Token 流式 ✅
 | M13 | 07:08 | **Phase 3 质量工程完成** — React Testing Library 组件测试 + Playwright E2E + 230 tests 全量通过 + 4 份核心业务文档完整衔接 |
 | M14 | 09:11 | **Phase 4 生态闭环完成** — plugin-llm (5 Provider + SSE + AES-256-GCM) + AIAssistantHub 集成 + Vercel/Docker 部署 + CI/CD 8-job + Lighthouse 基线 + 294 tests 全量通过 |
 | M15 | 2026-09 | **token-console 并入** — Next.js 16 子工作区成为第 9 App，全量 324 tests / 双 tsconfig 0 错（`332f4b4` → `080a139` → `3cd855b`） |
+
+### 当前基线（2026-09-18 实测，与里程碑历史快照区分）
+
+| 指标 | 当前值 | 验证命令 |
+| --- | --- | --- |
+| 测试 | 28 files / 324 tests / 100% pass | `pnpm test --run` |
+| TS | root + console + full 三 tsconfig 0 错 | `pnpm type-check` |
+| 文档 | 51+ 链接零坏链 | `node validate-docs.js` |
+| Storybook | @storybook/react 8.6.18 + @storybook/test 8.6.15 同系 | `pnpm ls --filter @yyc3/token-console-app` |
 
 ---
 
