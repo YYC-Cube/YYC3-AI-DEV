@@ -34,4 +34,22 @@ test.describe("合并版 · 系统路由", () => {
     await page.goto(`${FULL_APP}/#/not-exist`);
     await expect(page.locator("body")).not.toBeEmpty();
   });
+
+  test("中枢浮窗应固定定位，不占据文档流", async ({ page }) => {
+    const hub = page.locator("button.fixed").first();
+    await expect(hub).toBeVisible();
+    await expect
+      .poll(async () => hub.evaluate((el) => getComputedStyle(el).position))
+      .toBe("fixed");
+  });
+
+  test("首屏卡片区应水平居中（mx-auto 生效）", async ({ page }) => {
+    const grid = page.locator(".mx-auto").first();
+    const box = await grid.boundingBox();
+    const viewport = page.viewportSize()!;
+    expect(box).not.toBeNull();
+    const leftGap = box!.x;
+    const rightGap = viewport.width - (box!.x + box!.width);
+    expect(Math.abs(leftGap - rightGap)).toBeLessThan(2);
+  });
 });
