@@ -1,13 +1,15 @@
 /**
  * @file: styles.css
- * @description: 合并版样式入口 — Tailwind v4 + 跨包源码扫描
+ * @description: 合并版样式入口 — Tailwind v4 + 设计令牌 + 跨包源码扫描
  *
  * 说明:
  * 1. Vite 根目录是 apps/full，Tailwind 自动扫描不会覆盖 ../../packages，
- *    必须用 @source 显式声明，否则 shell/plugin 内的工具类（fixed、rounded-2xl 等）不会生成。
- * 2. 全局背景放在 @layer base，避免无层样式覆盖 utilities（曾导致 mx-auto/p-8 失效）。
+ *    必须用 @source 显式声明，否则 shell/plugin/ui 内的工具类不会生成。
+ * 2. 设计令牌来自 @yyc3/theme（CSS 变量 + @theme inline 映射），组件库 @yyc3/ui 依赖它。
+ * 3. 全局背景放在 @layer base，避免无层样式覆盖 utilities。
  */
 @import "tailwindcss";
+@import "@yyc3/theme/theme.css";
 
 @source "../../../packages";
 

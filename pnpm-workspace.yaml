@@ -2,6 +2,7 @@ packages:
   - "packages/*"
   - "apps/*"
   - "apps/token-console/apps/*"
+  # 设计系统与主题令牌（原 docs/packages/ui、docs/packages/theme 迁入，已纳入 packages/*）
 
 overrides:
   react: 19.2.7

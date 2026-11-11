@@ -93,6 +93,8 @@ export default function App() {
       element: <Layout><Outlet /></Layout>, children: [
         { index: true, element: <Dashboard cards={CARDS} /> },
         ...SYSTEM_ROUTES,
+        { path: "design", lazy: async () => ({ Component: (await import("./pages/DesignSystemPage")).default }) },
+        { path: "family", lazy: async () => ({ Component: (await import("./pages/AiFamilyPage")).default }) },
       ]
     },
   ]);
@@ -125,6 +127,15 @@ function Dashboard({ cards }: { cards: { id: string; name: string; desc: string;
         <span>{FAMILY_PERSONAS.length} 位家人</span><span>·</span>
         <span>{DYNASTY_AGENTS.length} 位朝臣</span><span>·</span>
         <span>7 子系统</span>
+      </div>
+
+      <div className="mt-6 flex justify-center gap-6 text-xs">
+        <a href="#/family" className="text-[rgba(0,255,136,0.6)] hover:text-[#00FF88] transition-colors">
+          AI Family 工作台 →
+        </a>
+        <a href="#/design" className="text-[rgba(0,212,255,0.55)] hover:text-[#00d4ff] transition-colors">
+          设计系统 · @yyc3/ui →
+        </a>
       </div>
     </div>
   );

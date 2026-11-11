@@ -35,6 +35,21 @@ test.describe("合并版 · 系统路由", () => {
     await expect(page.locator("body")).not.toBeEmpty();
   });
 
+  test("设计系统页应展示组件库", async ({ page }) => {
+    await page.goto(`${FULL_APP}/#/design`);
+    await expect(page.getByRole("heading", { name: /Design System/ })).toBeVisible();
+    await expect(page.getByRole("tab", { name: "按钮" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "default" }).first()).toBeVisible();
+  });
+
+  test("AI Family 工作台应展示四个视图", async ({ page }) => {
+    await page.goto(`${FULL_APP}/#/family`);
+    await expect(page.getByRole("heading", { name: /AI Family 工作台/ })).toBeVisible();
+    for (const name of ["成员", "对话", "技能", "设置"]) {
+      await expect(page.getByRole("tab", { name })).toBeVisible();
+    }
+  });
+
   test("中枢浮窗应固定定位，不占据文档流", async ({ page }) => {
     const hub = page.locator("button.fixed").first();
     await expect(hub).toBeVisible();
