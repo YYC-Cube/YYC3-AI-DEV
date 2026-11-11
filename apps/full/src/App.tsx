@@ -115,13 +115,13 @@ function Dashboard({ cards }: { cards: { id: string; name: string; desc: string;
               style={{ background: `${c.color}06`, border: `1px solid ${c.color}18`, textDecoration: "none" }}>
               <Icon size={24} style={{ color: c.color, margin: "0 auto 8px" }} />
               <p className="text-[#e0f0ff] text-sm font-medium">{c.name}</p>
-              <p className="text-[rgba(255,255,255,0.2)] text-xs mt-0.5">{c.desc}</p>
+              <p className="text-[rgba(224,240,255,0.45)] text-xs mt-0.5">{c.desc}</p>
             </a>
           );
         })}
       </div>
 
-      <div className="mt-12 flex justify-center gap-6 text-[rgba(0,212,255,0.15)] text-xs">
+      <div className="mt-12 flex justify-center gap-6 text-[rgba(0,212,255,0.4)] text-xs">
         <span>{FAMILY_PERSONAS.length} 位家人</span><span>·</span>
         <span>{DYNASTY_AGENTS.length} 位朝臣</span><span>·</span>
         <span>7 子系统</span>
