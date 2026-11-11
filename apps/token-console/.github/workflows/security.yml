@@ -112,7 +112,7 @@ jobs:
 
       - name: Deploy preview
         run: |
-          # 部署到临时环境（如 Vercel Preview）
+          # 部署到临时预览环境（自建 Runner / 对象存储静态预览）
           echo "PREVIEW_URL=${{ steps.deploy.outputs.url }}" >> $GITHUB_ENV
 
       - name: ZAP Baseline Scan

@@ -28,7 +28,7 @@ E2E: Playwright (Chromium) ✅
 LLM: 5 Provider (OpenAI/Anthropic/Qwen/DeepSeek/Kimi) ✅
 SSE: Token-by-Token 流式 ✅
 安全: AES-256-GCM + CSP/CORS/XSS + Rate Limit ✅
-部署: Vercel + Docker + CI/CD 8-job ✅
+部署: GitHub Pages + Docker + CI/CD 7-job ✅
 全 8 App: npm install ✅ + vite 可启动
 核心业务文档: 4 份已完整衔接（目标量化·成本盈亏·营销工具·提示词）
 ```
@@ -50,8 +50,10 @@ SSE: Token-by-Token 流式 ✅
 | M11 | 05:20 | Hub 浮窗命令 connect 到实际动作（7 系统 + full） |
 | M12 | 05:25 | 集成测试套件完善 (39 新增 / 206 全量通过) |
 | M13 | 07:08 | **Phase 3 质量工程完成** — React Testing Library 组件测试 + Playwright E2E + 230 tests 全量通过 + 4 份核心业务文档完整衔接 |
-| M14 | 09:11 | **Phase 4 生态闭环完成** — plugin-llm (5 Provider + SSE + AES-256-GCM) + AIAssistantHub 集成 + Vercel/Docker 部署 + CI/CD 8-job + Lighthouse 基线 + 294 tests 全量通过 |
+| M14 | 09:11 | **Phase 4 生态闭环完成** — plugin-llm (5 Provider + SSE + AES-256-GCM) + AIAssistantHub 集成 + Pages/Docker 部署 + CI/CD 7-job + Lighthouse 基线 + 294 tests 全量通过 |
 | M15 | 2026-09 | **token-console 并入** — Next.js 16 子工作区成为第 9 App，全量 324 tests / 双 tsconfig 0 错（`1d472e0` → `75f59ee` → `d26171a`） |
+
+> **部署口径变更（2026-11-11）**：Vercel 相关配置（`vercel.json`、`api/chat/stream.ts`、CI `deploy` job）已从仓库彻底摘除，生产发布统一由 `.github/workflows/pages.yml` 承担；里程碑表中「Vercel」为各时点历史快照，不再代表当前架构。
 
 ### 当前基线（2026-09-18 实测，与里程碑历史快照区分）
 
@@ -161,16 +163,16 @@ SSE: Token-by-Token 流式 ✅
 |           | 　　　　　　　　　　　　| 本地 Keyring + 远端 Vault　　　　　　　　　　　　　| P1　　 | P4-3　　 | ✅ Keyring + sessionStorage |
 | **P4-4**  | **依赖扫描**　　　　　　| pnpm audit　　　　　　　　　　　　　　　　　　　　 | P1　　 | —　　　　| ✅ CI/CD 集成　　　　　　　 |
 |           | 　　　　　　　　　　　　| Snyk 集成　　　　　　　　　　　　　　　　　　　　　| P1　　 | P4-4　　 | ✅ snyk/actions/node　　　　|
-| **P4-5**  | **Web 安全加固**　　　　| CSP / CORS / XSS　　　　　　　　　　　　　　　　　 | P1　　 | —　　　　| ✅ vercel.json + Nginx　　　|
+| **P4-5**  | **Web 安全加固**　　　　| CSP / CORS / XSS　　　　　　　　　　　　　　　　　 | P1　　 | —　　　　| ✅ Nginx 安全头　　　　　　 |
 |           | 　　　　　　　　　　　　| Rate Limiting　　　　　　　　　　　　　　　　　　　| P1　　 | P4-1　　 | ✅ 60 req/min/IP　　　　　　|
-| **P4-6**  | **Vercel 部署**　　　　 | Web SaaS 部署　　　　　　　　　　　　　　　　　　　| P0　　 | P4-1/2/3 | ✅ vercel.json 完整　　　　 |
+| **P4-6**  | **Pages 发布**　　　　　| 静态站点发布　　　　　　　　　　　　　　　　　　　| P0　　 | P4-1/2/3 | ✅ pages.yml 完整　　　　　 |
 |           | 　　　　　　　　　　　　| 环境变量配置　　　　　　　　　　　　　　　　　　　 | P0　　 | P4-6　　 | ✅ .env.example　　　　　　 |
 | **P4-7**  | **Docker 部署**　　　　 | Dockerfile + docker-compose　　　　　　　　　　　　| P1　　 | P4-6　　 | ✅ 多阶段 + Nginx　　　　　 |
 |           | 　　　　　　　　　　　　| 私有部署文档　　　　　　　　　　　　　　　　　　　 | P1　　 | P4-7　　 | ✅ docker-compose.yml　　　 |
-| **P4-8**  | **CI/CD 完善**　　　　　| GitHub Actions 全流程　　　　　　　　　　　　　　　| P1　　 | P4-6　　 | ✅ 8-job pipeline　　　　　 |
-|           | 　　　　　　　　　　　　| 自动化测试 + 部署　　　　　　　　　　　　　　　　　| P1　　 | P4-8　　 | ✅ quality→build→e2e→deploy |
+| **P4-8**  | **CI/CD 完善**　　　　　| GitHub Actions 全流程　　　　　　　　　　　　　　　| P1　　 | P4-6　　 | ✅ 7-job pipeline　　　　　 |
+|           | 　　　　　　　　　　　　| 自动化测试 + 发布　　　　　　　　　　　　　　　　　| P1　　 | P4-8　　 | ✅ quality→build→e2e→pages  |
 | **P4-9**  | **Lighthouse 基线**　　 | 性能 / 可访问性 / SEO　　　　　　　　　　　　　　　| P2　　 | P4-6　　 | ✅ .lighthouserc.json　　　 |
-| **P4-10** | **Serverless LLM 代理** | /api/chat/stream (Key 隐藏)　　　　　　　　　　　　| P1　　 | P4-6　　 | ✅ 5 Provider 路由　　　　　|
+| **P4-10** | **LLM 调用链路**　　　 | 前端 Keyring + 5 Provider 直连　　　　　　　　　　 | P1　　 | —　　　　| ✅ 无服务端依赖　　　　　　 |
 | **P4-11** | **(可选) 微信小程序**　 | uni-app 适配　　　　　　　　　　　　　　　　　　　 | P2　　 | P4-6　　 | ⬜ 后续迭代　　　　　　　　 |
 | **P4-12** | **(可选) npm SDK**　　　| 3 个独立包发布　　　　　　　　　　　　　　　　　　 | P2　　 | P4-6　　 | ⬜ 后续迭代　　　　　　　　 |
 
@@ -181,7 +183,7 @@ SSE: Token-by-Token 流式 ✅
 | LLM 响应延迟 | ≤ 3s 首 Token　　| SSE 首字节时间　　　　　　　　　　　　 | ✅ SSE 流式　　　　　　　　　 |
 | API Key 安全 | AES-256-GCM 加密 | 密钥不落明文盘　　　　　　　　　　　　 | ✅ PBKDF2 100K iter　　　　　 |
 | 依赖漏洞　　 | 0 高危　　　　　 | pnpm audit + Snyk　　　　　　　　　　　| ✅ CI 集成　　　　　　　　　　|
-| Vercel 部署　| 可访问　　　　　 | <https://yyc3.vercel.app>　　　　　　　| ✅ 配置就绪　　　　　　　　　 |
+| Pages 部署　 | 可访问　　　　　 | <https://dev.yyc3.vip>　　　　　　　　 | ✅ 工作流就绪　　　　　　　　 |
 | 文档站点域名 | 可访问 + HTTPS　 | <https://dev.yyc3.vip>（CNAME 已入库） | ✅ Enforce HTTPS 已开启　　　 |
 | Docker 镜像　| < 500MB　　　　　| docker images 检查　　　　　　　　　　 | ✅ Nginx Alpine ~50MB　　　　 |
 | Lighthouse　 | ≥ 90 分　　　　　| 性能 / 可访问性 / SEO　　　　　　　　　| ✅ LCP<2.5s/CLS<0.1/TBT<200ms |
@@ -202,7 +204,7 @@ SSE 流式:
 └── React Suspense       ← 流式渲染
 
 部署:
-├── Vercel CLI           ← Web SaaS
+├── GitHub Pages Actions ← 静态发布
 ├── Docker + docker-compose  ← 私有部署
 └── GitHub Actions       ← CI/CD 自动化
 ```

@@ -36,7 +36,7 @@ Phase 0  ████████████████████ 100% ✅ �
 Phase 1  ████████████████████ 100% ✅ 4 引擎全量落地（30/30 任务）
 Phase 2  ████████████████████ 100% ✅ 8 App + Hub 命令联动
 Phase 3  ████████████████████ 100% ✅ 质量工程完成 (324 tests · 28 files)
-Phase 4  ████████████████████ 100% ✅ LLM + SSE + AES + Vercel + Docker + CI/CD
+Phase 4  ████████████████████ 100% ✅ LLM + SSE + AES + Pages + Docker + CI/CD
 附加     ████████████████████ 100% ✅ token-console（Next.js 16）并入为第 9 App
 ```
 
@@ -159,13 +159,13 @@ Phase 4  ████████████████████ 100% ✅ L
 | P4-2 | 流式输出 SSE 协议封装 | P0 | `packages/plugin-llm/src/sse.ts` + `base-adapter.ts` | ✅ |
 | P4-3 | API Key 加密存储 (AES-256-GCM) | P0 | `packages/plugin-llm/src/crypto.ts` + `key-manager.ts` | ✅ |
 | P4-4 | 依赖扫描 (pnpm audit + Snyk + Gitleaks) | P1 | CI/CD security job | ✅ |
-| P4-5 | CSP / CORS / XSS 加固 | P1 | `vercel.json` + Dockerfile Nginx 安全头 | ✅ |
-| P4-6 | Rate Limiting | P1 | `api/chat/stream.ts` (60 req/min/IP) | ✅ |
-| P4-7 | Vercel 部署 (Web SaaS) | P0 | `vercel.json` + Serverless Function | ✅ |
+| P4-5 | CSP / CORS / XSS 加固 | P1 | Dockerfile Nginx 安全头 | ✅ |
+| P4-6 | Rate Limiting | P1 | — (随 Serverless 代理一并摘除) | ⬜ |
+| P4-7 | GitHub Pages 发布 | P0 | `.github/workflows/pages.yml` + `deploy-pages` | ✅ |
 | P4-8 | Docker 私有部署 | P1 | `Dockerfile` 多阶段 + `docker-compose.yml` | ✅ |
-| P4-9 | CI/CD 完善 (GitHub Actions 8-job) | P1 | `quality/build/e2e/security/lighthouse/docker/deploy/ecosystem-check` | ✅ |
+| P4-9 | CI/CD 完善 (GitHub Actions 7-job + Pages) | P1 | `quality/build/e2e/security/lighthouse/docker/ecosystem-check` + `pages` | ✅ |
 | P4-10 | Lighthouse 基线 | P2 | `.lighthouserc.json` (LCP<2.5s/CLS<0.1/TBT<200ms) | ✅ |
-| P4-11 | Serverless LLM 代理 (隐藏 Key) | P1 | `api/chat/stream.ts` (5 Provider 路由) | ✅ |
+| P4-11 | LLM 调用链路 | P1 | 前端 Keyring + 5 Provider 直连（无服务端） | ✅ |
 | P4-12 | AIAssistantHub 集成 + Mock 回退 | P0 | `packages/shell/src/llm-bridge.ts` + 7 tests | ✅ |
 | P4-13 | 多 Provider 配置面板 (UI 可视化) | P1 | `AIAssistantHub` Settings tab | ✅ |
 | P4-14 | (可选) 微信小程序 (uni-app) | P2 | — | ⬜ 后续迭代 |
@@ -179,7 +179,7 @@ Phase 4  ████████████████████ 100% ✅ L
 | ------ | ---------- | -------- | ------ |
 | Phase 2 (Week 4-6) | 8页面UI + 8家人绑定 + 数据流贯通 | M2: 可交互Web工具平台 | ✅ 完成 |
 | Phase 3 (Week 7-9) | 组件测试 + E2E + 全链路质量工程 | M3: 全量 324 tests 100% pass | ✅ 完成 |
-| Phase 4 (Week 10-12) | LLM + SSE + AES + Vercel + Docker + CI/CD | M4: 生态闭环全量达成 | ✅ 完成 |
+| Phase 4 (Week 10-12) | LLM + SSE + AES + Pages + Docker + CI/CD | M4: 生态闭环全量达成 | ✅ 完成 |
 
 > Phase 0-4 已全量完成。后续可选迭代：微信小程序、npm SDK 发布、MCP Skill 注册、RAG 知识库。
 

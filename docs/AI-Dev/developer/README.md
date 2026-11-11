@@ -29,7 +29,7 @@ project: yyc3-ai-dev
 | 03 | [插件开发指南](./03-插件开发指南.md) | ⭐⭐ 中级 | 插件开发者 | SystemRegistration · 引擎层 · 上线 Checklist |
 | 04 | [编码规范](./04-编码规范.md) | ⭐ 基础 | 全员 | TS strict · 命名 · 标头 · Git 提交 |
 | 05 | [测试策略](./05-测试策略.md) | ⭐⭐ 中级 | 全员 | Vitest · 分层测试 · 312 tests 基线 |
-| 06 | [部署运维](./06-部署运维.md) | ⭐⭐⭐ 进阶 | DevOps | CI/CD · Docker · Vercel · 监控 |
+| 06 | [部署运维](./06-部署运维.md) | ⭐⭐⭐ 进阶 | DevOps | CI/CD · Docker · GitHub Pages · 监控 |
 | 07 | [安全合规](./07-安全合规.md) | ⭐⭐⭐ 进阶 | 全员 | 密钥管理 · XSS 防护 · 命名空间隔离 |
 
 ---

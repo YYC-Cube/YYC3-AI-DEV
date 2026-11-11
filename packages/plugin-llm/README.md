@@ -39,8 +39,8 @@ npx vitest run packages/plugin-llm/   # 57 tests ✅
 
 ## 安全要点
 
-- 前端不持久化 Key；服务端密钥使用 `SERVER_MASTER_KEY` AES-256-GCM 加密
-- 生产环境推荐同源代理（`api/chat/stream.ts`），隐藏 Key + 规避 CORS
+- 前端不持久化明文 Key：Keyring 使用 AES-256-GCM + PBKDF2（10 万次）加密后落 localStorage
+- 生产环境若需隐藏 Key / 规避 CORS，请在部署侧自建同源网关（仓库不再内置 Serverless 代理实现）
 
 ## 变更历史
 

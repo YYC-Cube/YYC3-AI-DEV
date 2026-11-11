@@ -232,7 +232,7 @@ YYC³ Shell (统一入口)
 
 | 产品形态 | 技术方案 | 核心功能 | 复用率 |
 | ---------- | ---------- | ---------- | -------- |
-| Web SaaS | Next.js + Vercel | 全部8页面+AI对话 | 100% |
+| Web SaaS | Vite SPA + GitHub Pages | 全部8页面+AI对话 | 100% |
 | 微信小程序 | uni-app | 目标计算器+节日日历+提醒 | 60% |
 | npm SDK | 3个独立包 | 三大引擎纯TS包 | 80% |
 | Figma Plugin | Phase 4双向桥 | 设计Token→组件 | 复用Phase 4 |
@@ -250,7 +250,7 @@ YYC³ Shell (统一入口)
 
 | 指标 | 目标值 |
 | ------ | -------- |
-| Web SaaS部署 | Vercel可访问 |
+| Web SaaS部署 | GitHub Pages 可访问 |
 | 微信小程序 | 可扫码体验 |
 | npm包发布 | 3个包 |
 | 全链路端到端 | ≤30秒完成5阶段 |
@@ -292,7 +292,7 @@ Phase 0 (基线对齐)   ██████████████████�
 Phase 1 (引擎构建)   ████████████████████ 100% ✅ 4 引擎 + 125 tests
 Phase 2 (界面集成)   ████████████████████ 100% ✅ 8 App + Hub 命令联动
 Phase 3 (质量工程)   ████████████████████ 100% ✅ 组件测试 + E2E + 全量 324 tests
-Phase 4 (生态闭环)   ████████████████████ 100% ✅ LLM + SSE + AES + Vercel + Docker + CI/CD
+Phase 4 (生态闭环)   ████████████████████ 100% ✅ LLM + SSE + AES + Pages + Docker + CI/CD
 附加 (生态扩容)      ████████████████████ 100% ✅ token-console 并入（9 App · 2026-09）
 ```
 
@@ -321,13 +321,13 @@ Phase 4 (生态闭环)   ██████████████████�
 | **P4-2 SSE 流式** | Token-by-Token 渲染 | ✅ | `packages/plugin-llm/src/sse.ts` + `base-adapter.ts` |
 | **P4-3 API Key 加密** | AES-256-GCM | ✅ | `packages/plugin-llm/src/crypto.ts` + `key-manager.ts` (PBKDF2 100K iter) |
 | **P4-4 单元测试** | 60+ 测试 | ✅ 57 plugin-llm + 7 LLMBridge = 64 tests | 5 测试文件全绿 |
-| **P4-5 安全加固** | CSP/CORS/XSS | ✅ | `vercel.json` 完整安全头 + `api/chat/stream.ts` 代理 |
-| **P4-6 Vercel 部署** | Web SaaS 可访问 | ✅ | `vercel.json` + `.env.example` + Serverless Function |
+| **P4-5 安全加固** | CSP/CORS/XSS | ✅ | Dockerfile Nginx 安全头 + 静态托管响应头 |
+| **P4-6 Pages 发布** | 静态站点可访问 | ✅ | `.github/workflows/pages.yml` + `.env.example` |
 | **P4-7 Docker 部署** | 私有部署 | ✅ | `Dockerfile` 多阶段 + `docker-compose.yml` + `.dockerignore` |
-| **P4-8 CI/CD 完善** | GitHub Actions 8-job | ✅ | `quality/build/e2e/security/lighthouse/docker/deploy/ecosystem-check` |
+| **P4-8 CI/CD 完善** | GitHub Actions 7-job + Pages | ✅ | `quality/build/e2e/security/lighthouse/docker/ecosystem-check` + `pages` |
 | **P4-9 Lighthouse 基线** | 性能 ≥0.9 | ✅ | `.lighthouserc.json` (LCP<2.5s/CLS<0.1/TBT<200ms) |
 | **AIAssistantHub 集成** | 真实 LLM + Mock 回退 | ✅ | `llm-bridge.ts` + 多 Provider 配置面板 + 状态徽章 |
-| **Serverless LLM 代理** | 隐藏 Key + CORS | ✅ | `api/chat/stream.ts` (5 Provider + Rate Limit + CORS) |
+| **LLM 调用链路** | 前端 Keyring + 多 Provider | ✅ | `plugin-llm` 5 Provider 直连（无服务端） |
 
 ### 10.5 Phase 4 任务落地可视化
 
@@ -345,14 +345,14 @@ Phase 4 (生态闭环)   ██████████████████�
 │      └── ✅ 错误恢复与回退 (Mock fallback + 7 LLMBridge tests)        │
 │  ✅ 4.3 安全审查                                                       │
 │      ├── ✅ 依赖扫描 (pnpm audit + Snyk + Gitleaks)                   │
-│      ├── ✅ CSP / CORS / XSS 加固 (vercel.json + Dockerfile Nginx)    │
-│      └── ✅ Rate Limiting (60 req/min/IP, Serverless 内存级)          │
+│      ├── ✅ CSP / CORS / XSS 加固 (Dockerfile Nginx 安全头)          │
+│      └── ⬜ Rate Limiting (随 Serverless 代理摘除)                    │
 │  ✅ 4.4 部署                                                           │
-│      ├── ✅ Vercel (Web SaaS, sin1+hkg1 双区域)                       │
+│      ├── ✅ GitHub Pages (静态发布, dev.yyc3.vip)                     │
 │      ├── ✅ Docker (私有部署, Nginx 静态托管 + 非 root 用户)           │
-│      └── ✅ CI/CD (GitHub Actions 8-job pipeline)                     │
+│      └── ✅ CI/CD (GitHub Actions 7-job + Pages 发布)                 │
 │  ✅ 4.5 额外增强                                                       │
-│      ├── ✅ Serverless LLM 代理 (/api/chat/stream, 5 Provider 路由)   │
+│      ├── ✅ 前端 Keyring 直连 (5 Provider 路由 + SSE)                 │
 │      ├── ✅ Lighthouse 性能基线 (LCP<2.5s/CLS<0.1/TBT<200ms)          │
 │      └── ✅ 多 Provider 配置面板 (UI 可视化, AES 加密提示)             │
 └──────────────────────────────────────────────────────────────────────┘
@@ -390,8 +390,7 @@ Phase 4 (生态闭环)   ██████████████████�
 | `packages/plugin-llm/src/router.ts` | 实现 | ~210 | 多 Provider 路由 |
 | `packages/plugin-llm/src/index.ts` | 导出 | ~40 | 包入口 |
 | `packages/shell/src/llm-bridge.ts` | 桥接 | ~230 | AIAssistantHub ↔ LLM |
-| `api/chat/stream.ts` | Serverless | ~230 | LLM 代理 (Key 隐藏) |
-| `vercel.json` | 部署 | ~50 | Vercel 配置 + 安全头 |
+| `.github/workflows/pages.yml` | 部署 | ~80 | Pages 发布流水线 |
 | `.env.example` | 配置 | ~35 | 环境变量模板 |
 | `Dockerfile` | 部署 | ~95 | 多阶段构建 |
 | `docker-compose.yml` | 部署 | ~50 | 容器编排 |

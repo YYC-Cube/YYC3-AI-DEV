@@ -3,8 +3,8 @@
  * @description: YYC³ 合并版 — 7 系统全开, AI Family 中枢协同
  */
 import { FAMILY_PERSONAS } from "@yyc3/plugin-ai-family";
-import { DYNASTY_AGENTS, DYNASTY_HUB_COMMANDS } from "@yyc3/plugin-dynasty";
-import { AIAssistantHub, eventBus, storage, StorageKeys, WelcomePage } from "@yyc3/shell";
+import { DYNASTY_AGENTS, DYNASTY_HUB_COMMANDS, register as registerDynasty } from "@yyc3/plugin-dynasty";
+import { AIAssistantHub, eventBus, Events, storage, StorageKeys, WelcomePage } from "@yyc3/shell";
 import {
   Activity,
   Brain,
@@ -19,7 +19,7 @@ import {
   UserCircle2,
   Wrench,
 } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createHashRouter, Outlet, RouterProvider } from "react-router-dom";
 
 const CARD_COLORS = { monitor: "#00d4ff", ops: "#FF6600", ai: "#AA55FF", "ai-family": "#00FF88", dev: "#E8E8E8", admin: "#FFDD00", dynasty: "#C9A96E" };
@@ -44,6 +44,8 @@ const ALL_CMDS = [
 ];
 
 const CARDS = SYSTEMS.map(s => ({ ...s, color: (CARD_COLORS as Record<string, string>)[s.id] || "#00d4ff", description: s.desc }));
+/** 王朝治理子路由以插件 register() 为唯一真相源，避免合并版出现空壳路由 */
+const DYNASTY_ROUTES = registerDynasty().routes;
 const familySummary = `${FAMILY_PERSONAS.length} 位家人 · ${DYNASTY_AGENTS.length} 位朝臣 · 7 系统协同`;
 
 function Layout({ children }: { children: React.ReactNode }) {
@@ -55,7 +57,21 @@ function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   const [showWelcome, setShowWelcome] = useState(!storage.shell.get(StorageKeys.SHELL_WELCOME_DISMISSED, false));
-  if (showWelcome) return <WelcomePage systems={CARDS} mode="modal" onNavigate={() => setShowWelcome(false)} familySummary={familySummary} />;
+
+  // 欢迎页关闭（按钮或系统卡片）后必须切回路由视图，否则整页空白
+  useEffect(() => {
+    const unsub = eventBus.on(Events.SHELL_WELCOME_DISMISS, () => setShowWelcome(false));
+    return unsub;
+  }, []);
+
+  if (showWelcome) return (
+    <WelcomePage
+      systems={CARDS}
+      mode="modal"
+      onNavigate={(path) => { setShowWelcome(false); window.location.hash = `#${path}`; }}
+      familySummary={familySummary}
+    />
+  );
 
   const router = createHashRouter([
     {
@@ -65,7 +81,7 @@ export default function App() {
         { path: "ops", lazy: async () => ({ Component: (await import("@yyc3/plugin-ops/pages/OperationCenter")).default }) },
         { path: "ai", lazy: async () => ({ Component: (await import("@yyc3/plugin-ai/pages/AISuggestion")).default }) },
         { path: "ai-family", lazy: async () => ({ Component: (await import("@yyc3/plugin-ai-family/pages/FamilyHomePage")).default }) },
-        { path: "dynasty", lazy: async () => ({ Component: () => null as any }) },
+        { path: "dynasty", children: DYNASTY_ROUTES },
         { path: "dev", lazy: async () => ({ Component: (await import("@yyc3/plugin-dev/pages/DesignSystem")).default }) },
         { path: "admin", lazy: async () => ({ Component: (await import("@yyc3/plugin-admin/pages/Audit")).default }) },
       ]

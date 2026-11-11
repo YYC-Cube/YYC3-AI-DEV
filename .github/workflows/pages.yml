@@ -1,0 +1,89 @@
+name: YYC³ 生产发布 (GitHub Pages)
+
+# ============================================================
+# 唯一生产发布通道: 构建 apps/full → 发布到 GitHub Pages
+# 自定义域名: dev.yyc3.vip (public/CNAME 随构建产物一并发布)
+#
+# 设计说明:
+# 1. 与 ai-eco-ci.yml 解耦 —— 质量门禁在前者在 push/PR 全量执行,
+#    本流水线只做「构建 + 发布」, 不做重复的质量判定。
+# 2. 使用 GitHub 官方 Pages Actions (OIDC), 无需任何第三方 Token。
+# 3. 产物根路径: 自定义域名部署时 base 保持 '/', 无需改 vite.config。
+# ============================================================
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+env:
+  NODE_VERSION: "22"
+  PNPM_VERSION: "11.10.0"
+
+jobs:
+  build:
+    name: 构建合并版应用
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install deps
+        run: pnpm install --frozen-lockfile
+
+      - name: Type Check
+        run: pnpm type-check
+
+      - name: Build @yyc3/app-full
+        run: pnpm --filter @yyc3/app-full build
+        env:
+          VITE_APP_ENV: production
+
+      - name: Prepare Pages artifact
+        run: |
+          set -euo pipefail
+          # 关闭 Jekyll 处理 (防止 .md/占位符被当作模板解析)
+          touch apps/full/dist/.nojekyll
+          # SPA 兜底: 非 hash 深链回落到入口页
+          cp apps/full/dist/index.html apps/full/dist/404.html
+          # 自定义域名: Vite 的 publicDir 指向 apps/full/public, 需显式带上仓库根 CNAME
+          cp public/CNAME apps/full/dist/CNAME
+          test -f apps/full/dist/CNAME || (echo "缺少 CNAME" && exit 1)
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: apps/full/dist
+
+  deploy:
+    name: 发布到 GitHub Pages
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    timeout-minutes: 10
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

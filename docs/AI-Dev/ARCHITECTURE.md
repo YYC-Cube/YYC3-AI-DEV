@@ -376,7 +376,6 @@ packages/{system-id}/
 ```
 packages/ (17)      shell · 12 plugin-* · 4 引擎包 (dynasty-core / family-agents / family-core / family-skills)
 apps/ (9)           full · standalone-{dynasty,ai-family,monitor,ops,ai,dev,admin} · token-console (Next.js 16 子工作区)
-api/chat/stream.ts  Vercel Serverless — LLM 代理（隐藏 Key + SSE + IP 限速）
 e2e/                Playwright (welcome-flow)
 ```
 
@@ -395,7 +394,7 @@ e2e/                Playwright (welcome-flow)
 | -------- | ------ |
 | LLM 适配层 | plugin-llm 零依赖纯适配（5 Provider + SSE + AES-256-GCM Keyring），shell 经 llm-bridge 单向桥接 + Mock 降级 |
 | 依赖边界 | 插件 → shell 单向依赖；幻影 peer 声明由 `boundaries.test.ts` 守卫拦截 |
-| 部署基线 | Vercel (api/serverless) + Docker + CI/CD 多 Job 门禁 + Lighthouse a11y ≥ 0.95 |
+| 部署基线 | GitHub Pages (静态发布) + Docker + CI/CD 多 Job 门禁 + Lighthouse a11y ≥ 0.95 |
 | token-console 并入 | 1d472e0 迁入为第 9 App（Next.js 16 子工作区，`apps/token-console/apps/console`），2026-09-18 完成依赖闭环修复（`75f59ee`） |
 
 ### 8.4 token-console 子工作区

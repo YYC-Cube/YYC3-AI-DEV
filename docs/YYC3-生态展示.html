@@ -969,7 +969,7 @@
         <div class="hero-badge"><span class="dot"></span>Phase 0-4 全量达成 · 生产就绪</div>
         <h1>YYC³ Cloud Intelli-Matrix</h1>
         <p class="hero-sub">
-          基于 Shell + 插件体系的多智能体协同生态 · 17 包 · 9 独立应用 · 5 LLM Provider · 324 单元测试 · Vercel +
+          基于 Shell + 插件体系的多智能体协同生态 · 17 包 · 9 独立应用 · 5 LLM Provider · 324 单元测试 · GitHub Pages +
           Docker 双部署
         </p>
         <div class="hero-stats">
@@ -1245,14 +1245,14 @@
 
       <section id="deploy" class="section">
         <h2 class="section-title">生产部署基线</h2>
-        <p class="section-desc">Vercel + Docker + CI/CD 8-job · Lighthouse 性能基线</p>
+        <p class="section-desc">GitHub Pages + Docker + CI/CD 7-job · Lighthouse 性能基线</p>
         <div class="deploy-grid">
           <div class="deploy-card">
-            <h4>🚀 Vercel 部署</h4>
+            <h4>🚀 GitHub Pages 部署</h4>
             <ul class="deploy-list">
-              <li>Web SaaS · sin1 + hkg1 双区域</li>
-              <li>Serverless Function /api/chat/stream</li>
-              <li>Key 隐藏 + CORS + Rate Limit</li>
+              <li>静态发布 · 自定义域 dev.yyc3.vip</li>
+              <li>OIDC 发布（无第三方 Token）</li>
+              <li>CNAME + .nojekyll + SPA 兜底</li>
               <li>完整 CSP/CORS/XSS 安全头</li>
               <li>环境变量隔离 (.env.example)</li>
             </ul>
@@ -1304,7 +1304,7 @@
       >
         <div>YYC³ Cloud Intelli-Matrix · 全链路智能应用生态</div>
         <div style="margin-top: 8px">
-          Phase 0-4 全量达成 · 17 包 + 9 App + 5 LLM + 324 tests + Vercel + Docker + CI/CD
+          Phase 0-4 全量达成 · 17 包 + 9 App + 5 LLM + 324 tests + GitHub Pages + Docker + CI/CD
         </div>
         <div style="margin-top: 8px">本页面为单文件可视化展示 · 完全自包含 · 可独立分享</div>
       </footer>
@@ -1353,7 +1353,7 @@
         { name: 'Phase 1', label: '引擎构建', pct: 100, desc: '4 引擎 + 125 tests', status: 'ok' },
         { name: 'Phase 2', label: '界面集成', pct: 100, desc: '8 App + Hub 命令 + 双主题', status: 'ok' },
         { name: 'Phase 3', label: '质量工程', pct: 100, desc: '组件测试 + E2E + 324 tests', status: 'ok' },
-        { name: 'Phase 4', label: '生态闭环', pct: 100, desc: 'LLM + SSE + AES + Vercel + Docker', status: 'ok' },
+        { name: 'Phase 4', label: '生态闭环', pct: 100, desc: 'LLM + SSE + AES + Pages + Docker', status: 'ok' },
       ];
       const PLUGINS = [
         {
@@ -2030,7 +2030,7 @@
       • 独立应用: 8 个<br/>
       • 单元测试: 324 / 100% 通过<br/>
       • LLM Provider: ${configured}/5 已配置<br/>
-      • 部署: Vercel + Docker 就绪<br/><br/>
+      • 部署: GitHub Pages + Docker 就绪<br/><br/>
       <span style="color:var(--text-3);font-size:11px;">${new Date().toLocaleString('zh-CN')}</span>`;
         }
         if (t.includes('帮助') || t.includes('help')) {
@@ -2049,7 +2049,7 @@
         if (t.includes('测试'))
           return `🧪 <strong>测试基线:</strong><br/>• 28 文件 / 324 用例<br/>• 100% 通过率<br/>• 0 TypeScript 错误<br/>• Playwright E2E 已集成`;
         if (t.includes('部署'))
-          return `🚀 <strong>部署方案:</strong><br/>• Vercel (sin1+hkg1 双区域)<br/>• Docker (Nginx Alpine ~50MB)<br/>• CI/CD 8-job pipeline<br/>• Lighthouse LCP<2.5s`;
+          return `🚀 <strong>部署方案:</strong><br/>• GitHub Pages (静态发布, dev.yyc3.vip)<br/>• Docker (Nginx Alpine ~50MB)<br/>• CI/CD 8-job pipeline<br/>• Lighthouse LCP<2.5s`;
         if (t.includes('你好') || t.includes('hello') || t.includes('hi'))
           return `👋 你好！我是 YYC³ AI 助手。当前 ${configured > 0 ? `已配置 ${configured} 个 LLM Provider` : '运行在 Mock 模式'}。输入「帮助」查看更多指令。`;
         return `💡 收到："${escapeHtml(text)}"<br/><br/>${configured > 0 ? '已通过真实 LLM 处理（演示页面为 Mock 回复）。' : '当前为 Mock 模式，配置 Provider 后可启用真实 LLM。'}<br/><br/>试试发送「状态」「帮助」「引擎」等关键词。`;

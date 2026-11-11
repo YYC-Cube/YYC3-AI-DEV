@@ -10,24 +10,14 @@
  * @License  : Apache-2.0
  * ============================================================
  * 说明:
- *   Next.js 16 支持 instrumentation.ts 在服务端启动时注入
- *   用于 OpenTelemetry + Prometheus 指标导出
+ *   Next.js 16 支持 instrumentation.ts 在服务端启动时注入。
+ *   当前仅导出 Prometheus 指标（供 ServiceMonitor 抓取）；
+ *   OTel Trace 采集由基础设施侧 Agent 负责，应用侧不再依赖任何托管平台 SDK。
  * ============================================================
  */
 export async function register() {
   if (process.env.NEXT_RUNTIME === "nodejs") {
-    const { registerOTel } = await import("@vercel/otel");
     const { PrometheusExporter } = await import("@opentelemetry/exporter-prometheus");
-
-    registerOTel({
-      serviceName: "yyc3-token-console",
-      attributes: {
-        "family.name": "YYC³ AI Family",
-        "family.motto": "人从众曌众从人",
-        "family.creed": "亦师亦友亦伯乐，一言一语一协同",
-        "family.members": "8",
-      },
-    });
 
     // Prometheus 导出器（供 ServiceMonitor 抓取）
     new PrometheusExporter({

@@ -319,7 +319,7 @@ storage.set("lastResult", data);
 | [插件开发指南](./docs/AI-Dev/developer/03-插件开发指南.md) | SystemRegistration · 引擎层 · 上线 Checklist |
 | [编码规范](./docs/AI-Dev/developer/04-编码规范.md) | TS strict · 命名 · 代码标头 · Git 提交 |
 | [测试策略](./docs/AI-Dev/developer/05-测试策略.md) | Vitest · 分层测试 · 324 tests 基线 |
-| [部署运维](./docs/AI-Dev/developer/06-部署运维.md) | CI/CD · Docker · Vercel · 监控 |
+| [部署运维](./docs/AI-Dev/developer/06-部署运维.md) | CI/CD · Docker · GitHub Pages · 监控 |
 | [安全合规](./docs/AI-Dev/developer/07-安全合规.md) | 密钥管理 · XSS 防护 · 命名空间隔离 |
 
 ### 7.3 架构参考快照
@@ -383,7 +383,7 @@ storage.set("lastResult", data);
 | 路由 | React Router 7 |
 | 图标 | lucide-react |
 | CI/CD | GitHub Actions |
-| 部署 | Vercel / Docker / 静态托管 |
+| 部署 | GitHub Pages / Docker / 静态托管 |
 
 </div>
 

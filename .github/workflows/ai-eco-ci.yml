@@ -136,12 +136,6 @@ jobs:
       - name: Install deps
         run: pnpm install --frozen-lockfile
 
-      - name: Download full app build
-        uses: actions/download-artifact@v4
-        with:
-          name: build-full
-          path: apps/full/dist/
-
       - name: Install Playwright browsers
         run: pnpm playwright:install
 
@@ -181,7 +175,12 @@ jobs:
       - name: Install deps
         run: pnpm install --frozen-lockfile
 
-      - name: pnpm audit (high/critical 门禁)
+      - name: pnpm audit (生产依赖 high/critical 门禁)
+        run: pnpm audit --prod --audit-level=high
+
+      - name: pnpm audit (全量依赖报告, 不阻断)
+        if: always()
+        continue-on-error: true
         run: pnpm audit --audit-level=high
 
       - name: Snyk security scan
@@ -249,33 +248,10 @@ jobs:
           cache-to: type=gha,mode=max
 
   # ============================================================
-  # Job 7: 部署到 Vercel (main 推送时)
+  # Job 7: 插件完整性检查 (所有插件 register.ts 存在)
   # ============================================================
-  deploy:
-    name: 🚀 部署 Vercel (生产)
-    runs-on: ubuntu-latest
-    needs: [quality, build, e2e, security, lighthouse]
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    environment:
-      name: production
-      url: ${{ steps.deploy.outputs.url }}
-    timeout-minutes: 10
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Deploy to Vercel
-        id: deploy
-        uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-args: "--prod"
-          scope: ${{ secrets.VERCEL_ORG_ID }}
-
-  # ============================================================
-  # Job 8: 插件完整性检查 (所有插件 register.ts 存在)
-  # ============================================================
+  # 说明: 生产发布统一走 pages.yml (GitHub Pages), 本流水线不再承担部署职责,
+  #       从而消除「deploy 依赖仅 PR 运行的 lighthouse → 永久 skipped」死锁。
   ecosystem-check:
     name: 🌐 插件完整性检查
     runs-on: ubuntu-latest

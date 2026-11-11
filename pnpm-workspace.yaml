@@ -7,8 +7,14 @@ overrides:
   react: 19.2.7
   react-dom: 19.2.7
   browserslist: 4.29.0
-  undici@7: 7.29.1
+  undici@7: 7.30.2
   esbuild: 0.28.2
+  # 安全补丁：消除 storybook 8.6.18 / zod 4.4.3 / source-map-js 1.0.x 的已知漏洞
+  storybook@8: 8.6.19
+  "@storybook/core@8": 8.6.19
+  "@storybook/theming@8": 8.6.19
+  zod@4: 4.6.7
+  source-map-js: 1.2.2
 
 allowBuilds:
   '@parcel/watcher': true

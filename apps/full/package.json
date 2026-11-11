@@ -7,15 +7,15 @@
     "build": "vite build"
   },
   "dependencies": {
+    "lucide-react": "^0.500.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "lucide-react": "^0.500.0",
     "react-router-dom": "^7.18.4"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.1",
     "@vitejs/plugin-react": "^4.0.0",
     "tailwindcss": "^4.3.1",
-    "vite": "^8.2.1"
+    "vite": "^8.3.7"
   }
 }
