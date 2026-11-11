@@ -95,7 +95,7 @@ export function solarToLunar(solarDate: Date): { year: number; month: number; da
   // 遍历农历月，找到目标月和日
   let remainingDays = diffDays;
   let lunarMonth = 0;
-  let isLeap = false;
+  const isLeap = false;
 
   const totalMonths = data.monthDays.length;
   for (let i = 0; i < totalMonths; i++) {

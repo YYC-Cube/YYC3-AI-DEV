@@ -12,7 +12,7 @@ export function register(): SystemRegistration {
     description: "中枢 · 家人协同",
     icon: UserCircle2,
     color: "#00FF88",
-    order: 40,
+    order: 34,
 
     menuItems: [
       { path: "/ai-family",        label: "家族首页" },
@@ -29,8 +29,8 @@ export function register(): SystemRegistration {
     ],
 
     hubCommands: [
-      { id: "hub-call-thinker", label: "呼叫万物分析数据", systemId: "ai-family", icon: UserCircle2, action: () => {} },
-      { id: "hub-call-sentinel", label: "呼叫守护安全检查", systemId: "ai-family", icon: UserCircle2, action: () => {} },
+      { id: "hub-call-thinker", label: "呼叫万物分析数据", systemId: "ai-family", icon: UserCircle2, action: () => { window.location.hash = "#/ai-family"; } },
+      { id: "hub-call-sentinel", label: "呼叫守护安全检查", systemId: "ai-family", icon: UserCircle2, action: () => { window.location.hash = "#/ai-family"; } },
     ],
   };
 }

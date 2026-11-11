@@ -1,12 +1,14 @@
 {
   "name": "yyc3-ai-ecosystem",
-  "version": "1.0.0",
+  "version": "5.1.1",
   "private": true,
   "type": "module",
   "packageManager": "pnpm@11.10.0",
   "scripts": {
-    "type-check": "tsc --noEmit",
-    "lint": "echo 'lint: ok (add ESLint config)'",
+    "type-check": "tsc --noEmit && pnpm -r --filter \"./apps/*\" --filter \"!@yyc3/token-console\" type-check",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
@@ -17,6 +19,7 @@
     "dev": "echo '使用 pnpm --filter 启动具体 App'"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.61.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
@@ -27,8 +30,14 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^4.0.0",
     "@vitest/coverage-v8": "^4.1.12",
+    "eslint": "^10.14.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.7",
+    "globals": "^17.14.0",
     "jsdom": "^29.1.1",
+    "prettier": "^3.9.10",
     "typescript": "^5.7.0",
+    "typescript-eslint": "^8.72.2",
     "vite": "^8.3.7",
     "vitest": "^4.1.12"
   }

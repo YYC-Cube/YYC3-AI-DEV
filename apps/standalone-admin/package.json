@@ -1,10 +1,11 @@
 {
   "name": "@yyc3/app-standalone-admin",
-  "version": "1.0.0",
+  "version": "5.1.1",
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "lucide-react": "^0.500.0",

@@ -19,18 +19,19 @@ export default defineConfig({
   projects: [
     { name: "chromium", use: { ...devices["Desktop Chrome"] } },
   ],
+  // E2E 跑构建产物而非 dev server，确保验证的是真实发布物
   webServer: [
     {
-      command: "cd apps/standalone-ai-family && npx vite --port 3112",
+      command: "cd apps/standalone-ai-family && npx vite build && npx vite preview --port 3112 --strictPort",
       url: "http://localhost:3112",
       reuseExistingServer: !process.env.CI,
-      timeout: 30000,
+      timeout: 60000,
     },
     {
-      command: "cd apps/full && npx vite --port 3100",
+      command: "cd apps/full && npx vite build && npx vite preview --port 3100 --strictPort",
       url: "http://localhost:3100",
       reuseExistingServer: !process.env.CI,
-      timeout: 30000,
+      timeout: 60000,
     },
   ],
 });

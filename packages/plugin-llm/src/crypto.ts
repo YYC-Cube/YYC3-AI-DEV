@@ -124,7 +124,7 @@ export async function decryptString(encryptedBase64: string, passphrase: string)
 
     return dec.decode(plaintext);
   } catch (err) {
-    throw new Error(`AES-GCM 解密失败: ${(err as Error).message}`);
+    throw new Error(`AES-GCM 解密失败: ${(err as Error).message}`, { cause: err });
   }
 }
 

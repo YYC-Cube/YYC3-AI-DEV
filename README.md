@@ -14,22 +14,22 @@ _万象归元于云枢 · 深栈智启新纪元_
 
 <!-- 徽章系统 -->
 ![Status](https://img.shields.io/badge/Status-Phase%203%20%E2%9C%85%20%E8%B4%A8%E9%87%8F%E5%B7%A5%E7%A8%8B-00FF88?style=for-the-badge&logoColor=white)
-![Version](https://img.shields.io/badge/Version-v1.3.0-00d4ff?style=for-the-badge)
+![Version](https://img.shields.io/badge/Version-v5.1.1-00d4ff?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-Proprietary-FF6600?style=for-the-badge)
 ![Repo](https://img.shields.io/badge/GitHub-YYC--Cube%2FYYC3--AI--DEV-181717?style=for-the-badge&logo=github&logoColor=white)
 
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.7%2B-3178C6?style=flat-square&logo=typescript&logoColor=white)
 ![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=black)
-![Vite](https://img.shields.io/badge/Vite-6-646CFF?style=flat-square&logo=vite&logoColor=white)
-![Vitest](https://img.shields.io/badge/Vitest-3.2-6E9F18?style=flat-square&logo=vitest&logoColor=white)
-![pnpm](https://img.shields.io/badge/pnpm-9%2B-F69220?style=flat-square&logo=pnpm&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-8-646CFF?style=flat-square&logo=vite&logoColor=white)
+![Vitest](https://img.shields.io/badge/Vitest-4.1-6E9F18?style=flat-square&logo=vitest&logoColor=white)
+![pnpm](https://img.shields.io/badge/pnpm-11-F69220?style=flat-square&logo=pnpm&logoColor=white)
 ![Tailwind](https://img.shields.io/badge/Tailwind-4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)
 ![Playwright](https://img.shields.io/badge/Playwright-E2E-2EAD33?style=flat-square&logo=playwright&logoColor=white)
 
 ![Tests](https://img.shields.io/badge/Tests-324%20%E2%9C%85%20%7C%200%20%E2%9D%8C-00FF88?style=flat-square)
 ![Type Check](https://img.shields.io/badge/tsc%20--noEmit-0%20errors-00FF88?style=flat-square)
-![Monorepo](https://img.shields.io/badge/Monorepo-13%20packages-AA55FF?style=flat-square)
-![Apps](https://img.shields.io/badge/Apps-8%20standalone-C9A96E?style=flat-square)
+![Monorepo](https://img.shields.io/badge/Monorepo-17%20packages-AA55FF?style=flat-square)
+![Apps](https://img.shields.io/badge/Apps-9%20total-C9A96E?style=flat-square)
 ![E2E](https://img.shields.io/badge/E2E-Playwright-2EAD33?style=flat-square)
 
 <!-- 五高徽章 -->
@@ -138,8 +138,8 @@ YYC3-AI-DEV 承自 YYC³ Cloud Intelli-Matrix 的 **Shell + 插件体系**，是
 
 | 工具 | 版本 | 说明 |
 | ------ | ------ | ------ |
-| Node.js | ≥ 20.0.0 | 推荐 LTS |
-| pnpm | ≥ 9.0.0 | 禁止 npm/yarn |
+| Node.js | ≥ 22.13.0 | 推荐 LTS（pnpm 11 硬要求） |
+| pnpm | ≥ 11.10.0 | 禁止 npm/yarn |
 | Git | ≥ 2.40 | 版本控制 |
 
 ### 3.2 安装与验证
@@ -376,9 +376,9 @@ storage.set("lastResult", data);
 | ------ | ------ |
 | 语言 | TypeScript 5.7+ (strict) |
 | 框架 | React 19 |
-| 构建 | Vite 6 |
-| 测试 | Vitest 3.2 |
-| 包管理 | pnpm 9+ (workspace) |
+| 构建 | Vite 8 |
+| 测试 | Vitest 4.1 |
+| 包管理 | pnpm 11 (workspace) |
 | 样式 | Tailwind CSS 4 |
 | 路由 | React Router 7 |
 | 图标 | lucide-react |

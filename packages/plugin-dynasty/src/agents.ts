@@ -133,8 +133,8 @@ export const DYNASTY_AGENTS: DynastyAgent[] = [
 // ============================================================
 
 export const DYNASTY_HUB_COMMANDS: HubCommand[] = [
-  { id: "d-edict",  label: "皇帝下旨 — 创建新任务",       systemId: "dynasty", icon: Crown,    action: () => {} },
-  { id: "d-review", label: "门下审议 — 查看待批奏章",     systemId: "dynasty", icon: Gavel,    action: () => {} },
-  { id: "d-court",  label: "召集早朝 — 全体Agent播报",    systemId: "dynasty", icon: Sun,      action: () => {} },
-  { id: "d-honor",  label: "勋赏 — 颁发勋章",              systemId: "dynasty", icon: Sparkles, action: () => {} },
+  { id: "d-edict",  label: "皇帝下旨 — 创建新任务",       systemId: "dynasty", icon: Crown,    action: () => { window.location.hash = "#/dynasty/edict"; } },
+  { id: "d-review", label: "门下审议 — 查看待批奏章",     systemId: "dynasty", icon: Gavel,    action: () => { window.location.hash = "#/dynasty/edict"; } },
+  { id: "d-court",  label: "召集早朝 — 全体Agent播报",    systemId: "dynasty", icon: Sun,      action: () => { window.location.hash = "#/dynasty"; } },
+  { id: "d-honor",  label: "勋赏 — 颁发勋章",              systemId: "dynasty", icon: Sparkles, action: () => { window.location.hash = "#/dynasty/honors"; } },
 ];

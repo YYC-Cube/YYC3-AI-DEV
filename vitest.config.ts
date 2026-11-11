@@ -28,5 +28,15 @@ export default defineConfig({
     environment: "jsdom",
     setupFiles: ["./test-setup.ts"],
     include: ["packages/**/*.test.*", "apps/**/*.test.*"],
+    coverage: {
+      provider: "v8",
+      // 棘轮基线：只允许上升，不允许下降（2026-11-11 实测：26.79 / 15.02 / 26.85 / 28.61）
+      thresholds: {
+        statements: 26,
+        branches: 14.5,
+        functions: 26,
+        lines: 28,
+      },
+    },
   },
 });

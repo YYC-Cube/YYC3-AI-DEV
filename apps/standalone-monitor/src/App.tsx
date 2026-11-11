@@ -70,7 +70,7 @@ export default function App() {
                 <div key={n} className="flex items-center gap-3 p-3 rounded-lg" style={{ background: "rgba(0,40,80,0.15)", border: "1px solid rgba(0,180,255,0.06)" }}>
                   <CheckCircle size={16} style={{ color: "#00ff88" }} />
                   <span className="text-sm text-[#e0f0ff]">node-{n}</span>
-                  <span className="text-xs ml-auto" style={{ color: "rgba(0,212,255,0.4)" }}>CPU {Math.floor(Math.random() * 30 + 20)}% · MEM {Math.floor(Math.random() * 40 + 30)}%</span>
+                  <span className="text-xs ml-auto" style={{ color: "rgba(0,212,255,0.4)" }}>CPU {20 + ((n * 7) % 30)}% · MEM {30 + ((n * 11) % 40)}%</span>
                 </div>
               ))}
               <div className="flex items-center gap-3 p-3 rounded-lg" style={{ background: "rgba(0,40,80,0.1)", border: "1px solid rgba(255,221,0,0.1)" }}>

@@ -25,6 +25,7 @@ import {
 } from "lucide-react";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { eventBus, Events } from "./event-bus";
+import { LLMBridge } from "./llm-bridge";
 import { createSystemStorage, StorageKeys } from "./storage";
 import { getSystemTheme, getTheme, type ThemeMode } from "./theme";
 import type { HubCommand } from "./types";
@@ -153,23 +154,18 @@ export function AIAssistantHub({
   }, []);
 
   // ===== LLM 桥接 (Phase 4: 真实 LLM + Mock 回退) =====
-  // 懒加载, 避免未启用 plugin-llm 时报错
-  const bridgeRef = useRef<import("./llm-bridge").LLMBridge | null>(null);
+  // bridge 本身内置 Mock 降级，未配置 Key 时自动回落，无需条件加载
+  const bridgeRef = useRef<LLMBridge | null>(null);
   const getBridge = useCallback(() => {
     if (!bridgeRef.current) {
-      try {
-        const { LLMBridge } = require("./llm-bridge") as typeof import("./llm-bridge");
-        bridgeRef.current = new LLMBridge({
-          stream: true,
-          fallbackToMock: true,
-          mockResponse: customMock ?? mockResponse,
-        });
-      } catch {
-        bridgeRef.current = null; // plugin-llm 未加载, 全程 Mock
-      }
+      bridgeRef.current = new LLMBridge({
+        stream: true,
+        fallbackToMock: true,
+        mockResponse: customMock ?? mockResponse,
+      });
     }
     return bridgeRef.current;
-  }, [customMock]);
+  }, [customMock, mockResponse]);
 
   const [llmStatus, setLlmStatus] = useState<"loading" | "mock" | "real" | "error">("loading");
   const [llmMeta, setLlmMeta] = useState<string>("");
